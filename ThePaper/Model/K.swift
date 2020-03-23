@@ -11,5 +11,6 @@ import UIKit
 struct K {
     
     let mainColorTheme: UIColor = UIColor(named: "mainColorTheme")!
-    
+    let mainColorBackground: UIColor = UIColor(named: "mainColorBackground")!
+    let strokeColor: UIColor = UIColor(named: "strokeColor")!
 }

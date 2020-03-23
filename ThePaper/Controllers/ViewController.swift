@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     private let cellID = "cellID"
     private var languageButton: UIButton!
     
-    
+    private var k = K()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
         titleBar.frame.origin = CGPoint(x: -1, y: -1)
         titleBar.frame.size = CGSize(width: self.view.frame.size.width + 2, height: 88)
         titleBar.backgroundColor = .clear
-        titleBar.layer.borderColor = UIColor.black.cgColor
+        titleBar.layer.borderColor = k.strokeColor.cgColor
         titleBar.layer.borderWidth = 1
         
         self.view.addSubview(titleBar)
@@ -87,8 +87,9 @@ class ViewController: UIViewController {
                                      titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0)])
         
         languageButton = UIButton()
-        languageButton.setImage(UIImage(named: "globe"), for: .normal)
-        languageButton.tintColor = .black
+        let config = UIImage.SymbolConfiguration(pointSize: 25)
+        languageButton.setImage(UIImage(systemName: "globe", withConfiguration: config), for: .normal)
+        languageButton.tintColor = k.strokeColor
         
         self.view.addSubview(languageButton)
         
@@ -100,9 +101,9 @@ class ViewController: UIViewController {
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
-                                     fromView.widthAnchor.constraint(equalToConstant: 20),
+                                     fromView.widthAnchor.constraint(equalToConstant: 25),
                                      fromView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 0),
-                                     fromView.heightAnchor.constraint(equalToConstant: 20)])
+                                     fromView.heightAnchor.constraint(equalToConstant: 25)])
         
         languageButton.addTarget(self, action: #selector(languagePressed(_:)), for: .touchUpInside)
         

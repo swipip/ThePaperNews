@@ -23,7 +23,7 @@ class TabBar: UIView {
     }
     private func initializeTabBar() {
         self.subviews.forEach({$0.removeFromSuperview()})
-        self.backgroundColor = .clear
+        self.backgroundColor = k.mainColorBackground
         bezierView = UIView()
         bezierView.frame = self.bounds
         bezierView.backgroundColor = k.mainColorTheme
@@ -47,7 +47,9 @@ class TabBar: UIView {
     private func addGradient(for view: UIView) {
         
         let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.white.withAlphaComponent(0.0).cgColor, UIColor.white.withAlphaComponent(1.0).cgColor, UIColor.white.withAlphaComponent(1.0).cgColor]
+        
+        gradient.colors = [k.mainColorBackground.withAlphaComponent(0.0).cgColor, k.mainColorBackground.withAlphaComponent(1.0).cgColor, k.mainColorBackground.withAlphaComponent(1.0).cgColor]
+        
         gradient.locations = [NSNumber(value: 0.0),NSNumber(value: 0.8),NSNumber(value: 1.0)]
         gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradient.endPoint = CGPoint(x: 0.0, y: 1)

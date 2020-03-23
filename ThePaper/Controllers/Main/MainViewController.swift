@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     private let newsModel = NewsModel()
     private var titles = [String]()
     private var imagesUrls = [String]()
-    private var contents = [String]()
+    private var articleURL = [String]()
     
     struct Cells {
         static let NewsCell = "NewsCell"
@@ -111,6 +111,9 @@ class MainViewController: UIViewController {
                                      cardTitle.centerYAnchor.constraint(equalTo: self.cardTitleView.centerYAnchor, constant: 0)])
     }
     fileprivate func addTableTitle() {
+        
+        let width = self.view.frame.width - 20
+        
         //Trending Now
         tableTitleView = UIView()
         tableTitleView.backgroundColor = .clear
@@ -119,7 +122,7 @@ class MainViewController: UIViewController {
         
         tableTitleView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([tableTitleView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 20),
-                                     tableTitleView.widthAnchor.constraint(equalToConstant: 200),
+                                     tableTitleView.widthAnchor.constraint(equalToConstant: width),
                                      tableTitleView.topAnchor.constraint(equalTo: self.cardView.bottomAnchor, constant: 10),
                                      tableTitleView.heightAnchor.constraint(equalToConstant: 30)])
         
@@ -175,27 +178,27 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cells.NewsCell, for: indexPath) as! NewsCell
         
         if titles.count != 0 {
-            cell.passDataToNewsCell(title: titles[indexPath.row], imageUrl: imagesUrls[indexPath.row],content: contents[indexPath.row])
+            cell.passDataToNewsCell(title: titles[indexPath.row], imageUrl: imagesUrls[indexPath.row],articleURL: articleURL[indexPath.row])
         }
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        let childVC = ArticleDetailsViewController()
-//
-//        childVC.content = contents[indexPath.row]
-//
-//        addChild(childVC)
-//        self.view.addSubview(childVC.view)
-//        childVC.didMove(toParent: self)
-//
-//        let childView = childVC.view
-//        childView?.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([childView!.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-//                                     childView!.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-//                                     childView!.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
-//                                     childView!.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)])
+
+        let childVC = ArticleDetailsViewController()
+
+        childVC.articleURL = self.articleURL[indexPath.row]
+        
+        addChild(childVC)
+        self.view.addSubview(childVC.view)
+        childVC.didMove(toParent: self)
+
+        let childView = childVC.view
+        childView?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([childView!.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+                                     childView!.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+                                     childView!.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
+                                     childView!.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)])
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
@@ -206,7 +209,7 @@ extension MainViewController: NewsModelDelegate {
     func didFetchData(json: JSON) {
         
         titles = json["articles"].arrayValue.map {$0["title"].stringValue}
-        contents = json["articles"].arrayValue.map {$0["content"].stringValue}
+        articleURL = json["articles"].arrayValue.map {$0["url"].stringValue}
         imagesUrls = json["articles"].arrayValue.map {$0["urlToImage"].stringValue}
         
         cardView.updateCards(titles: titles)

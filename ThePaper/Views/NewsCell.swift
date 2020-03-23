@@ -6,8 +6,9 @@ class NewsCell: UITableViewCell {
     private var titleLabel = UILabel()
     private var title = "Fetching Data..."
     private var imageManager = ImageManager()
+    private let k = K()
     
-    var content: String = ""
+    var articleURL: String = ""
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,14 +25,15 @@ class NewsCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func passDataToNewsCell(title: String, imageUrl: String, content: String) {
+    func passDataToNewsCell(title: String, imageUrl: String, articleURL: String) {
         titleLabel.text = title
         thumbNail.backgroundColor = .clear
-        self.content = content
+        self.articleURL = articleURL
         imageManager.loadImages(url: imageUrl)
         
     }
     private func commonInit() {
+        self.backgroundColor = k.mainColorBackground
         configureImage()
         configureTitle()
         setImageConstraints()

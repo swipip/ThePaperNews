@@ -25,6 +25,7 @@
 		493168E9242773E3002432C9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168E8242773E3002432C9 /* MapViewController.swift */; };
 		493168EB2428FF8F002432C9 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168EA2428FF8F002432C9 /* K.swift */; };
 		493168ED2429061B002432C9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168EC2429061B002432C9 /* Keys.swift */; };
+		493168EF24292DE2002432C9 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168EE24292DE2002432C9 /* TableViewController.swift */; };
 		B092CFCFC248DD5A9EB75154 /* Pods_ThePaper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		493168E8242773E3002432C9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		493168EA2428FF8F002432C9 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		493168EC2429061B002432C9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		493168EE24292DE2002432C9 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThePaper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6F29DA6E1D24CAAC04885DA /* Pods-ThePaper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThePaper.release.xcconfig"; path = "Target Support Files/Pods-ThePaper/Pods-ThePaper.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,7 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				493168BD24201F0D002432C9 /* ViewController.swift */,
-				493168D224212C02002432C9 /* MainViewController.swift */,
+				493168F024292DF2002432C9 /* Main */,
 				493168E42422922C002432C9 /* ArticleDetailsViewController.swift */,
 				493168E224226B87002432C9 /* SearchViewController.swift */,
 				493168E8242773E3002432C9 /* MapViewController.swift */,
@@ -140,6 +142,15 @@
 				493168EA2428FF8F002432C9 /* K.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		493168F024292DF2002432C9 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				493168D224212C02002432C9 /* MainViewController.swift */,
+				493168EE24292DE2002432C9 /* TableViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		9018EA030644B44D08E294FA /* Pods */ = {
@@ -276,6 +287,7 @@
 				493168E1242259FD002432C9 /* ImageManager.swift in Sources */,
 				493168E9242773E3002432C9 /* MapViewController.swift in Sources */,
 				493168BA24201F0D002432C9 /* AppDelegate.swift in Sources */,
+				493168EF24292DE2002432C9 /* TableViewController.swift in Sources */,
 				493168D324212C02002432C9 /* MainViewController.swift in Sources */,
 				493168DD24224D94002432C9 /* CardView.swift in Sources */,
 				493168ED2429061B002432C9 /* Keys.swift in Sources */,
