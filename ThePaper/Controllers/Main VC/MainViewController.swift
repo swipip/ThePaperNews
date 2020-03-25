@@ -28,6 +28,7 @@ class MainViewController: UIViewController {
     }()
     
     //Data
+    private let k = K()
     private let newsModel = NewsModel()
     private var titles = [String]()
     private var imagesUrls = [String]()
@@ -103,12 +104,31 @@ class MainViewController: UIViewController {
         let cardTitle = UILabel()
         cardTitle.text = "Breaking"
         cardTitle.font = UIFont.systemFont(ofSize: 20)
-//        cardTitle.font = UIFont(name: "Old London", size: 20)
+        //        cardTitle.font = UIFont(name: "Old London", size: 20)
         
         cardTitleView.addSubview(cardTitle)
         cardTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([cardTitle.leadingAnchor.constraint(equalTo: self.cardTitleView.leadingAnchor, constant: 5),
                                      cardTitle.centerYAnchor.constraint(equalTo: self.cardTitleView.centerYAnchor, constant: 0)])
+        
+        let highlighter = UIView()
+        highlighter.backgroundColor = k.mainColorTheme
+        
+        self.view.addSubview(highlighter)
+        
+        
+        //view
+        let fromView = highlighter
+        //relative to
+        let toView = cardTitleView!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
+                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 2),
+                                     fromView.heightAnchor.constraint(equalToConstant: 3)])
+        
     }
     fileprivate func addTableTitle() {
         
@@ -150,9 +170,9 @@ class MainViewController: UIViewController {
         
     }
     func addTableView() {
-        
+
         tableView = UITableView()
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isScrollEnabled = false
@@ -174,13 +194,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return 10
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: Cells.NewsCell, for: indexPath) as! NewsCell
-        
+
         if titles.count != 0 {
             cell.passDataToNewsCell(title: titles[indexPath.row], imageUrl: imagesUrls[indexPath.row],articleURL: articleURL[indexPath.row])
         }
-        
+
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -188,7 +208,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let childVC = ArticleDetailsViewController()
 
         childVC.articleURL = self.articleURL[indexPath.row]
-        
+
         addChild(childVC)
         self.view.addSubview(childVC.view)
         childVC.didMove(toParent: self)
@@ -203,7 +223,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
-    
+
 }
 extension MainViewController: NewsModelDelegate {
     func didFetchData(json: JSON) {
@@ -245,3 +265,4 @@ extension MainViewController: UIScrollViewDelegate {
     }
     
 }
+

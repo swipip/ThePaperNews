@@ -45,7 +45,7 @@ class SearchViewController: UIViewController {
             }
             
         }) { (_) in
-            self.textField.becomeFirstResponder()
+//            self.textField.becomeFirstResponder()
         }
     }
     func addSearchBar() {
