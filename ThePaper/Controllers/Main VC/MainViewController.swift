@@ -88,6 +88,26 @@ class MainViewController: UIViewController {
                                      fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor, constant: 0)])
         
     }
+    fileprivate func addTitleHighLighters(_ cardTitle: UILabel) {
+        let highlighter = UIView()
+        highlighter.backgroundColor = k.mainColorTheme
+        
+        self.view.addSubview(highlighter)
+        
+        
+        //view
+        let fromView = highlighter
+        //relative to
+        let toView = cardTitle
+        
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
+                                     fromView.widthAnchor.constraint(equalToConstant: 150),
+                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 2),
+                                     fromView.heightAnchor.constraint(equalToConstant: 3)])
+    }
+    
     fileprivate func addCardTitle() {
         //Breaking news
         cardTitleView = UIView()
@@ -111,23 +131,7 @@ class MainViewController: UIViewController {
         NSLayoutConstraint.activate([cardTitle.leadingAnchor.constraint(equalTo: self.cardTitleView.leadingAnchor, constant: 5),
                                      cardTitle.centerYAnchor.constraint(equalTo: self.cardTitleView.centerYAnchor, constant: 0)])
         
-        let highlighter = UIView()
-        highlighter.backgroundColor = k.mainColorTheme
-        
-        self.view.addSubview(highlighter)
-        
-        
-        //view
-        let fromView = highlighter
-        //relative to
-        let toView = cardTitleView!
-            
-        fromView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
-                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
-                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 2),
-                                     fromView.heightAnchor.constraint(equalToConstant: 3)])
+        addTitleHighLighters(cardTitle)
         
     }
     fileprivate func addTableTitle() {
@@ -155,6 +159,9 @@ class MainViewController: UIViewController {
         tableTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([tableTitle.leadingAnchor.constraint(equalTo: self.tableTitleView.leadingAnchor, constant: 5),
                                      tableTitle.centerYAnchor.constraint(equalTo: self.tableTitleView.centerYAnchor, constant: 0)])
+        
+        addTitleHighLighters(tableTitle)
+        
     }
     private func addCardView() {
         
@@ -259,6 +266,7 @@ extension MainViewController: UIScrollViewDelegate {
                 self.tableView.isScrollEnabled = false
                 UIView.animate(withDuration: 0.5/scrollVelocity) {
                     self.scrollView.contentOffset.y = 0
+                    self.view.layoutIfNeeded()
                 }
             }
         }
