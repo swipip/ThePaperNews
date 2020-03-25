@@ -34,6 +34,9 @@ class NewsCell: UITableViewCell {
     }
     private func commonInit() {
         self.backgroundColor = k.mainColorBackground
+        
+//        self.subviews.forEach({$0.removeFromSuperview()})
+        
         configureImage()
         configureTitle()
         setImageConstraints()

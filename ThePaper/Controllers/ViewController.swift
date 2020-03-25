@@ -9,6 +9,8 @@
 import UIKit
 import SwiftyJSON
 
+let cvcNotificationName = "co.gautierBillard.cvcKey"
+
 class ViewController: UIViewController {
     
     private var tabBar: TabBar!
@@ -176,6 +178,14 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource, U
 extension ViewController: TabBarDelegate {
     
     func buttonPressed(rank: Int) {
+        
+        if rank == 3 {
+            
+            let name = Notification.Name(cvcNotificationName)
+            NotificationCenter.default.post(name: name, object: nil)
+            
+        }
+        
         collectionViewNav.selectItem(at: IndexPath(item: rank - 1, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     

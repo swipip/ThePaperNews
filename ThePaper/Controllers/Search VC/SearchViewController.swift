@@ -14,6 +14,7 @@ class SearchViewController: UIViewController {
     private var textField: UITextField!
     private var tableView: UITableView!
     private var barConstraints = [NSLayoutConstraint]()
+    private var cvc: TableVC?
     //Data
     private var newsModel = NewsModel()
     private var titles = [String]()
@@ -26,11 +27,41 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        newsModel.jsonDelegate = self
-        
         addSearchBar()
         
         animateSearchBar()
+        
+//        addTableVC()
+        
+        addObservers()
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    fileprivate func addObservers() {
+        let name = Notification.Name(rawValue: cvcNotificationName)
+        NotificationCenter.default.addObserver(self, selector: #selector(navDidSelectSearch), name: name, object: nil)
+    }
+    @objc private func navDidSelectSearch() {
+        cvc?.tableViewReloadData()
+    }
+    fileprivate func addTableVC() {
+        cvc = TableVC()
+        cvc!.hasATitleBar = false
+        addChild(cvc!)
+        self.view.addSubview(cvc!.view)
+        
+        //view
+        let fromView = cvc!.view!
+        //relative to
+        let toView = self.view!
+        
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 60),
+                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: 0)])
     }
     fileprivate func animateSearchBar() {
         //        addTableView()
@@ -116,77 +147,24 @@ class SearchViewController: UIViewController {
                                      fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor, constant: -2)])
         
     }
-    func addTableView(){
-        
-        tableView = UITableView()
-        tableView.register(NewsCell.self, forCellReuseIdentifier: Cells.NewsCell)
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        self.view.addSubview(tableView)
-        
-        //view
-        let fromView = tableView!
-        //relative to
-        let toView = self.view!
-            
-        fromView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
-                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
-                                     fromView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 15),
-                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor ,constant: 0)])
-        
-    }
-    
 }
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.NewsCell, for: indexPath) as! NewsCell
-        
-        if titles.count != 0 {
-            cell.passDataToNewsCell(title: titles[indexPath.row], imageUrl: imagesUrls[indexPath.row],articleURL: contents[indexPath.row])
-        }
-        
-        return cell
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-    }
-    
-}
+
 extension SearchViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         textField.resignFirstResponder()
         
-        addTableView()
+        self.cvc?.view.removeFromSuperview()
+        
+        addTableVC()
         
         let urlString = "https://newsapi.org/v2/everything?q=\(String(describing: textField.text!))&from=2020-03-17&to=2020-03-17&sortBy=popularity&language=fr&apiKey="
         
-        newsModel.fetchData(urlString: urlString)
+        cvc?.urlString = urlString
         
         return true
     }
     
 }
-extension SearchViewController: NewsModelDelegate {
-    func didFetchData(json: JSON) {
-        
-        titles = json["articles"].arrayValue.map {$0["title"].stringValue}
-        contents = json["articles"].arrayValue.map {$0["content"].stringValue}
-        imagesUrls = json["articles"].arrayValue.map {$0["urlToImage"].stringValue}
-        
-        tableView.reloadData()
-    }
-    
-    
-}
+

@@ -11,8 +11,8 @@ import UIKit
 class SourcesVC: UIViewController {
 
     private var collectionView: UICollectionView!
-    private let images = ["le-monde","les-echos"]
-    private let mediaNames = ["le-monde": "Le Monde", "les-echos":"Les Echos"]
+    private let images = ["le-monde","les-echos","liberation"]
+    private let mediaNames = ["le-monde": "Le Monde", "les-echos":"Les Echos","liberation":"Libération"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +90,7 @@ extension SourcesVC: UICollectionViewDataSource,UICollectionViewDelegate,UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = (self.view.frame.width) / 2 - 15
-        let height = width
+        let height = width * 1.2
         
         let size = CGSize(width: width, height: height)
         
@@ -102,7 +102,7 @@ extension SourcesVC: UICollectionViewDataSource,UICollectionViewDelegate,UIColle
         let mediaName = mediaNames[media]
         
         let cvc = TableVC()
-        
+        cvc.hasATitleBar = true
         cvc.urlString = "https://newsapi.org/v2/top-headlines?sources=\(media)&apiKey="
         cvc.mediaName = mediaName
         
