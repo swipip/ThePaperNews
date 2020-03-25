@@ -11,7 +11,9 @@ import UIKit
 class SourcesVC: UIViewController {
 
     private var collectionView: UICollectionView!
-    private let images = ["LeMonde","LesEchos"]
+    private let images = ["le-monde","les-echos"]
+    private let mediaNames = ["le-monde": "Le Monde", "les-echos":"Les Echos"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,15 +61,13 @@ extension SourcesVC: UICollectionViewDataSource,UICollectionViewDelegate,UIColle
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let images = ["LeMonde","LesEchos"]
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath)
         
         let imageView = UIImageView()
         imageView.backgroundColor = .gray
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 5
+        imageView.layer.cornerRadius = 8
         imageView.image = UIImage(named: images[indexPath.row])
         cell.addSubview(imageView)
         
@@ -95,5 +95,32 @@ extension SourcesVC: UICollectionViewDataSource,UICollectionViewDelegate,UIColle
         let size = CGSize(width: width, height: height)
         
         return size
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let media = images[indexPath.row]
+        let mediaName = mediaNames[media]
+        
+        let cvc = TableVC()
+        
+        cvc.urlString = "https://newsapi.org/v2/top-headlines?sources=\(media)&apiKey="
+        cvc.mediaName = mediaName
+        
+        addChild(cvc)
+        cvc.didMove(toParent: self)
+        self.view.addSubview(cvc.view)
+        
+        //view
+        let fromView = cvc.view!
+        //relative to
+        let toView = self.view!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 0),
+                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: 0)])
+        
     }
 }

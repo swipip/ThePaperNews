@@ -71,7 +71,7 @@ class ViewController: UIViewController {
         titleBar.frame.origin = CGPoint(x: -1, y: -1)
         titleBar.frame.size = CGSize(width: self.view.frame.size.width + 2, height: 88)
         titleBar.backgroundColor = .clear
-        titleBar.layer.borderColor = k.mainColorTheme.cgColor
+        titleBar.layer.borderColor = k.strokeColor.cgColor
         titleBar.layer.borderWidth = 1
         
         self.view.addSubview(titleBar)
