@@ -168,6 +168,7 @@ class MainViewController: UIViewController {
     private func addCardView() {
         
         cardView = CardView()
+        cardView.delegate = self
         
         self.scrollView.addSubview(cardView)
         
@@ -200,7 +201,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        var numberOfCells = 0
+        if titles.count == 0 {
+            numberOfCells = 10
+        }else{
+            numberOfCells = titles.count
+        }
+        return numberOfCells
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -241,7 +248,15 @@ extension MainViewController: NewsModelDelegate {
         articleURL = json["articles"].arrayValue.map {$0["url"].stringValue}
         imagesUrls = json["articles"].arrayValue.map {$0["urlToImage"].stringValue}
         
-        cardView.updateCards(titles: titles)
+        cardView.updateCards(titles: titles, urls: articleURL)
+        
+        for i in 0..<10 {
+//            print(titles[i])
+            titles.remove(at: i)
+            
+            articleURL.remove(at: i)
+            imagesUrls.remove(at: i)
+        }
         
         tableView.reloadData()
     }
@@ -279,3 +294,23 @@ extension MainViewController: UIScrollViewDelegate {
     
 }
 
+extension MainViewController: CardViewDelegate {
+    func didTapCard(url: String) {
+        
+        let childVC = ArticleDetailsViewController()
+        childVC.articleURL = url
+
+        addChild(childVC)
+        self.view.addSubview(childVC.view)
+        childVC.didMove(toParent: self)
+
+        let childView = childVC.view
+        childView?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([childView!.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+                                     childView!.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+                                     childView!.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
+                                     childView!.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)])
+    }
+    
+    
+}

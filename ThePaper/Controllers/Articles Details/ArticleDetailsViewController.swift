@@ -25,6 +25,11 @@ class ArticleDetailsViewController: UIViewController {
         let urlRequest = URLRequest(url: url!)
         webView.load(urlRequest)
         
+        self.view.alpha = 0.0
+        UIView.animate(withDuration: 0.3) {
+            self.view.alpha = 1.0
+        }
+        
     }
     private func addDismissButton() {
         
@@ -57,10 +62,14 @@ class ArticleDetailsViewController: UIViewController {
         
     }
     @IBAction private func dismissPressed(_ sender: UIButton!) {
-        
-        self.willMove(toParent: nil)
-        self.view.removeFromSuperview()
-        self.removeFromParent()
+
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.alpha = 0.0
+        }) { (_) in
+            self.willMove(toParent: nil)
+            self.view.removeFromSuperview()
+            self.removeFromParent()
+        }
         
     }
     fileprivate func addWebView() {

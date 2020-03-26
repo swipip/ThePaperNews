@@ -6,28 +6,37 @@
 //  Copyright © 2020 Gautier Billard. All rights reserved.
 //
 
-import Foundation
 import UIKit
-
+import NaturalLanguage
+protocol CardViewDelegate {
+    func didTapCard(url: String)
+}
 class CardView: UIView {
     
-    private var cards = [UIView]()
+    class Card: UIView {
+        var url: String?
+    }
+    
+    private var cards = [Card]()
     private var cardsCenterConstraints = [NSLayoutConstraint]()
-    private let position = [-30,-25,0]
-    private let scale = [0.8,0.9,1]
+    private var position = [-30,-25,0]
+    private var scale = [0.8,0.9,1]
     private let colors = [UIColor.systemBlue,UIColor.systemGreen,UIColor.systemPink]
     private var swipeCount = 0
-    private var newsCount = 0
+    private var cardCount = 0
     var x = 1.0
     private var k = K()
     private var titleLabel = [UILabel]()
     private var titleLabelsPH = [UIView]()
     private var imageView = [UIImageView]()
     private var awayCardConstraint: NSLayoutConstraint!
-    private var awayCard: UIView!
+    private var awayCard: Card!
     private var awayCardHighlight: UIView!
-    
+    private var imagesNames = ["culture","ecologie","economie","meteo","monde","people","politique","sport","technologie"]
     private var titles:[String]?
+    private var urlStrings: [String]?
+    
+    var delegate: CardViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,17 +50,12 @@ class CardView: UIView {
     }
     override func draw(_ rect: CGRect) {
         
-        self.subviews.forEach({$0.removeFromSuperview()})
-        titleLabel.removeAll()
-        titleLabelsPH.removeAll()
-        imageView.removeAll()
-        cardsCenterConstraints.removeAll()
-        cards.removeAll()
+        clearView()
         
-        awayCardHighlight = UIView(frame: CGRect(x: self.frame.width - 30, y: 0, width: 30, height: self.frame.size.height))
-        awayCardHighlight.layer.cornerRadius = 12
-        awayCardHighlight.backgroundColor = .lightGray
-        awayCardHighlight.alpha = 0.0
+        awayCardHighlight                       = UIView(frame: CGRect(x: self.frame.width - 30, y: 0, width: 30, height: self.frame.size.height))
+        awayCardHighlight.layer.cornerRadius    = 12
+        awayCardHighlight.backgroundColor       = .lightGray
+        awayCardHighlight.alpha                 = 0.0
         
         self.addSubview(awayCardHighlight)
         
@@ -59,12 +63,37 @@ class CardView: UIView {
         insertNewCard()
         insertNewCard()
     }
-    func updateCards(titles: [String]) {
+    private func clearView() {
+        self.subviews.forEach({$0.removeFromSuperview()})
+        titleLabel.removeAll()
+        titleLabelsPH.removeAll()
+        imageView.removeAll()
+        cardsCenterConstraints.removeAll()
+        cards.removeAll()
+    }
+    fileprivate func performIdentification(for string: String) -> String{
+        do {
+            let catClassifier = try NLModel(mlModel: categoryClassifier().model)
+            let prediction = catClassifier.predictedLabel(for: string)
+            return prediction ?? "default"
+        } catch {
+            print("error with ML model")
+            return "default"
+        }
+    }
+    func updateCards(titles: [String], urls: [String]) {
         
+        self.urlStrings = urls
         self.titles = titles
         
         for (i,label) in titleLabel.enumerated() {
+            
+            let prediction = performIdentification(for: titles[i])
+            imageView[i].image = UIImage(named: prediction)
+            
             label.text = titles[i]
+            
+            cards[i].url = urls[i]
         }
         
         titleLabelsPH.forEach({$0.alpha = 0.0})
@@ -75,7 +104,7 @@ class CardView: UIView {
         titlePH.backgroundColor = .systemRed
         titlePH.layer.cornerRadius = 12
         
-        if titles?[newsCount] == nil {
+        if titles?[cardCount] == nil {
             
             card.addSubview(titlePH)
             
@@ -91,7 +120,7 @@ class CardView: UIView {
         
         let newTitleLabel = UILabel()
         newTitleLabel.textColor = .white
-        newTitleLabel.text = titles?[newsCount] ?? ""
+        newTitleLabel.text = titles?[cardCount] ?? ""
         newTitleLabel.numberOfLines = 3
         newTitleLabel.font = UIFont.systemFont(ofSize: 20)
         
@@ -104,7 +133,9 @@ class CardView: UIView {
         titleLabel.insert(newTitleLabel, at: 0)
         
         let newImage = UIImageView()
-        newImage.image = UIImage(named: "medicine")
+        
+        let prediction = performIdentification(for: newTitleLabel.text!)
+        newImage.image = UIImage(named: prediction)
         
         card.addSubview(newImage)
         
@@ -114,11 +145,17 @@ class CardView: UIView {
                                      newImage.widthAnchor.constraint(equalToConstant: 100),
                                      newImage.bottomAnchor.constraint(equalTo: newTitleLabel.topAnchor, constant: -10),
                                      newImage.heightAnchor.constraint(equalToConstant: 100)])
+        
+        imageView.append(newImage)
+        
     }
     @objc func handlePan(_ recognizer: UIPanGestureRecognizer) {
         
         let translation = recognizer.translation(in: self)
-        let factor = [0.1,0.2,1]
+        var factor = [0.1,0.2,1]
+        if swipeCount > 7 {
+            factor.removeFirst()
+        }
         var delay = 0.0
         
         var xOrigin:CGFloat = 0.0
@@ -128,6 +165,7 @@ class CardView: UIView {
             xOrigin = (recognizer.view?.frame.origin.x)!
         case .ended:
             x = 1
+            swipeCount += 1
             if recognizer.view!.frame.origin.x < xOrigin{
                 
                 //return previous card
@@ -188,15 +226,14 @@ class CardView: UIView {
             }
             
             for (i,card) in cards.enumerated(){
-                if i != 0 {
-//                    print(scale.count)
+//                if i != 0 {
                     let scale = CGFloat(self.scale[i] * (min(x,1)))
                     
                     card.transform = CGAffineTransform(scaleX: scale, y: scale)
                     self.cardsCenterConstraints[i].constant += translation.x * CGFloat(factor[i])
                     
                     self.layoutIfNeeded()
-                }
+//                }
             }
         }
         
@@ -220,14 +257,37 @@ class CardView: UIView {
         }
     }
     
-    func insertNewCard() {
-        newsCount += 1
-        swipeCount += 1
-        if swipeCount > colors.count - 1{
-            swipeCount -= colors.count
+    fileprivate func animateCardReload() {
+        print(swipeCount)
+        if swipeCount > 7 {
+            position.removeFirst()
+            scale.removeFirst()
         }
         
-        let newCard = UIView()
+        for (i,card) in cards.enumerated(){
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+                card.transform = CGAffineTransform(scaleX: CGFloat(self.scale[i]), y: CGFloat(self.scale[i]))
+                card.alpha = CGFloat(1 * self.scale[i])
+                self.cardsCenterConstraints[i].constant = CGFloat(self.position[i])
+                self.layoutIfNeeded()
+            }, completion: {(_) in
+                
+            })
+        }
+    }
+    
+    func insertNewCard() {
+        
+        if cardCount >= 10 {
+            
+            animateCardReload()
+            
+            return
+        }
+        
+        cardCount += 1
+        
+        let newCard = Card()
         newCard.backgroundColor = k.mainColorTheme//colors[swipeCount]
         newCard.layer.cornerRadius = 8
         newCard.alpha = 0
@@ -250,21 +310,21 @@ class CardView: UIView {
         
         newCard.transform = CGAffineTransform(scaleX: CGFloat(scale[0]), y: CGFloat(scale[0]))
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cardTouched))
+        newCard.addGestureRecognizer(tapGesture)
+        
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         newCard.addGestureRecognizer(panGesture)
         
         layoutCard(card: newCard)
         
-        for (i,card) in cards.enumerated(){
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
-                card.transform = CGAffineTransform(scaleX: CGFloat(self.scale[i]), y: CGFloat(self.scale[i]))
-                card.alpha = CGFloat(1 * self.scale[i])
-                self.cardsCenterConstraints[i].constant = CGFloat(self.position[i])
-                self.layoutIfNeeded()
-            }, completion: {(_) in
-                
-            })
-        }
+        animateCardReload()
+    }
+    @objc private func cardTouched(_ recognizer: UITapGestureRecognizer) {
+        
+        let view = recognizer.view as! Card
+        
+        delegate?.didTapCard(url: view.url ?? "")
     }
 
 }
