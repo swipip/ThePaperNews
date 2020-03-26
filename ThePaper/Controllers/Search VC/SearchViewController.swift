@@ -20,7 +20,7 @@ class SearchViewController: UIViewController {
     private var titles = [String]()
     private var imagesUrls = [String]()
     private var contents = [String]()
-    
+    private let language = ["au":"en","gb":"en","us":"en"]
     struct Cells {
         static let NewsCell = "NewsCell"
     }
@@ -31,19 +31,25 @@ class SearchViewController: UIViewController {
         
         animateSearchBar()
         
-//        addTableVC()
-        
         addObservers()
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     fileprivate func addObservers() {
-        let name = Notification.Name(rawValue: cvcNotificationName)
-        NotificationCenter.default.addObserver(self, selector: #selector(navDidSelectSearch), name: name, object: nil)
+        
+        let mapDismissNotifName = Notification.Name(rawValue: countryObserverKey)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeCountry), name: mapDismissNotifName, object: nil)
+        
+        let cvcSelectionNotifName = Notification.Name(rawValue: cvcNotificationName)
+        NotificationCenter.default.addObserver(self, selector: #selector(navDidSelectSearch), name: cvcSelectionNotifName, object: nil)
+        
     }
     @objc private func navDidSelectSearch() {
         cvc?.tableViewReloadData()
+    }
+    @objc private func didChangeCountry() {
+        fetchData()
     }
     fileprivate func addTableVC() {
         cvc = TableVC()
@@ -68,7 +74,7 @@ class SearchViewController: UIViewController {
         
         UIView.animate(withDuration: 0.2, delay: 0.2, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
             
-            let value:[CGFloat] = [-20.0,20.0]
+            let value:[CGFloat] = [-10.0,10.0]
             
             for (i,constraint) in self.barConstraints.enumerated() {
                 constraint.constant = value[i]
@@ -159,12 +165,17 @@ extension SearchViewController: UITextFieldDelegate {
         
         addTableVC()
         
-        let urlString = "https://newsapi.org/v2/everything?q=\(String(describing: textField.text!))&from=2020-03-17&to=2020-03-17&sortBy=popularity&language=fr&apiKey="
-        
-        cvc?.urlString = urlString
+        fetchData()
         
         return true
     }
-    
+    func fetchData() {
+        
+        let language = self.language[localISOCode] == nil ? localISOCode : self.language[localISOCode]
+        
+        let urlString = "https://newsapi.org/v2/everything?q=\(String(describing: textField.text!))&from=2020-03-17&to=2020-03-17&sortBy=popularity&language=\(language!)&apiKey="
+        
+        cvc?.urlString = urlString
+    }
 }
 

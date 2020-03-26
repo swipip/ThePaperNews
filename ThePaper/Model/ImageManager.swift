@@ -6,15 +6,13 @@
 //  Copyright © 2019 Gautier Billard. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 protocol ImageManagerDelegate {
     func didFetchImages(codedImage: Data)
     func didReceivedAnErrorWhileLoadingImage()
 }
-
-class ImageManager: ObservableObject {
+class ImageManager: ObservableObject { 
     
     var data = Data()
     var delegate: ImageManagerDelegate?
@@ -42,7 +40,6 @@ class ImageManager: ObservableObject {
             }
             task.resume()
         }else{
-//            print("no url")
             self.delegate?.didReceivedAnErrorWhileLoadingImage()
         }
     }

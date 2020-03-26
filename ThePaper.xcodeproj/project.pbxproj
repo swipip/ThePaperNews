@@ -99,16 +99,14 @@
 		493168B824201F0D002432C9 /* ThePaper */ = {
 			isa = PBXGroup;
 			children = (
-				493168D0242038E8002432C9 /* OldLondon.ttf */,
+				493168C724201F0E002432C9 /* Info.plist */,
 				493168B924201F0D002432C9 /* AppDelegate.swift */,
 				493168BB24201F0D002432C9 /* SceneDelegate.swift */,
+				493168C424201F0E002432C9 /* LaunchScreen.storyboard */,
+				4978D7E0242CA35600D1A464 /* Ressources */,
 				493168D724221C3C002432C9 /* Model */,
 				493168D42421389F002432C9 /* Views */,
 				493168CD24202450002432C9 /* Controllers */,
-				493168BF24201F0D002432C9 /* Main.storyboard */,
-				493168C224201F0E002432C9 /* Assets.xcassets */,
-				493168C424201F0E002432C9 /* LaunchScreen.storyboard */,
-				493168C724201F0E002432C9 /* Info.plist */,
 			);
 			path = ThePaper;
 			sourceTree = "<group>";
@@ -129,6 +127,7 @@
 		493168D42421389F002432C9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				493168BF24201F0D002432C9 /* Main.storyboard */,
 				493168CE24202470002432C9 /* TabBar.swift */,
 				493168DC24224D94002432C9 /* CardView.swift */,
 				493168DE24224FC0002432C9 /* NewsCell.swift */,
@@ -153,6 +152,15 @@
 				493168D224212C02002432C9 /* MainViewController.swift */,
 			);
 			path = "Main VC";
+			sourceTree = "<group>";
+		};
+		4978D7E0242CA35600D1A464 /* Ressources */ = {
+			isa = PBXGroup;
+			children = (
+				493168D0242038E8002432C9 /* OldLondon.ttf */,
+				493168C224201F0E002432C9 /* Assets.xcassets */,
+			);
+			path = Ressources;
 			sourceTree = "<group>";
 		};
 		4988DF30242A896C0059F04D /* Articles Details */ = {

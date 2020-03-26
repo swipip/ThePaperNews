@@ -207,6 +207,7 @@ class MapViewController: UIViewController {
         let notificationName = Notification.Name(countryObserverKey)
         
         let userInfo:[String: String] = ["country":countryCode]
+        localISOCode = countryCode
         
         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: userInfo)
         

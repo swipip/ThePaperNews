@@ -9,9 +9,11 @@
 import Foundation
 import SwiftyJSON
 import Alamofire
+
 protocol  NewsModelDelegate {
     func didFetchData(json: JSON)
 }
+
 class NewsModel {
     
     private let country = "fr"
@@ -36,7 +38,7 @@ class NewsModel {
         let urlString = urlString == "" ? "\(makeUrlString(base: urlString!, country: country!))\(keys.news)" : "\(urlString!)\(keys.news)"
         
         guard let url = URL(string: urlString) else {
-            print("no url")
+            print("/Newsmodel line 41/ no url")
             return
         }
         

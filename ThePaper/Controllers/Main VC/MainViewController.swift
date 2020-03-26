@@ -71,7 +71,9 @@ class MainViewController: UIViewController {
         
     }
     @objc private func updateNewsWithCountry(_ notification: NSNotification) {
+        
         newsModel.fetchData(urlString: "", country: notification.userInfo?["country"] as? String)
+        
     }
     func addScrollViewConstraints() {
         
@@ -253,7 +255,10 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let yOffset = scrollView.contentOffset.y
-        
+        if yOffset < -100 {
+            tableView.reloadData()
+            newsModel.fetchData()
+        }
         if scrollView == self.scrollView {
             if yOffset >= scrollView.contentSize.height - 636 {
                 scrollView.isScrollEnabled = false
