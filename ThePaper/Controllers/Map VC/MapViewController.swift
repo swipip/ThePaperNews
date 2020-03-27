@@ -213,8 +213,7 @@ class MapViewController: UIViewController {
         
         let notificationName = Notification.Name(countryObserverKey)
         
-        let userInfo:[String: String] = ["country":countryCode]
-        localISOCode = countryCode
+        let userInfo:[String: String] = ["country":localISOCode]
         
         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: userInfo)
         
@@ -234,14 +233,6 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let location = locations.last else {return}
-//
-//        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: 10000, longitudinalMeters: 10000)
-//        mapView.setRegion(region, animated: true)
-//    }
-    
 }
 extension MapViewController: MKMapViewDelegate {
 
@@ -270,9 +261,11 @@ extension MapViewController: MKMapViewDelegate {
 
                     if ctry == placemark.isoCountryCode?.lowercased() {
                         self?.locationLabel?.text = country
+                        localISOCode = self?.countryCode ?? "fr"
                         break
                     }else{
                         self?.locationLabel?.text = "Country not available"
+                        
                     }
                 }
 

@@ -9,5 +9,7 @@ target 'ThePaper' do
 
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Alamofire', '~> 4.0'
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
 
 end
