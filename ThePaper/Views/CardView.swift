@@ -32,7 +32,6 @@ class CardView: UIView {
     private var awayCardConstraint: NSLayoutConstraint!
     private var awayCard: Card!
     private var awayCardHighlight: UIView!
-    private var imagesNames = ["culture","ecologie","economie","meteo","monde","people","politique","sport","technologie"]
     private var titles:[String]?
     private var urlStrings: [String]?
     
@@ -149,6 +148,60 @@ class CardView: UIView {
         imageView.append(newImage)
         
     }
+    fileprivate func addReturnButton() {
+        
+        cardCount = 0
+        
+        let returnButton = UIButton()
+        returnButton.backgroundColor = .lightGray
+        returnButton.tintColor = .white
+        returnButton.layer.cornerRadius = 20
+        returnButton.setImage(UIImage(systemName: "arrow.counterclockwise"), for: .normal)
+        returnButton.alpha = 0.0
+        returnButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+        
+        self.addSubview(returnButton)
+        
+        //view
+        let fromView = returnButton
+        //relative to
+        let toView = self
+        
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toView.centerXAnchor, constant: 0),
+                                     fromView.widthAnchor.constraint(equalToConstant: 40),
+                                     fromView.centerYAnchor.constraint(equalTo: toView.centerYAnchor, constant: 0),
+                                     fromView.heightAnchor.constraint(equalToConstant: 40)])
+        
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+            returnButton.alpha = 1.0
+            returnButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }) { (_) in
+            
+        }
+        
+        returnButton.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
+        
+    }
+    @IBAction private func returnPressed(_ sender: UIButton!) {
+        
+        sender.removeFromSuperview()
+        
+        resetLayoutConstants()
+        
+        insertNewCard()
+        insertNewCard()
+        insertNewCard()
+        
+    }
+    private func resetLayoutConstants() {
+        
+        swipeCount = 0
+        position = [-30,-25,0]
+        scale = [0.8,0.9,1]
+        
+    }
     @objc func handlePan(_ recognizer: UIPanGestureRecognizer) {
         
         let translation = recognizer.translation(in: self)
@@ -170,6 +223,9 @@ class CardView: UIView {
                 
                 //return previous card
                 if let awayCard = self.awayCard {
+                    
+                    swipeCount -= 1
+                    
                     cards.first!.removeFromSuperview()
                     cards.removeFirst()
                     cardsCenterConstraints.removeFirst()
@@ -200,6 +256,12 @@ class CardView: UIView {
             }else if cards.last!.frame.origin.x > self.center.x {
                 exitCard()
                 insertNewCard()
+                
+                if cards.count == 0 {
+                    
+                    addReturnButton()
+                }
+                
             }else{
                 
                 for (i,card) in cards.enumerated(){
@@ -226,14 +288,16 @@ class CardView: UIView {
             }
             
             for (i,card) in cards.enumerated(){
-//                if i != 0 {
+                if i != 0 {
                     let scale = CGFloat(self.scale[i] * (min(x,1)))
                     
                     card.transform = CGAffineTransform(scaleX: scale, y: scale)
                     self.cardsCenterConstraints[i].constant += translation.x * CGFloat(factor[i])
                     
                     self.layoutIfNeeded()
-//                }
+                }else if cards.count == 1 {
+                    self.cardsCenterConstraints[i].constant += translation.x
+                }
             }
         }
         
