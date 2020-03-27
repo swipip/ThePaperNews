@@ -73,10 +73,17 @@ class MapViewController: UIViewController {
         
     }
     func centerViewOnUserLocation() {
-        if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: 1000000, longitudinalMeters: 1000000)
-            mapView.setRegion(region, animated: true)
+        
+        let location = localISOCode
+        
+        self.locationManager.getLocation(forPlaceCalled: location) { location in
+            guard let location = location else { return }
+            
+            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let region = MKCoordinateRegion.init(center: center, latitudinalMeters: 500000, longitudinalMeters: 500000)
+            self.mapView.setRegion(region, animated: true)
         }
+
     }
     func addBlur() {
         
@@ -115,8 +122,11 @@ class MapViewController: UIViewController {
                                      background.bottomAnchor.constraint(equalTo: dismissButton.topAnchor, constant: -10),
                                      background.heightAnchor.constraint(equalToConstant: 40)])
         
+
+        let country = (Locale.current as NSLocale).displayName(forKey: .countryCode, value: localISOCode.uppercased())
+        
         locationLabel = UILabel()
-        locationLabel.text = "France"
+        locationLabel.text = country
         locationLabel.textColor = .lightGray
         
         background.addSubview(locationLabel)
@@ -130,10 +140,7 @@ class MapViewController: UIViewController {
         NSLayoutConstraint.activate([fromView.centerYAnchor.constraint(equalTo: toView2.centerYAnchor, constant: 0),
                                      fromView.centerXAnchor.constraint(equalTo: toView2.centerXAnchor, constant: 0)])
         
-        
-        
-        
-        
+ 
     }
     func addMapView() {
         
@@ -274,3 +281,32 @@ extension MapViewController: MKMapViewDelegate {
     }
 }
 
+extension CLLocationManager {
+    func getLocation(forPlaceCalled name: String,
+                        completion: @escaping(CLLocation?) -> Void) {
+           
+           let geocoder = CLGeocoder()
+           geocoder.geocodeAddressString(name) { placemarks, error in
+               
+               guard error == nil else {
+                   print("*** Error in \(#function): \(error!.localizedDescription)")
+                   completion(nil)
+                   return
+               }
+               
+               guard let placemark = placemarks?[0] else {
+                   print("*** Error in \(#function): placemark is nil")
+                   completion(nil)
+                   return
+               }
+               
+               guard let location = placemark.location else {
+                   print("*** Error in \(#function): placemark is nil")
+                   completion(nil)
+                   return
+               }
+
+               completion(location)
+           }
+       }
+}
