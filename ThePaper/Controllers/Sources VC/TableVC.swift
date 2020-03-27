@@ -17,7 +17,7 @@ class TableVC: UIViewController {
     //Data
     var urlString: String? {
         didSet{
-            newsModel.fetchData(urlString: urlString, country: localISOCode)
+            newsModel.fetchData(urlString: urlString)
         }
     }
     var mediaName: String?

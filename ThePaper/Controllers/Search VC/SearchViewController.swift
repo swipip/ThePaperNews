@@ -14,7 +14,7 @@ class SearchViewController: UIViewController {
     private var textField: UITextField!
     private var tableView: UITableView!
     private var barConstraints = [NSLayoutConstraint]()
-    private var cvc: TableVC?
+    private var childTableVC: TableVC?
     //Data
     private var newsModel = NewsModel()
     private var titles = [String]()
@@ -46,19 +46,19 @@ class SearchViewController: UIViewController {
         
     }
     @objc private func navDidSelectSearch() {
-        cvc?.tableViewReloadData()
+        childTableVC?.tableViewReloadData()
     }
     @objc private func didChangeCountry() {
         fetchData()
     }
     fileprivate func addTableVC() {
-        cvc = TableVC()
-        cvc!.hasATitleBar = false
-        addChild(cvc!)
-        self.view.addSubview(cvc!.view)
+        childTableVC = TableVC()
+        childTableVC!.hasATitleBar = false
+        addChild(childTableVC!)
+        self.view.addSubview(childTableVC!.view)
         
         //view
-        let fromView = cvc!.view!
+        let fromView = childTableVC!.view!
         //relative to
         let toView = self.view!
         
@@ -161,7 +161,7 @@ extension SearchViewController: UITextFieldDelegate {
         
         textField.resignFirstResponder()
         
-        self.cvc?.view.removeFromSuperview()
+        self.childTableVC?.view.removeFromSuperview()
         
         addTableVC()
         
@@ -173,9 +173,9 @@ extension SearchViewController: UITextFieldDelegate {
         
         let language = self.language[localISOCode] == nil ? localISOCode : self.language[localISOCode]
         
-        let urlString = "https://newsapi.org/v2/everything?q=\(String(describing: textField.text!))&from=2020-03-17&to=2020-03-17&sortBy=popularity&language=\(language!)&apiKey="
+        let urlString = "https://newsapi.org/v2/everything?q=\(String(describing: textField.text!))&from=2020-03-17&to=2020-03-17&sortBy=popularity&language=\(language!)"
         
-        cvc?.urlString = urlString
+        childTableVC?.urlString = urlString
     }
 }
 

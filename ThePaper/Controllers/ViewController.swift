@@ -9,10 +9,6 @@
 import UIKit
 import SwiftyJSON
 
-let cvcNotificationName = "co.gautierBillard.cvcKey"
-
-var localISOCode = "fr"
-
 class ViewController: UIViewController {
     
     private var tabBar: TabBar!

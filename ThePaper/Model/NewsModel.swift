@@ -16,26 +16,23 @@ protocol  NewsModelDelegate {
 
 class NewsModel {
     
-    private let country = "fr"
+    private var keys = Keys()
     
-    var keys = Keys()
     var jsonDelegate: NewsModelDelegate?
+
+    private var baseUrl = "https://newsapi.org/v2/top-headlines?country="
     
-    
-    private func makeUrlString(base: String? = "", country: String) -> String {
+    func fetchData(urlString:String? = nil) {
         
-        let safeString = base == "" ? "https://newsapi.org/v2/top-headlines?country=" : base
+        var safeUrlString = "\(baseUrl)\(localISOCode)"
         
-        let apiKey = "&apiKey="
+        if let urlString = urlString {
+            if urlString != baseUrl {
+                safeUrlString = urlString
+            }
+        }
         
-        let string = "\(safeString!)\(country)\(apiKey)"
-        
-        return string
-    }
-    
-    func fetchData(urlString:String? = "", country:String? = "fr") {
-        
-        let urlString = urlString == "" ? "\(makeUrlString(base: urlString!, country: country!))\(keys.news)" : "\(urlString!)\(keys.news)"
+        let urlString = "\(safeUrlString)\(keys.news)"
         
         guard let url = URL(string: urlString) else {
             print("/Newsmodel line 41/ no url")

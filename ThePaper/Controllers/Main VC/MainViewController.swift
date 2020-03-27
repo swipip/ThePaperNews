@@ -72,7 +72,7 @@ class MainViewController: UIViewController {
     }
     @objc private func updateNewsWithCountry(_ notification: NSNotification) {
         
-        newsModel.fetchData(urlString: "", country: notification.userInfo?["country"] as? String)
+        newsModel.fetchData()
         
     }
     func addScrollViewConstraints() {
