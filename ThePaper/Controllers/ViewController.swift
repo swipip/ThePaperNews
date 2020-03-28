@@ -12,7 +12,6 @@ import AuthenticationServices
 
 class ViewController: UIViewController {
     
-    
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
     
@@ -32,12 +31,32 @@ class ViewController: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = true
         
-        signInButton = addButtons(yConstraint: 100, title: "Sing In")
-        signUpButton = addButtons(yConstraint: 160, title: "Sing Up")
+        signInButton = addButtons(yConstraint: 160, title: "Sing In")
+        signUpButton = addButtons(yConstraint: 220, title: "Sing Up")
 
         addLogo()
         
-
+        addAppleIDController() 
+        
+    }
+    func addAppleIDController() {
+        
+        let appleVC = SignInAppleVC()
+        addChild(appleVC)
+        appleVC.didMove(toParent: self)
+        self.view.addSubview(appleVC.view)
+        
+        //view
+        let fromView = appleVC.view!
+        //relative to
+        let toView = self.view!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
+                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor, constant: -100),
+                                     fromView.heightAnchor.constraint(equalToConstant: 50)])
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -67,8 +86,8 @@ class ViewController: UIViewController {
             
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toView.centerXAnchor, constant: 0),
-                                     fromView.widthAnchor.constraint(equalToConstant: self.view.frame.size.width * 0.8),
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor ,constant: -20),
                                      fromView.heightAnchor.constraint(equalToConstant: 200),
                                      fromView.topAnchor.constraint(equalTo: toView.topAnchor,constant: 250)])
         
@@ -88,10 +107,10 @@ class ViewController: UIViewController {
         
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toView.centerXAnchor, constant: 0),
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
                                      fromView.heightAnchor.constraint(equalToConstant: 50),
                                      fromView.bottomAnchor.constraint(equalTo:  toView.bottomAnchor, constant: -yConstraint),
-                                     fromView.widthAnchor.constraint(equalToConstant: self.view.frame.size.width * 0.8)])
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor ,constant: -20)])
         
         newButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         
@@ -149,7 +168,7 @@ class ViewController: UIViewController {
 
 extension UIButton {
     func setUpButton() {
-        self.layer.cornerRadius = self.frame.size.height / 2
+        self.layer.cornerRadius = 6
         self.layer.shadowRadius = 8
         self.layer.shadowOpacity = 0.6
         self.layer.shadowColor = UIColor.lightGray.cgColor
