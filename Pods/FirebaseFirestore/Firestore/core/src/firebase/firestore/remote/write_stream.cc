@@ -18,6 +18,7 @@
 
 #include "Firestore/core/src/firebase/firestore/remote/write_stream.h"
 
+#include "Firestore/core/src/firebase/firestore/model/mutation.h"
 #include "Firestore/core/src/firebase/firestore/nanopb/message.h"
 #include "Firestore/core/src/firebase/firestore/nanopb/reader.h"
 #include "Firestore/core/src/firebase/firestore/remote/grpc_nanopb.h"
@@ -66,7 +67,7 @@ void WriteStream::WriteHandshake() {
 
   auto request = write_serializer_.EncodeHandshake();
   LOG_DEBUG("%s initial request: %s", GetDebugDescription(),
-            write_serializer_.Describe(request));
+            request.ToString());
   Write(MakeByteBuffer(request));
 
   // TODO(dimond): Support stream resumption. We intentionally do not set the
@@ -81,8 +82,7 @@ void WriteStream::WriteMutations(const std::vector<Mutation>& mutations) {
 
   auto request = write_serializer_.EncodeWriteMutationsRequest(
       mutations, last_stream_token());
-  LOG_DEBUG("%s write request: %s", GetDebugDescription(),
-            write_serializer_.Describe(request));
+  LOG_DEBUG("%s write request: %s", GetDebugDescription(), request.ToString());
   Write(MakeByteBuffer(request));
 }
 
@@ -124,8 +124,7 @@ Status WriteStream::NotifyStreamResponse(const grpc::ByteBuffer& message) {
     return reader.status();
   }
 
-  LOG_DEBUG("%s response: %s", GetDebugDescription(),
-            write_serializer_.Describe(response));
+  LOG_DEBUG("%s response: %s", GetDebugDescription(), response.ToString());
 
   // Always capture the last stream token.
   set_last_stream_token(ByteString::Take(response->stream_token));

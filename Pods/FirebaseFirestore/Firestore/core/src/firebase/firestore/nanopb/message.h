@@ -24,7 +24,6 @@
 #include "Firestore/core/src/firebase/firestore/nanopb/fields_array.h"
 #include "Firestore/core/src/firebase/firestore/nanopb/reader.h"
 #include "Firestore/core/src/firebase/firestore/nanopb/writer.h"
-#include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 #include "grpcpp/support/byte_buffer.h"
 
 namespace firebase {
@@ -160,6 +159,11 @@ class Message {
    */
   static const pb_field_t* fields() {
     return FieldsArray<T>();
+  }
+
+  /** Creates a pretty-printed description of the proto for debugging. */
+  std::string ToString() const {
+    return proto_.ToString();
   }
 
  private:

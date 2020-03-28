@@ -39,6 +39,7 @@
                         <outlet property="leadingConstraint" destination="A9N-8x-RqQ" id="rxR-R0-pXF"/>
                         <segue destination="qc5-cD-KYZ" kind="show" identifier="toSignUp" id="L0f-V6-IQC"/>
                         <segue destination="Bsj-gd-pxr" kind="show" identifier="toSignIn" id="EId-LB-bug"/>
+                        <segue destination="td2-2v-vtS" kind="show" identifier="homeToBaseVC" id="7P7-7y-nWr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -228,6 +229,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gLY-oE-QhQ"/>
+        <segue reference="7P7-7y-nWr"/>
     </inferredMetricsTieBreakers>
 </document>
