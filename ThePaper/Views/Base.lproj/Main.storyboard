@@ -76,7 +76,7 @@
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d45-Jw-J5g">
-                                <rect key="frame" x="58" y="300" width="298" height="50"/>
+                                <rect key="frame" x="58" y="258" width="298" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="WSm-qO-Me6"/>
                                 </constraints>
@@ -90,7 +90,7 @@
                             <constraint firstItem="2G9-PM-PGd" firstAttribute="centerX" secondItem="nHQ-vd-OTU" secondAttribute="centerX" id="ObU-c9-gwt"/>
                             <constraint firstItem="gy7-Jy-JQb" firstAttribute="width" secondItem="nHQ-vd-OTU" secondAttribute="width" multiplier="0.8" id="PQs-Ur-TxJ"/>
                             <constraint firstItem="d45-Jw-J5g" firstAttribute="width" secondItem="gy7-Jy-JQb" secondAttribute="width" multiplier="0.9" id="Xux-KU-vZj"/>
-                            <constraint firstItem="d45-Jw-J5g" firstAttribute="centerY" secondItem="nHQ-vd-OTU" secondAttribute="centerY" constant="-123" id="fWm-ew-UqR"/>
+                            <constraint firstItem="d45-Jw-J5g" firstAttribute="centerY" secondItem="nHQ-vd-OTU" secondAttribute="centerY" constant="-165" id="fWm-ew-UqR"/>
                             <constraint firstItem="2G9-PM-PGd" firstAttribute="width" secondItem="gy7-Jy-JQb" secondAttribute="width" multiplier="0.9" id="jWo-5s-EBI"/>
                             <constraint firstItem="gy7-Jy-JQb" firstAttribute="centerX" secondItem="nHQ-vd-OTU" secondAttribute="centerX" id="kAX-zR-UMU"/>
                             <constraint firstItem="d45-Jw-J5g" firstAttribute="centerX" secondItem="nHQ-vd-OTU" secondAttribute="centerX" id="rdv-qN-d3X"/>
@@ -182,7 +182,7 @@
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aZx-cF-oz3">
-                                <rect key="frame" x="58" y="301" width="298" height="50"/>
+                                <rect key="frame" x="58" y="259" width="298" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="f9p-Wy-MeX"/>
                                 </constraints>
@@ -196,7 +196,7 @@
                             <constraint firstAttribute="bottom" secondItem="5JD-Fg-c2G" secondAttribute="bottom" constant="100" id="Jxt-ES-lZV"/>
                             <constraint firstItem="5JD-Fg-c2G" firstAttribute="centerX" secondItem="xcT-gW-9D4" secondAttribute="centerX" id="K4v-vu-Jlk"/>
                             <constraint firstItem="aZx-cF-oz3" firstAttribute="centerX" secondItem="xcT-gW-9D4" secondAttribute="centerX" id="VDZ-HX-P1l"/>
-                            <constraint firstItem="aZx-cF-oz3" firstAttribute="centerY" secondItem="xcT-gW-9D4" secondAttribute="centerY" constant="-122" id="Vbd-JR-z6U"/>
+                            <constraint firstItem="aZx-cF-oz3" firstAttribute="centerY" secondItem="xcT-gW-9D4" secondAttribute="centerY" constant="-164" id="Vbd-JR-z6U"/>
                             <constraint firstItem="4m5-gg-RaU" firstAttribute="width" secondItem="5JD-Fg-c2G" secondAttribute="width" multiplier="0.9" id="WW6-SP-8RF"/>
                             <constraint firstItem="4m5-gg-RaU" firstAttribute="centerX" secondItem="xcT-gW-9D4" secondAttribute="centerX" id="WxW-rf-IQa"/>
                             <constraint firstItem="4m5-gg-RaU" firstAttribute="centerY" secondItem="xcT-gW-9D4" secondAttribute="centerY" constant="-222" id="gG5-IC-Dou"/>
@@ -228,6 +228,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pJb-QB-bnb"/>
+        <segue reference="gLY-oE-QhQ"/>
     </inferredMetricsTieBreakers>
 </document>

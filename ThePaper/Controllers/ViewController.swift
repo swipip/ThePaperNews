@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import AuthenticationServices
 
 class ViewController: UIViewController {
     
@@ -39,16 +40,15 @@ class ViewController: UIViewController {
 
         
     }
-    override func viewDidLayoutSubviews() {
-
-    }
     override func viewDidAppear(_ animated: Bool) {
         signInButton.setUpButton()
         signUpButton.setUpButton()
         
-        UIView.animate(withDuration: 100) {
+        UIView.animate(withDuration: 80, delay: 0, options: .curveLinear, animations: {
             self.leadingConstraint.constant = -400
             self.view.layoutIfNeeded()
+        }) { (_) in
+            
         }
         
     }
@@ -98,12 +98,35 @@ class ViewController: UIViewController {
         return newButton
 
     }
+    fileprivate func animateButtonsOnDismiss(button: UIButton,segueID: String) {
+        
+        let feedBackButton = button == signUpButton ? signInButton : signUpButton
+        
+        let feedbackView = UIView()
+        feedbackView.frame = feedBackButton!.frame
+        feedbackView.backgroundColor = UIColor(named: "mainColorTheme")
+        feedbackView.layer.cornerRadius = 25
+        feedbackView.alpha = 0.8
+        
+        self.view.insertSubview(feedbackView, at: 1)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            button.backgroundColor = .lightGray
+            feedbackView.transform = CGAffineTransform(scaleX: 3, y: 3)
+            feedbackView.alpha = 0.0
+            feedbackView.layer.cornerRadius = 75
+        }) { (_) in
+            feedbackView.removeFromSuperview()
+            self.performSegue(withIdentifier: segueID, sender: self)
+        }
+    }
+    
     @IBAction private func buttonPressed(_ sender: UIButton) {
         
         if sender == signInButton {
-            performSegue(withIdentifier: "toSignIn", sender: self)
+            animateButtonsOnDismiss(button: signUpButton,segueID: "toSignUp")
         }else if sender == signUpButton {
-            performSegue(withIdentifier: "toSignUp", sender: self)
+            animateButtonsOnDismiss(button: signInButton,segueID: "toSignIn")
         }
 
     }
@@ -133,3 +156,4 @@ extension UIButton {
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
 }
+
