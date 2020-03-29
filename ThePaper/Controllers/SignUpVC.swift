@@ -15,16 +15,10 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    var registration: registrationMethod?
-    
-    enum registrationMethod {
-        case signIn,signUp
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(registration)
+        self.navigationController?.title = "The Paper"
         
         signButton.setUpButton()
         
@@ -80,43 +74,17 @@ class SignUpVC: UIViewController {
                     print(e)
                 } else {
                     print("user successfully registered")
-                    self.performSegue(withIdentifier: "signUpToMain", sender: self)
+//                    self.performSegue(withIdentifier: "signUpToMain", sender: self)
                 }
             }
         } else {
             print("missing authentication")
         }
     }
-    private func logInAccount() {
-        
-        if let email = emailTextField.text, let password = passwordTextField.text {
-            Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
-                if let e = error {
-                    print(e)
-                } else {
-                    print("user successfully registered")
-                    self.performSegue(withIdentifier: "signInToMain", sender: self)
-                }
-            }
-        }
-    }
-    fileprivate func registrationToAccount() {
-        
-        switch registration {
-        case .signIn:
-            logInAccount()
-        case .signUp:
-            createAccount()
-        case .none:
-            break
-        }
-        
-        
-    }
     
     @IBAction func buttonPressed(_ sender: UIButton!) {
         
-        registrationToAccount()
+        createAccount()
         
     }
 }
@@ -128,7 +96,7 @@ extension SignUpVC: UITextFieldDelegate {
         
         if textField == passwordTextField {
             
-            registrationToAccount()
+            createAccount()
 
         }
         return true

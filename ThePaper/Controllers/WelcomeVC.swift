@@ -10,10 +10,10 @@ import UIKit
 import SwiftyJSON
 import AuthenticationServices
 
-class ViewController: UIViewController {
+class WelcomeVC: UIViewController {
     
-    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageView: UIImageView!
+//    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var imageView: UIImageView!
     
     private var signInButton: UIButton!
     private var signUpButton: UIButton!
@@ -29,7 +29,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = ""
+        
         self.navigationController?.navigationBar.isHidden = true
+        
+        
+        
+        self.view.backgroundColor = .white
         
         signInButton = addButtons(yConstraint: 160, title: "Sing In")
         signUpButton = addButtons(yConstraint: 220, title: "Sing Up")
@@ -63,13 +69,16 @@ class ViewController: UIViewController {
         signInButton.setUpButton()
         signUpButton.setUpButton()
         
-        UIView.animate(withDuration: 80, delay: 0, options: .curveLinear, animations: {
-            self.leadingConstraint.constant = -400
-            self.view.layoutIfNeeded()
-        }) { (_) in
-            
-        }
+//        UIView.animate(withDuration: 80, delay: 0, options: .curveLinear, animations: {
+//            self.leadingConstraint.constant = -400
+//            self.view.layoutIfNeeded()
+//        }) { (_) in
+//
+//        }
         
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
     }
     private func addLogo() {
         
@@ -136,36 +145,35 @@ class ViewController: UIViewController {
             feedbackView.layer.cornerRadius = 75
         }) { (_) in
             feedbackView.removeFromSuperview()
-            self.performSegue(withIdentifier: segueID, sender: self)
+            if button == self.signInButton {
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                let resultViewController = storyBoard.instantiateViewController(withIdentifier: "SignUpVC") as! SignUpVC
+                self.navigationController?.pushViewController(resultViewController, animated: true)
+            }else{
+                
+                let vc = SignInVC()
+                vc.view.backgroundColor = .white
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+//                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//                let resultViewController = storyBoard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+//                self.navigationController?.pushViewController(resultViewController, animated: true)
+            }
+
         }
     }
     
     @IBAction private func buttonPressed(_ sender: UIButton) {
         
-//        if sender == signInButton {
-//            animateButtonsOnDismiss(button: signUpButton,segueID: "toSignIn")
-//        }else if sender == signUpButton {
-//            animateButtonsOnDismiss(button: signInButton,segueID: "toSignUp")
-//        }
-
-        #warning("Replace with original code on homescreen VC")
-        self.performSegue(withIdentifier: "homeToBaseVC", sender: self)
-        
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toSignIn" {
-            if let newVC = segue.destination as? SignUpVC {
-                newVC.registration = .signIn
-            }
-        }else if segue.identifier == "toSignUp"{
-            if let newVC = segue.destination as? SignUpVC {
-                newVC.registration = .signUp
-            }
+        if sender == signInButton {
+            animateButtonsOnDismiss(button: signUpButton,segueID: "toSignIn")
+        }else if sender == signUpButton {
+            animateButtonsOnDismiss(button: signInButton,segueID: "toSignUp")
         }
-    }
-    func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
 
+//        #warning("Replace with original code on homescreen VC")
+//        self.performSegue(withIdentifier: "homeToBaseVC", sender: self)
+        
     }
 }
 

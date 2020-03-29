@@ -25,8 +25,7 @@ class CardView: UIView {
     private let colors = [UIColor.systemBlue,UIColor.systemGreen,UIColor.systemPink]
     private var swipeCount = 0
     private var cardCount = 0
-    #warning("change the variable name")
-    var x = 1.0
+    private var scaleTranslationFactor = 1.0
     private var k = K()
     private var titleLabel = [UILabel]()
     private var titleLabelsPH = [UIView]()
@@ -224,7 +223,7 @@ class CardView: UIView {
         case.began:
             xOrigin = (recognizer.view?.frame.origin.x)!
         case .ended:
-            x = 1
+            scaleTranslationFactor = 1
             swipeCount += 1
             if recognizer.view!.frame.origin.x < xOrigin{
                 
@@ -287,7 +286,7 @@ class CardView: UIView {
             
         
         default:
-            x += 0.001
+            scaleTranslationFactor += 0.001
             if recognizer.view!.center.x < self.center.x {
 //
 //                awayCardHighlight.alpha += abs(translation.x)/10
@@ -296,7 +295,7 @@ class CardView: UIView {
             
             for (i,card) in cards.enumerated(){
                 if i != 0 {
-                    let scale = CGFloat(self.scale[i] * (min(x,1)))
+                    let scale = CGFloat(self.scale[i] * (min(scaleTranslationFactor,1)))
                     
                     card.transform = CGAffineTransform(scaleX: scale, y: scale)
                     self.cardsCenterConstraints[i].constant += translation.x * CGFloat(factor[i])
@@ -334,6 +333,10 @@ class CardView: UIView {
         if swipeCount > 7 {
             position.removeFirst()
             scale.removeFirst()
+            if scale.count > cards.count  {
+                cards.removeFirst()
+                cards.first?.removeFromSuperview()
+            }
         }
         print("\(#function)loaded cards: \(cardCount) scale: \(scale.count), cards: \(cards.count)")
         for (i,card) in cards.enumerated(){

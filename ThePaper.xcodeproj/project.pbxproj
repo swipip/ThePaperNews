@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		493168BA24201F0D002432C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168B924201F0D002432C9 /* AppDelegate.swift */; };
 		493168BC24201F0D002432C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168BB24201F0D002432C9 /* SceneDelegate.swift */; };
-		493168BE24201F0D002432C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168BD24201F0D002432C9 /* ViewController.swift */; };
-		493168C124201F0D002432C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 493168BF24201F0D002432C9 /* Main.storyboard */; };
+		493168BE24201F0D002432C9 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168BD24201F0D002432C9 /* WelcomeVC.swift */; };
 		493168C324201F0E002432C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 493168C224201F0E002432C9 /* Assets.xcassets */; };
 		493168C624201F0E002432C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 493168C424201F0E002432C9 /* LaunchScreen.storyboard */; };
 		493168CF24202470002432C9 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168CE24202470002432C9 /* TabBar.swift */; };
@@ -28,7 +27,7 @@
 		49435630242B8BA600D5A044 /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943562F242B8BA600D5A044 /* TableVC.swift */; };
 		4978D804242D1BB500D1A464 /* categoryClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4978D803242D1BB500D1A464 /* categoryClassifier.mlmodel */; };
 		4978D806242DF6D100D1A464 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D805242DF6D100D1A464 /* Globals.swift */; };
-		4978D808242E2B4F00D1A464 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D807242E2B4F00D1A464 /* BaseVC.swift */; };
+		4978D808242E2B4F00D1A464 /* BaseNavigatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */; };
 		4978D80A242E342D00D1A464 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D809242E342D00D1A464 /* SignUpVC.swift */; };
 		4978D80C242E438500D1A464 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4978D80B242E438500D1A464 /* GoogleService-Info.plist */; };
 		4988DF35242A89F80059F04D /* SourcesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988DF34242A89F80059F04D /* SourcesVC.swift */; };
@@ -36,6 +35,7 @@
 		498F0790242F92AD00E1EA7D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F078F242F92AC00E1EA7D /* User.swift */; };
 		498F0792242F9AD200E1EA7D /* AnonymousSignFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F0791242F9AD200E1EA7D /* AnonymousSignFB.swift */; };
 		49A42694242FD6BC0003F3D2 /* categoryClassifierV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 49A42693242FD6BB0003F3D2 /* categoryClassifierV2.mlmodel */; };
+		49A426962430A73D0003F3D2 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A426952430A73D0003F3D2 /* SignInVC.swift */; };
 		B092CFCFC248DD5A9EB75154 /* Pods_ThePaper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,8 +44,7 @@
 		493168B624201F0D002432C9 /* ThePaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThePaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		493168B924201F0D002432C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		493168BB24201F0D002432C9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		493168BD24201F0D002432C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		493168C024201F0D002432C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		493168BD24201F0D002432C9 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		493168C224201F0E002432C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		493168C524201F0E002432C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		493168C724201F0E002432C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,7 +64,7 @@
 		49704B97242E7FEE00D92A47 /* ThePaper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThePaper.entitlements; sourceTree = "<group>"; };
 		4978D803242D1BB500D1A464 /* categoryClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = categoryClassifier.mlmodel; sourceTree = "<group>"; };
 		4978D805242DF6D100D1A464 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
-		4978D807242E2B4F00D1A464 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigatorVC.swift; sourceTree = "<group>"; };
 		4978D809242E342D00D1A464 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		4978D80B242E438500D1A464 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4988DF34242A89F80059F04D /* SourcesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesVC.swift; sourceTree = "<group>"; };
@@ -73,6 +72,7 @@
 		498F078F242F92AC00E1EA7D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		498F0791242F9AD200E1EA7D /* AnonymousSignFB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonymousSignFB.swift; sourceTree = "<group>"; };
 		49A42693242FD6BB0003F3D2 /* categoryClassifierV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = categoryClassifierV2.mlmodel; sourceTree = "<group>"; };
+		49A426952430A73D0003F3D2 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThePaper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6F29DA6E1D24CAAC04885DA /* Pods-ThePaper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThePaper.release.xcconfig"; path = "Target Support Files/Pods-ThePaper/Pods-ThePaper.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,10 +138,11 @@
 		493168CD24202450002432C9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				493168BD24201F0D002432C9 /* ViewController.swift */,
+				493168BD24201F0D002432C9 /* WelcomeVC.swift */,
 				498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */,
 				4978D809242E342D00D1A464 /* SignUpVC.swift */,
-				4978D807242E2B4F00D1A464 /* BaseVC.swift */,
+				49A426952430A73D0003F3D2 /* SignInVC.swift */,
+				4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */,
 				493168F024292DF2002432C9 /* Main VC */,
 				4988DF32242A89A50059F04D /* Sources VC */,
 				4988DF30242A896C0059F04D /* Articles Details */,
@@ -154,7 +155,6 @@
 		493168D42421389F002432C9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				493168BF24201F0D002432C9 /* Main.storyboard */,
 				493168CE24202470002432C9 /* TabBar.swift */,
 				493168DC24224D94002432C9 /* CardView.swift */,
 				493168DE24224FC0002432C9 /* NewsCell.swift */,
@@ -298,7 +298,6 @@
 				493168C324201F0E002432C9 /* Assets.xcassets in Resources */,
 				4978D80C242E438500D1A464 /* GoogleService-Info.plist in Resources */,
 				493168D1242038E8002432C9 /* OldLondon.ttf in Resources */,
-				493168C124201F0D002432C9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,8 +355,8 @@
 				493168EB2428FF8F002432C9 /* K.swift in Sources */,
 				498F078E242F6A6B00E1EA7D /* SignInAppleVC.swift in Sources */,
 				493168D924221D51002432C9 /* NewsModel.swift in Sources */,
-				4978D808242E2B4F00D1A464 /* BaseVC.swift in Sources */,
-				493168BE24201F0D002432C9 /* ViewController.swift in Sources */,
+				4978D808242E2B4F00D1A464 /* BaseNavigatorVC.swift in Sources */,
+				493168BE24201F0D002432C9 /* WelcomeVC.swift in Sources */,
 				49A42694242FD6BC0003F3D2 /* categoryClassifierV2.mlmodel in Sources */,
 				493168E52422922C002432C9 /* ArticleDetailsViewController.swift in Sources */,
 				493168CF24202470002432C9 /* TabBar.swift in Sources */,
@@ -375,20 +374,13 @@
 				493168ED2429061B002432C9 /* Keys.swift in Sources */,
 				493168DF24224FC0002432C9 /* NewsCell.swift in Sources */,
 				493168BC24201F0D002432C9 /* SceneDelegate.swift in Sources */,
+				49A426962430A73D0003F3D2 /* SignInVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		493168BF24201F0D002432C9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				493168C024201F0D002432C9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		493168C424201F0E002432C9 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

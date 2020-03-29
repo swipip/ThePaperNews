@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class BaseVC: UIViewController {
+class BaseNavigatorVC: UIViewController {
     
     private var tabBar: TabBar!
     private var titleBar: UIView!
@@ -22,6 +22,8 @@ class BaseVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor(named: "mainColorBackground")
         
         navigationController?.navigationBar.isHidden = true
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -122,7 +124,7 @@ class BaseVC: UIViewController {
     }
     
 }
-extension BaseVC: UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate {
+extension BaseNavigatorVC: UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -176,7 +178,7 @@ extension BaseVC: UICollectionViewDelegate,UICollectionViewDataSource, UICollect
     
 }
 
-extension BaseVC: TabBarDelegate {
+extension BaseNavigatorVC: TabBarDelegate {
     
     func buttonPressed(rank: Int) {
         

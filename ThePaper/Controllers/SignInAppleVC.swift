@@ -137,7 +137,7 @@ extension SignInAppleVC: ASAuthorizationControllerDelegate,ASAuthorizationContro
             return
           }
             print("success signing up with Apple and firebase")
-            self.parent?.performSegue(withIdentifier: "homeToBaseVC", sender: self)
+            #warning("Add transition to basenav")
         }
       }
     }
