@@ -35,6 +35,7 @@
 		498F078E242F6A6B00E1EA7D /* SignInAppleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */; };
 		498F0790242F92AD00E1EA7D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F078F242F92AC00E1EA7D /* User.swift */; };
 		498F0792242F9AD200E1EA7D /* AnonymousSignFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F0791242F9AD200E1EA7D /* AnonymousSignFB.swift */; };
+		49A42694242FD6BC0003F3D2 /* categoryClassifierV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 49A42693242FD6BB0003F3D2 /* categoryClassifierV2.mlmodel */; };
 		B092CFCFC248DD5A9EB75154 /* Pods_ThePaper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAppleVC.swift; sourceTree = "<group>"; };
 		498F078F242F92AC00E1EA7D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		498F0791242F9AD200E1EA7D /* AnonymousSignFB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonymousSignFB.swift; sourceTree = "<group>"; };
+		49A42693242FD6BB0003F3D2 /* categoryClassifierV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = categoryClassifierV2.mlmodel; sourceTree = "<group>"; };
 		B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThePaper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6F29DA6E1D24CAAC04885DA /* Pods-ThePaper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThePaper.release.xcconfig"; path = "Target Support Files/Pods-ThePaper/Pods-ThePaper.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +122,7 @@
 				493168C724201F0E002432C9 /* Info.plist */,
 				4978D80B242E438500D1A464 /* GoogleService-Info.plist */,
 				4978D803242D1BB500D1A464 /* categoryClassifier.mlmodel */,
+				49A42693242FD6BB0003F3D2 /* categoryClassifierV2.mlmodel */,
 				493168B924201F0D002432C9 /* AppDelegate.swift */,
 				493168BB24201F0D002432C9 /* SceneDelegate.swift */,
 				493168C424201F0E002432C9 /* LaunchScreen.storyboard */,
@@ -355,6 +358,7 @@
 				493168D924221D51002432C9 /* NewsModel.swift in Sources */,
 				4978D808242E2B4F00D1A464 /* BaseVC.swift in Sources */,
 				493168BE24201F0D002432C9 /* ViewController.swift in Sources */,
+				49A42694242FD6BC0003F3D2 /* categoryClassifierV2.mlmodel in Sources */,
 				493168E52422922C002432C9 /* ArticleDetailsViewController.swift in Sources */,
 				493168CF24202470002432C9 /* TabBar.swift in Sources */,
 				4978D80A242E342D00D1A464 /* SignUpVC.swift in Sources */,

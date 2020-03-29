@@ -8,6 +8,7 @@
 
 import UIKit
 import NaturalLanguage
+
 protocol CardViewDelegate {
     func didTapCard(url: String)
 }
@@ -24,6 +25,7 @@ class CardView: UIView {
     private let colors = [UIColor.systemBlue,UIColor.systemGreen,UIColor.systemPink]
     private var swipeCount = 0
     private var cardCount = 0
+    #warning("change the variable name")
     var x = 1.0
     private var k = K()
     private var titleLabel = [UILabel]()
@@ -58,6 +60,7 @@ class CardView: UIView {
         
         self.addSubview(awayCardHighlight)
         
+        cardCount = 0
         insertNewCard()
         insertNewCard()
         insertNewCard()
@@ -72,7 +75,7 @@ class CardView: UIView {
     }
     fileprivate func performIdentification(for string: String) -> String{
         do {
-            let catClassifier = try NLModel(mlModel: categoryClassifier().model)
+            let catClassifier = try NLModel(mlModel: categoryClassifierV2().model)
             let prediction = catClassifier.predictedLabel(for: string)
             return prediction ?? "default"
         } catch {
@@ -81,6 +84,10 @@ class CardView: UIView {
         }
     }
     func updateCards(titles: [String], urls: [String]) {
+        
+//        clearView()
+        
+        print("\(#function) urls count: \(urls.count) & articles: \(titles.count)")
         
         self.urlStrings = urls
         self.titles = titles
@@ -317,6 +324,7 @@ class CardView: UIView {
             }, completion: nil)
             
             cards.removeLast()
+            titleLabel.removeLast()
             cardsCenterConstraints.removeLast()
         }
     }
@@ -327,7 +335,7 @@ class CardView: UIView {
             position.removeFirst()
             scale.removeFirst()
         }
-        
+        print("\(#function)loaded cards: \(cardCount) scale: \(scale.count), cards: \(cards.count)")
         for (i,card) in cards.enumerated(){
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
                 card.transform = CGAffineTransform(scaleX: CGFloat(self.scale[i]), y: CGFloat(self.scale[i]))

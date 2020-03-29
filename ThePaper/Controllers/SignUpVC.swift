@@ -24,6 +24,8 @@ class SignUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(registration)
+        
         signButton.setUpButton()
         
         setUpTextField(textField: emailTextField)

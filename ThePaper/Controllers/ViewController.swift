@@ -142,12 +142,15 @@ class ViewController: UIViewController {
     
     @IBAction private func buttonPressed(_ sender: UIButton) {
         
-        if sender == signInButton {
-            animateButtonsOnDismiss(button: signUpButton,segueID: "toSignUp")
-        }else if sender == signUpButton {
-            animateButtonsOnDismiss(button: signInButton,segueID: "toSignIn")
-        }
+//        if sender == signInButton {
+//            animateButtonsOnDismiss(button: signUpButton,segueID: "toSignIn")
+//        }else if sender == signUpButton {
+//            animateButtonsOnDismiss(button: signInButton,segueID: "toSignUp")
+//        }
 
+        #warning("Replace with original code on homescreen VC")
+        self.performSegue(withIdentifier: "homeToBaseVC", sender: self)
+        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

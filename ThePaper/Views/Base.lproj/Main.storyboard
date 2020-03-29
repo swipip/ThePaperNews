@@ -61,7 +61,7 @@
                                     <constraint firstAttribute="height" constant="50" id="qeb-nJ-GuW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Sing up">
+                                <state key="normal" title="Sing Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -167,10 +167,11 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="mP8-cs-6oH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Sing in">
+                                <state key="normal" title="Sing In">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="buttonPressed:" destination="Bsj-gd-pxr" eventType="touchUpInside" id="5Ij-gy-RYP"/>
                                     <action selector="buttonPressed:" destination="qc5-cD-KYZ" eventType="touchUpInside" id="M0Z-EI-Yqv"/>
                                 </connections>
                             </button>
@@ -229,6 +230,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7P7-7y-nWr"/>
+        <segue reference="pJb-QB-bnb"/>
     </inferredMetricsTieBreakers>
 </document>
