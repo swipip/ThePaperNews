@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49026FCF2430D59400D91994 /* LogInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49026FCE2430D59400D91994 /* LogInManager.swift */; };
 		493168BA24201F0D002432C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168B924201F0D002432C9 /* AppDelegate.swift */; };
 		493168BC24201F0D002432C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168BB24201F0D002432C9 /* SceneDelegate.swift */; };
 		493168BE24201F0D002432C9 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493168BD24201F0D002432C9 /* WelcomeVC.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		4678D8E212FE859939223A6B /* Pods-ThePaper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThePaper.debug.xcconfig"; path = "Target Support Files/Pods-ThePaper/Pods-ThePaper.debug.xcconfig"; sourceTree = "<group>"; };
+		49026FCE2430D59400D91994 /* LogInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInManager.swift; sourceTree = "<group>"; };
 		493168B624201F0D002432C9 /* ThePaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThePaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		493168B924201F0D002432C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		493168BB24201F0D002432C9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				493168D824221D51002432C9 /* NewsModel.swift */,
 				498F078F242F92AC00E1EA7D /* User.swift */,
+				49026FCE2430D59400D91994 /* LogInManager.swift */,
 				493168E0242259FC002432C9 /* ImageManager.swift */,
 				498F0791242F9AD200E1EA7D /* AnonymousSignFB.swift */,
 				4978D805242DF6D100D1A464 /* Globals.swift */,
@@ -375,6 +378,7 @@
 				493168DF24224FC0002432C9 /* NewsCell.swift in Sources */,
 				493168BC24201F0D002432C9 /* SceneDelegate.swift in Sources */,
 				49A426962430A73D0003F3D2 /* SignInVC.swift in Sources */,
+				49026FCF2430D59400D91994 /* LogInManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

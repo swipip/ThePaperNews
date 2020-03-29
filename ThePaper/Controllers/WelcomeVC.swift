@@ -12,8 +12,8 @@ import AuthenticationServices
 
 class WelcomeVC: UIViewController {
     
-//    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-//    @IBOutlet weak var imageView: UIImageView!
+    private var trailingContraint: NSLayoutConstraint!
+    private var imageView: UIImageView!
     
     private var signInButton: UIButton!
     private var signUpButton: UIButton!
@@ -30,12 +30,11 @@ class WelcomeVC: UIViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = ""
-        
         self.navigationController?.navigationBar.isHidden = true
+
+        self.view.backgroundColor = UIColor(named: "mainColorBackground")
         
-        
-        
-        self.view.backgroundColor = .white
+        addBackground()
         
         signInButton = addButtons(yConstraint: 160, title: "Sing In")
         signUpButton = addButtons(yConstraint: 220, title: "Sing Up")
@@ -44,8 +43,43 @@ class WelcomeVC: UIViewController {
         
         addAppleIDController() 
         
+        addWelcomeLabel()
+        
     }
-    func addAppleIDController() {
+    private func addWelcomeLabel() {
+        
+        let label = UILabel()
+        label.text = "Welcome Back!"
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.contentMode = .center
+        
+        self.view.addSubview(label)
+        
+        //view
+        let fromView = label
+        //relative to
+        let toView = self.signUpButton!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toView.centerXAnchor, constant: 0),
+                                     fromView.bottomAnchor.constraint(equalTo: toView.topAnchor, constant: -20)])
+        
+    }
+    private func addBackground() {
+        
+        imageView = UIImageView()
+        imageView.image = K.shared.backgroundImage
+        imageView.contentMode = .scaleAspectFit
+        imageView.frame.origin.x = -self.view.frame.width * 2
+        imageView.frame.origin.y = 0
+        imageView.frame.size = CGSize(width: 1500, height: self.view.frame.size.height)
+        
+        self.view.addSubview(imageView)
+        
+        
+    }
+    private func addAppleIDController() {
         
         let appleVC = SignInAppleVC()
         addChild(appleVC)
@@ -69,12 +103,12 @@ class WelcomeVC: UIViewController {
         signInButton.setUpButton()
         signUpButton.setUpButton()
         
-//        UIView.animate(withDuration: 80, delay: 0, options: .curveLinear, animations: {
-//            self.leadingConstraint.constant = -400
-//            self.view.layoutIfNeeded()
-//        }) { (_) in
-//
-//        }
+        UIView.animate(withDuration: 80, delay: 0, options: .curveLinear, animations: {
+            self.imageView.frame.origin.x = -self.view.frame.width
+            self.view.layoutIfNeeded()
+        }) { (_) in
+
+        }
         
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,7 +132,7 @@ class WelcomeVC: UIViewController {
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor ,constant: -20),
                                      fromView.heightAnchor.constraint(equalToConstant: 200),
-                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor,constant: 250)])
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor,constant: 150)])
         
     }
     private func addButtons(yConstraint: CGFloat, title: String) -> UIButton {
@@ -146,18 +180,13 @@ class WelcomeVC: UIViewController {
         }) { (_) in
             feedbackView.removeFromSuperview()
             if button == self.signInButton {
-                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                let resultViewController = storyBoard.instantiateViewController(withIdentifier: "SignUpVC") as! SignUpVC
-                self.navigationController?.pushViewController(resultViewController, animated: true)
+                let vc = SignUpVC()
+                vc.view.backgroundColor = .white
+                self.navigationController?.pushViewController(vc, animated: true)
             }else{
-                
                 let vc = SignInVC()
                 vc.view.backgroundColor = .white
                 self.navigationController?.pushViewController(vc, animated: true)
-                
-//                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//                let resultViewController = storyBoard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-//                self.navigationController?.pushViewController(resultViewController, animated: true)
             }
 
         }
@@ -179,6 +208,7 @@ class WelcomeVC: UIViewController {
 
 extension UIButton {
     func setUpButton() {
+        self.backgroundColor = K.shared.mainColorTheme
         self.layer.cornerRadius = 6
         self.layer.shadowRadius = 8
         self.layer.shadowOpacity = 0.6

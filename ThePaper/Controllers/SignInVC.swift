@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class SignInVC: UIViewController {
 
@@ -23,9 +22,12 @@ class SignInVC: UIViewController {
         
         self.navigationItem.title = "The Paper"
 
-        
         setUpUI()
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        setBackgroundView(for: emailTextField)
+        setBackgroundView(for: passwordTextField)
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
@@ -33,17 +35,18 @@ class SignInVC: UIViewController {
     private func setUpUI() {
         
         addEmailTextField()
+        
         addPasswordTextField()
+        
         addButton()
         
     }
     private func addButton() {
         
         signInButton = UIButton()
-        signInButton.backgroundColor = UIColor(named: "mainColorTheme")
-        signInButton.layer.cornerRadius = 25
+        signInButton.setUpButton()
         signInButton.setTitle("Sign In", for: .normal)
-        signInButton.tintColor = .white
+        
         signInButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         
         self.view.addSubview(signInButton)
@@ -63,20 +66,40 @@ class SignInVC: UIViewController {
     }
     private func addEmailTextField() {
         emailTextField = UITextField()
-        emailTextField.backgroundColor = .lightGray
+        emailTextField.textColor = .white
+        emailTextField.backgroundColor = .clear
+        emailTextField.textAlignment = .center
+        emailTextField.placeholder = "email address"
+        emailTextField.delegate = self
         
         self.view.addSubview(emailTextField)
         
-        setTextFieldConstraints(textField: emailTextField ,topConstaint: 100)
+        setTextFieldConstraints(textField: emailTextField ,topConstaint: 150)
         
     }
     private func addPasswordTextField() {
         passwordTextField = UITextField()
-        passwordTextField.backgroundColor = .lightGray
+        passwordTextField.textColor = .white
+        passwordTextField.backgroundColor = .clear
+        passwordTextField.textAlignment = .center
+        passwordTextField.placeholder = "password"
+        passwordTextField.textContentType = .password
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.delegate = self
         
         self.view.addSubview(passwordTextField)
         
-        setTextFieldConstraints(textField: passwordTextField ,topConstaint: 160)
+        setTextFieldConstraints(textField: passwordTextField ,topConstaint: 210)
+
+    }
+    private func setBackgroundView(for textField: UITextField) {
+        
+        let view = UIView()
+        view.frame = textField.frame
+        view.backgroundColor = K.shared.grayTextFieldBackground
+        view.layer.cornerRadius = 6
+        
+        self.view.insertSubview(view, at: 0)
         
     }
     private func setTextFieldConstraints(textField: UITextField,topConstaint: CGFloat) {
@@ -94,26 +117,35 @@ class SignInVC: UIViewController {
     }
     @IBAction func buttonPressed(_ sender: Any) {
         
-        let destinationVC = BaseNavigatorVC()
-        self.navigationController?.pushViewController(destinationVC, animated: true)
+        logInAccount()
         
     }
     private func logInAccount() {
-            
-            if let email = emailTextField.text, let password = passwordTextField.text {
-                Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
-                    if let e = error {
-                        print(e)
-                    } else {
-                        print("user successfully registered")
-                        
-                        let destinationVC = BaseNavigatorVC()
-                        self.navigationController?.pushViewController(destinationVC, animated: true)
-                        
-    //                    self.performSegue(withIdentifier: "signInToMain", sender: self)
-                    }
-                }
-            }
+        
+        if let email = emailTextField.text, let password = passwordTextField.text {
+            let logInManager = LogInManager(email: email, password: password)
+            logInManager.logInAccount()
+            logInManager.delegate = self
         }
 
+        
+    }
+    
+}
+extension SignInVC: LogInManagerDelegate {
+    func didLogIn() {
+        let destinationVC = BaseNavigatorVC()
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+
+}
+extension SignInVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        logInAccount()
+        
+        return true
+    }
 }

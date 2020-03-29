@@ -1,105 +1,151 @@
 //
-//  SignUpVC.swift
+//  SignInVC.swift
 //  ThePaper
 //
-//  Created by Gautier Billard on 27/03/2020.
+//  Created by Gautier Billard on 29/03/2020.
 //  Copyright © 2020 Gautier Billard. All rights reserved.
 //
 
 import UIKit
-import Firebase
 
 class SignUpVC: UIViewController {
 
-    @IBOutlet weak var signButton: UIButton!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    //UI
+    private var emailTextField:     UITextField!
+    private var passwordTextField:  UITextField!
+    private var signInButton:       UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.title = "The Paper"
+        self.navigationController?.navigationBar.isHidden = false
         
-        signButton.setUpButton()
+        self.navigationItem.title = "The Paper"
+
+        setUpUI()
         
-        setUpTextField(textField: emailTextField)
-        emailTextField.textContentType = .username
-        setUpTextField(textField: passwordTextField)
-        passwordTextField.textContentType = .password
-        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        setBackgroundView(for: emailTextField)
+        setBackgroundView(for: passwordTextField)
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
     }
-    override func viewWillAppear(_ animated: Bool) {
-        setUpNavBar()
+    private func setUpUI() {
+        
+        addEmailTextField()
+        
+        addPasswordTextField()
+        
+        addButton()
+        
     }
-    private func setUpNavBar() {
+    private func addButton() {
         
-        let navBar                               = self.navigationController?.navigationBar
-        navBar?.isHidden                         = false
+        signInButton = UIButton()
+        signInButton.setUpButton()
+        signInButton.setTitle("Sign Up", for: .normal)
         
-    }
-    func setUpTextField(textField: UITextField) {
+        signInButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         
-        textField.borderStyle = .none
-        textField.contentMode = .center
-        textField.textColor = .white
-        textField.tintColor = .white
-        textField.delegate = self
-        
-        let backView = UIView()
-        backView.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.2)
-        backView.layer.cornerRadius = 25
-        
-        self.view.insertSubview(backView, at: 0)
-        
+        self.view.addSubview(signInButton)
+                
         //view
-        let fromView = backView
+        let fromView = signInButton!
         //relative to
-        let toView = textField
+        let toView = self.view!
             
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: -10),
-                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 10),
-                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 0),
-                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: 0)])
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
+                                     fromView.heightAnchor.constraint(equalToConstant: 50),
+                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -100)])
+        
     }
+    private func addEmailTextField() {
+        emailTextField = UITextField()
+        emailTextField.textColor = .white
+        emailTextField.backgroundColor = .clear
+        emailTextField.textAlignment = .center
+        emailTextField.placeholder = "email address"
+        emailTextField.delegate = self
+        
+        self.view.addSubview(emailTextField)
+        
+        setTextFieldConstraints(textField: emailTextField ,topConstaint: 150)
+        
+    }
+    private func addPasswordTextField() {
+        passwordTextField = UITextField()
+        passwordTextField.textColor = .white
+        passwordTextField.backgroundColor = .clear
+        passwordTextField.textAlignment = .center
+        passwordTextField.placeholder = "password"
+        passwordTextField.textContentType = .password
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.delegate = self
+        
+        self.view.addSubview(passwordTextField)
+        
+        setTextFieldConstraints(textField: passwordTextField ,topConstaint: 210)
 
-    fileprivate func createAccount() {
-        if let email = emailTextField.text, let password = passwordTextField.text{
-            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                if let e = error {
-                    print(e)
-                } else {
-                    print("user successfully registered")
-//                    self.performSegue(withIdentifier: "signUpToMain", sender: self)
-                }
-            }
-        } else {
-            print("missing authentication")
-        }
     }
-    
-    @IBAction func buttonPressed(_ sender: UIButton!) {
+    private func setBackgroundView(for textField: UITextField) {
+        
+        let view = UIView()
+        view.frame = textField.frame
+        view.backgroundColor = K.shared.grayTextFieldBackground
+        view.layer.cornerRadius = 6
+        
+        self.view.insertSubview(view, at: 0)
+        
+    }
+    private func setTextFieldConstraints(textField: UITextField,topConstaint: CGFloat) {
+        //view
+        let fromView = textField
+        //relative to
+        let toView = self.view!
+        
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: topConstaint),
+                                     fromView.heightAnchor.constraint(equalToConstant: 50)])
+    }
+    @IBAction func buttonPressed(_ sender: Any) {
         
         createAccount()
         
     }
-}
-
-extension SignUpVC: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+    private func createAccount() {
         
-        if textField == passwordTextField {
-            
-            createAccount()
-
+        if let email = emailTextField.text, let password = passwordTextField.text {
+            let logInManager = LogInManager(email: email, password: password)
+            logInManager.createAccount()
+            logInManager.delegate = self
         }
-        return true
+
+        
     }
     
+}
+extension SignUpVC: LogInManagerDelegate {
+    func didSignUp() {
+        let destinationVC = BaseNavigatorVC()
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+
+}
+extension SignUpVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        createAccount()
+        
+        return true
+    }
 }
