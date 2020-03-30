@@ -137,7 +137,9 @@ extension SignInAppleVC: ASAuthorizationControllerDelegate,ASAuthorizationContro
             return
           }
             print("success signing up with Apple and firebase")
-            #warning("Add transition to basenav")
+            self.parent?.navigationController?.navigationBar.isHidden = true
+            let vc = BaseNavigatorVC()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
       }
     }

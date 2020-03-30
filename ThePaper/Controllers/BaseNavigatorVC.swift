@@ -40,6 +40,9 @@ class BaseNavigatorVC: UIViewController {
         
         addLanguageButton()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
     private func addLanguageButton() {
         
 

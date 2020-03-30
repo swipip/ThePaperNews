@@ -74,7 +74,7 @@ class CardView: UIView {
     }
     fileprivate func performIdentification(for string: String) -> String{
         do {
-            let catClassifier = try NLModel(mlModel: categoryClassifierV2().model)
+            let catClassifier = try NLModel(mlModel: categoryClassifierV3().model)
             let prediction = catClassifier.predictedLabel(for: string)
             return prediction ?? "default"
         } catch {
@@ -366,6 +366,7 @@ class CardView: UIView {
         newCard.backgroundColor = k.mainColorTheme//colors[swipeCount]
         newCard.layer.cornerRadius = 8
         newCard.alpha = 0
+        newCard.url = urlStrings?[cardCount] ?? "no url"
         
         self.insertSubview(newCard, at: 0)
         
