@@ -16,7 +16,7 @@ class MainViewController: UIViewController {
     private var tableView: UITableView!
     private var cardTitleView: UIView!
     private var tableTitleView: UIView!
-    private var cardView: CardView!
+    private var cardView: CardsVC!
     private var scrollVelocity = 1.0
     
     private lazy var scrollView: UIScrollView = {
@@ -149,7 +149,7 @@ class MainViewController: UIViewController {
         tableTitleView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([tableTitleView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 20),
                                      tableTitleView.widthAnchor.constraint(equalToConstant: width),
-                                     tableTitleView.topAnchor.constraint(equalTo: self.cardView.bottomAnchor, constant: 10),
+                                     tableTitleView.topAnchor.constraint(equalTo: self.cardView.view.bottomAnchor, constant: 0),
                                      tableTitleView.heightAnchor.constraint(equalToConstant: 30)])
         
         let tableTitle = UILabel()
@@ -167,16 +167,19 @@ class MainViewController: UIViewController {
     }
     private func addCardView() {
         
-        cardView = CardView()
+        cardView = CardsVC()
         cardView.delegate = self
+        self.addChild(cardView)
+        cardView.willMove(toParent: self)
+        let cardViewView = cardView.view!
         
-        self.scrollView.addSubview(cardView)
+        self.scrollView.addSubview(cardViewView)
         
-        cardView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([cardView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 20),
-                                     cardView.widthAnchor.constraint(equalToConstant: self.view.frame.size.width - 40),
-                                     cardView.topAnchor.constraint(equalTo: self.cardTitleView.bottomAnchor, constant: 10),
-                                     cardView.heightAnchor.constraint(equalToConstant: 200)])
+        cardViewView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([cardViewView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 0),
+                                     cardViewView.widthAnchor.constraint(equalToConstant: self.view.frame.size.width),
+                                     cardViewView.topAnchor.constraint(equalTo: self.cardTitleView.bottomAnchor, constant: 0),
+                                     cardViewView.heightAnchor.constraint(equalToConstant: 220)])
         
     }
     func addTableView() {
@@ -248,12 +251,19 @@ extension MainViewController: NewsModelDelegate {
         articleURL = json["articles"].arrayValue.map {$0["url"].stringValue}
         imagesUrls = json["articles"].arrayValue.map {$0["urlToImage"].stringValue}
         
-        cardView.updateCards(titles: titles, urls: articleURL)
+        var articles = [Article]()
+        
+        for (i,title) in titles.enumerated() {
+            
+            let article = Article(title: title, url: articleURL[i], imageUrl: imagesUrls[i])
+
+            articles.append(article)
+        }
+        
+        cardView.updateCards(articles: articles)
         
         for i in 0..<10 {
-//            print(titles[i])
             titles.remove(at: i)
-            
             articleURL.remove(at: i)
             imagesUrls.remove(at: i)
         }
@@ -294,7 +304,7 @@ extension MainViewController: UIScrollViewDelegate {
     
 }
 
-extension MainViewController: CardViewDelegate {
+extension MainViewController: CardVCDelegate {
     func didTapCard(url: String) {
         
         let childVC = ArticleDetailsViewController()

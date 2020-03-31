@@ -86,19 +86,16 @@ class SignInAppleVC: UIViewController {
           }
           return random
         }
-
         randoms.forEach { random in
           if remainingLength == 0 {
             return
           }
-
           if random < charset.count {
             result.append(charset[Int(random)])
             remainingLength -= 1
           }
         }
       }
-
       return result
     }
 
@@ -143,18 +140,6 @@ extension SignInAppleVC: ASAuthorizationControllerDelegate,ASAuthorizationContro
         }
       }
     }
-    
-//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-//        switch authorization.credential {
-//        case let credentials as ASAuthorizationAppleIDCredential:
-//
-//            let user = User(credentials: credentials)
-//            print(user)
-//
-//        default:
-//            break
-//        }
-//    }
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("error with apple sign in\(error)")
     }

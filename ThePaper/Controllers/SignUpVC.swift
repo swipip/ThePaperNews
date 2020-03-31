@@ -134,7 +134,9 @@ class SignUpVC: UIViewController {
 }
 extension SignUpVC: LogInManagerDelegate {
     func didSignUp() {
-        let destinationVC = BaseNavigatorVC()
+        let destinationVC = OnBoardingVC()
+        destinationVC.delegate = self
+        self.title = ""
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
 
@@ -148,4 +150,13 @@ extension SignUpVC: UITextFieldDelegate {
         
         return true
     }
+}
+extension SignUpVC: OnBoardingVCDelegate {
+    
+    func didFinishChoosingPreferences() {
+        let destinationVC = BaseNavigatorVC()
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
+    
 }

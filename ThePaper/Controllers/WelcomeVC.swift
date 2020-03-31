@@ -100,6 +100,7 @@ class WelcomeVC: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
+        
         signInButton.setUpButton()
         signUpButton.setUpButton()
         
@@ -184,7 +185,8 @@ class WelcomeVC: UIViewController {
                 vc.view.backgroundColor = .white
                 self.navigationController?.pushViewController(vc, animated: true)
             }else{
-                let vc = SignInVC()
+                #warning("replace with SingInVc")
+                let vc = BaseNavigatorVC()//SignInVC()
                 vc.view.backgroundColor = .white
                 self.navigationController?.pushViewController(vc, animated: true)
             }
@@ -199,10 +201,6 @@ class WelcomeVC: UIViewController {
         }else if sender == signUpButton {
             animateButtonsOnDismiss(button: signInButton,segueID: "toSignUp")
         }
-
-//        #warning("Replace with original code on homescreen VC")
-//        self.performSegue(withIdentifier: "homeToBaseVC", sender: self)
-        
     }
 }
 
