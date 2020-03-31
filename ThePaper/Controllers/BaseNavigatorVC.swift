@@ -163,6 +163,9 @@ extension BaseNavigatorVC: UICollectionViewDelegate,UICollectionViewDataSource, 
         case 2:
             let childVC = SearchViewController()
             addChildVC(childVC, cell)
+        case 3:
+            let childVC = UserVC()
+            addChildVC(childVC, cell)
         default:
             cell.backgroundColor = .white
         }

@@ -185,8 +185,7 @@ class WelcomeVC: UIViewController {
                 vc.view.backgroundColor = .white
                 self.navigationController?.pushViewController(vc, animated: true)
             }else{
-                #warning("replace with SingInVc")
-                let vc = BaseNavigatorVC()//SignInVC()
+                let vc = SignInVC()
                 vc.view.backgroundColor = .white
                 self.navigationController?.pushViewController(vc, animated: true)
             }

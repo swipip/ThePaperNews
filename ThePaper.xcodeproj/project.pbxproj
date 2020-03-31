@@ -31,6 +31,8 @@
 		4977649724334A7B0013390D /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977649524334A7A0013390D /* CardCell.swift */; };
 		4977649824334A7B0013390D /* CardsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977649624334A7B0013390D /* CardsVC.swift */; };
 		4977649A24334D080013390D /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977649924334D080013390D /* Article.swift */; };
+		4977649D243380D30013390D /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977649C243380D30013390D /* UserVC.swift */; };
+		497764BF2433976D0013390D /* TitleIdentifierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497764BE2433976D0013390D /* TitleIdentifierModel.swift */; };
 		4978D806242DF6D100D1A464 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D805242DF6D100D1A464 /* Globals.swift */; };
 		4978D808242E2B4F00D1A464 /* BaseNavigatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */; };
 		4978D80A242E342D00D1A464 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D809242E342D00D1A464 /* SignUpVC.swift */; };
@@ -72,6 +74,8 @@
 		4977649524334A7A0013390D /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		4977649624334A7B0013390D /* CardsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsVC.swift; sourceTree = "<group>"; };
 		4977649924334D080013390D /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		4977649C243380D30013390D /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
+		497764BE2433976D0013390D /* TitleIdentifierModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleIdentifierModel.swift; sourceTree = "<group>"; };
 		4978D805242DF6D100D1A464 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigatorVC.swift; sourceTree = "<group>"; };
 		4978D809242E342D00D1A464 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
@@ -150,6 +154,7 @@
 				498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */,
 				4978D809242E342D00D1A464 /* SignUpVC.swift */,
 				49A426952430A73D0003F3D2 /* SignInVC.swift */,
+				4977649B243380B20013390D /* User */,
 				4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */,
 				493168F024292DF2002432C9 /* Main VC */,
 				4988DF32242A89A50059F04D /* Sources VC */,
@@ -178,6 +183,7 @@
 				498F078F242F92AC00E1EA7D /* User.swift */,
 				49026FCE2430D59400D91994 /* LogInManager.swift */,
 				493168E0242259FC002432C9 /* ImageManager.swift */,
+				497764BE2433976D0013390D /* TitleIdentifierModel.swift */,
 				498F0791242F9AD200E1EA7D /* AnonymousSignFB.swift */,
 				4978D805242DF6D100D1A464 /* Globals.swift */,
 				493168EC2429061B002432C9 /* Keys.swift */,
@@ -210,6 +216,14 @@
 				4977649624334A7B0013390D /* CardsVC.swift */,
 			);
 			path = Cardview;
+			sourceTree = "<group>";
+		};
+		4977649B243380B20013390D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				4977649C243380D30013390D /* UserVC.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		4978D7E0242CA35600D1A464 /* Ressources */ = {
@@ -379,12 +393,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				493168E324226B87002432C9 /* SearchViewController.swift in Sources */,
+				4977649D243380D30013390D /* UserVC.swift in Sources */,
 				493168EB2428FF8F002432C9 /* K.swift in Sources */,
 				498F078E242F6A6B00E1EA7D /* SignInAppleVC.swift in Sources */,
 				493168D924221D51002432C9 /* NewsModel.swift in Sources */,
 				4978D808242E2B4F00D1A464 /* BaseNavigatorVC.swift in Sources */,
 				493168BE24201F0D002432C9 /* WelcomeVC.swift in Sources */,
 				493168E52422922C002432C9 /* ArticleDetailsViewController.swift in Sources */,
+				497764BF2433976D0013390D /* TitleIdentifierModel.swift in Sources */,
 				4977649724334A7B0013390D /* CardCell.swift in Sources */,
 				493168CF24202470002432C9 /* TabBar.swift in Sources */,
 				4977646F243335BF0013390D /* categoryClassifierV31.mlmodel in Sources */,

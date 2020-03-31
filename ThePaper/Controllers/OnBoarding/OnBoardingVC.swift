@@ -9,7 +9,7 @@
 import UIKit
 
 protocol OnBoardingVCDelegate {
-    func didFinishChoosingPreferences()
+    func didFinishChoosingPreferences(preferences: [String])
 }
 
 class customCell: UICollectionViewCell {
@@ -69,24 +69,43 @@ class OnBoardingVC: UIViewController {
     }
     private func addTitle() {
         
-        let title = UILabel()
-        title.text = "What is interesting to you?"
-        title.font = UIFont.systemFont(ofSize: 20)
-        title.textAlignment = .center
-        title.numberOfLines = 0
+        let titleBackground = UIView()
+        titleBackground.backgroundColor = .white
+        titleBackground.addShadow(radius: 5, color: .gray, opacity: 0.4)
         
-        self.view.addSubview(title)
-        
+        self.view.addSubview(titleBackground)
         
         //view
-        let fromView = title
+        var fromView = titleBackground
         //relative to
         let toView = collectionView!
             
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toView.centerXAnchor, constant: 0),
-                                     fromView.bottomAnchor.constraint(equalTo: toView.topAnchor, constant: -5),
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
+                                     fromView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                                     fromView.bottomAnchor.constraint(equalTo: toView.topAnchor,constant: 5)])
+        
+        titleBackground.layer.cornerRadius = 8//titleBackground.frame.size.height / 2
+        
+        let title = UILabel()
+        title.text = "What is interesting to you?"
+        title.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        title.textAlignment = .center
+        title.numberOfLines = 0
+        
+        self.view.addSubview(title)
+        
+        //view
+        fromView = title
+        //relative to
+        let toViewTwo = titleBackground
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toViewTwo.centerXAnchor, constant: 0),
+                                     fromView.centerYAnchor.constraint(equalTo: toViewTwo.centerYAnchor, constant: 0),
                                      fromView.widthAnchor.constraint(equalToConstant: 200)])
         
     }
@@ -116,7 +135,7 @@ class OnBoardingVC: UIViewController {
             
             NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toView.centerXAnchor, constant: centerXConstr[i]),
                                          fromView.widthAnchor.constraint(equalToConstant: 60),
-                                         fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 10),
+                                         fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 20),
                                          fromView.heightAnchor.constraint(equalToConstant: 60)])
             
             button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
@@ -146,7 +165,7 @@ class OnBoardingVC: UIViewController {
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
         if collectionIndex == 8 {
-            delegate?.didFinishChoosingPreferences()
+            delegate?.didFinishChoosingPreferences(preferences: preferences)
         }
         
     }
@@ -178,7 +197,7 @@ class OnBoardingVC: UIViewController {
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
                                      fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 170),
-                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -130)])
+                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -150)])
         
     }
 

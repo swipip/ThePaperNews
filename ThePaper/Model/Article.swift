@@ -13,5 +13,6 @@ struct Article {
     var title: String
     var url: String
     var imageUrl: String
+    var category: String?
     
 }

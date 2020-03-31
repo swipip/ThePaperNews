@@ -125,7 +125,7 @@ class MainViewController: UIViewController {
         
         let cardTitle = UILabel()
         cardTitle.text = "Breaking"
-        cardTitle.font = UIFont.systemFont(ofSize: 20)
+        cardTitle.font = UIFont.systemFont(ofSize: K.shared.fontSizeSubTitle)
         //        cardTitle.font = UIFont(name: "Old London", size: 20)
         
         cardTitleView.addSubview(cardTitle)

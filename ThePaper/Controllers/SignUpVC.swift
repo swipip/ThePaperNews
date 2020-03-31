@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
 class SignUpVC: UIViewController {
-
+    
     //UI
     private var emailTextField:     UITextField!
     private var passwordTextField:  UITextField!
@@ -153,10 +154,28 @@ extension SignUpVC: UITextFieldDelegate {
 }
 extension SignUpVC: OnBoardingVCDelegate {
     
-    func didFinishChoosingPreferences() {
+    func didFinishChoosingPreferences(preferences: [String]) {
         let destinationVC = BaseNavigatorVC()
         self.navigationController?.pushViewController(destinationVC, animated: true)
+
+        if let user = Auth.auth().currentUser {
+            let uid:String = user.email!
+            
+            for preference in preferences {
+                var ref: DocumentReference? = nil
+                ref = db.collection("usersPreferences").addDocument(data: [
+                    "user": uid,
+                    "preference": preference,
+                ]) { err in
+                    if let err = err {
+                        print("Error adding document: \(err)")
+                    } else {
+                        print("Document added with ID: \(ref!.documentID)")
+                    }
+                }
+            }
+  
+        }
     }
-    
-    
+
 }
