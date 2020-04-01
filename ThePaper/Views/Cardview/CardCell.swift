@@ -15,17 +15,17 @@ class CardCell: UICollectionViewCell {
     //UI
     private lazy var cardBackground: UIView = {
         let cardBackground = UIView()
-        cardBackground.backgroundColor = K.shared.mainColorTheme
+        cardBackground.backgroundColor = .white//K.shared.mainColorTheme
         cardBackground.layer.cornerRadius = 8
-        cardBackground.addShadow(radius: 5, color: .lightGray, opacity: 0.5)
+        cardBackground.addShadow(radius: 6, color: .lightGray, opacity: 0.6)
         return cardBackground
     }()
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.text = "Title Placeholder"
         label.numberOfLines = 3
-        label.font = UIFont.systemFont(ofSize: 20)
-        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: K.shared.fontSizeContent)
+        label.textColor = .black//.white
         return label
     }()
     private lazy var imageView: UIImageView = {
@@ -83,8 +83,8 @@ class CardCell: UICollectionViewCell {
             
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 5),
-                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -5),
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 10),
+                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -7),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -5)])
         
     }
@@ -99,7 +99,7 @@ class CardCell: UICollectionViewCell {
             
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: -10),
                                      fromView.widthAnchor.constraint(equalToConstant: 150),
                                      fromView.topAnchor.constraint(equalTo: cardBackground.topAnchor, constant: 10),
                                      fromView.bottomAnchor.constraint(equalTo: toView.topAnchor,constant: -10)])

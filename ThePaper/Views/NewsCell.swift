@@ -84,6 +84,7 @@ class NewsCell: UITableViewCell {
     private func configureTitle() {
         
         titleLabel.numberOfLines = 3
+        titleLabel.font = UIFont.systemFont(ofSize: K.shared.fontSizeContent)
         titleLabel.text = title
         
     }

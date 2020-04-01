@@ -147,12 +147,12 @@
 		493168CD24202450002432C9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */,
 				493168BD24201F0D002432C9 /* WelcomeVC.swift */,
 				497764672432561F0013390D /* OnBoarding */,
 				498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */,
 				4978D809242E342D00D1A464 /* SignUpVC.swift */,
 				49A426952430A73D0003F3D2 /* SignInVC.swift */,
-				4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */,
 				493168F024292DF2002432C9 /* Main VC */,
 				4988DF32242A89A50059F04D /* Sources VC */,
 				4988DF30242A896C0059F04D /* Articles Details */,

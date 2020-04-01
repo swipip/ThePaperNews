@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Firebase
 
 class BaseNavigatorVC: UIViewController {
     
@@ -140,7 +141,7 @@ class BaseNavigatorVC: UIViewController {
                                      fromView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 0),
                                      fromView.heightAnchor.constraint(equalToConstant: 25)])
         
-//        settingButton.addTarget(self, action: #selector(languagePressed(_:)), for: .touchUpInside)
+        settingButton.addTarget(self, action: #selector(settingsPressed(_:)), for: .touchUpInside)
     }
     @IBAction func languagePressed(_ sender: UIButton!) {
         
@@ -148,6 +149,18 @@ class BaseNavigatorVC: UIViewController {
         
         let vc = MapViewController()
         self.present(vc, animated: true, completion: nil)
+        
+    }
+    @IBAction private func settingsPressed(_ sender:UIButton!) {
+        
+        do {
+            try Auth.auth().signOut()
+            navigationController?.popToRootViewController(animated: true)
+            defaults.set(false, forKey: K.shared.loggedIn)
+        }catch{
+            print("\(#function) problem when logging out")
+        }
+        
         
     }
     
