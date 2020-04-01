@@ -6,7 +6,13 @@ class NewsCell: UITableViewCell {
     private var titleLabel = UILabel()
     private var title = "Fetching Data..."
     private var imageManager = ImageManager()
-    private let k = K()
+    
+    private lazy var coverView: UIView = {
+        let coverView = UIView()
+        coverView.backgroundColor = K.shared.grayTextFieldBackground
+        coverView.frame = self.frame
+        return coverView
+    }()
     
     var articleURL: String = ""
     
@@ -26,14 +32,39 @@ class NewsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     func passDataToNewsCell(title: String, imageUrl: String, articleURL: String) {
+        
+        coverView.removeFromSuperview()
+        
         titleLabel.text = title
         thumbNail.backgroundColor = .clear
         self.articleURL = articleURL
         imageManager.loadImages(url: imageUrl)
         
     }
+    func setBlankCell() {
+        
+        self.addSubview(coverView)
+        
+        let label = UILabel()
+        label.text = "No article to dislay in this category"
+        label.textColor = .white
+        
+        self.coverView.addSubview(label)
+        
+        //view
+        let fromView = label
+        //relative to
+        let toView = self
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 10),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
+                                     fromView.centerYAnchor.constraint(equalTo: toView.centerYAnchor, constant: 0)])
+        
+    }
     private func commonInit() {
-        self.backgroundColor = k.mainColorBackground
+        self.backgroundColor = K.shared.mainColorBackground
         
 //        self.subviews.forEach({$0.removeFromSuperview()})
         

@@ -19,6 +19,8 @@ class UserVC: UIViewController {
     private var articlePerCategory = [String:Int]()
     private var articles: [Article]?
     
+    private var cellStateForRow = [cellState]()
+    
     private lazy var tableView: UITableView =  {
        let tableView = UITableView()
         tableView.delegate = self
@@ -26,6 +28,9 @@ class UserVC: UIViewController {
         tableView.register(NewsCell.self, forCellReuseIdentifier: CellID.id)
         return tableView
     }()
+    enum cellState {
+        case display, noDisplay
+    }
     struct CellID {
         static let id = "CellID"
     }
@@ -79,6 +84,7 @@ class UserVC: UIViewController {
 
 }
 extension UserVC: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var numberOfRows = 0
@@ -88,14 +94,12 @@ extension UserVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        return numberOfRows
+        return max(1,numberOfRows)
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionHeaders?.count ?? 3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellID.id, for: indexPath) as! NewsCell
         
         var currentSectionArticles = [Article]()
         
@@ -107,12 +111,31 @@ extension UserVC: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
             }
-
-            let article = currentSectionArticles[indexPath.row]
-            cell.passDataToNewsCell(title: article.title, imageUrl: article.imageUrl, articleURL: article.url)
+            
+            if currentSectionArticles.count == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellID.id, for: indexPath) as! NewsCell
+                
+                 cell.setBlankCell()
+                
+                cellStateForRow.append(.noDisplay)
+                
+                return cell
+            }else{
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellID.id, for: indexPath) as! NewsCell
+                
+                cellStateForRow.append(.noDisplay)
+                
+                let article = currentSectionArticles[indexPath.row]
+                cell.passDataToNewsCell(title: article.title, imageUrl: article.imageUrl, articleURL: article.url)
+                
+                return cell
+            }
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellID.id, for: indexPath) as! NewsCell
+            
+            return cell
         }
-
-        return cell
         
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -163,6 +186,24 @@ extension UserVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let childVC = ArticleDetailsViewController()
+        childVC.articleURL = self.articles?[indexPath.row].url ?? "no url"
+
+        addChild(childVC)
+        self.view.addSubview(childVC.view)
+        childVC.didMove(toParent: self)
+
+        let childView = childVC.view
+        childView?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([childView!.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+                                     childView!.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+                                     childView!.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
+                                     childView!.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)])
+        
+        
     }
 }
 extension UserVC: NewsModelDelegate {

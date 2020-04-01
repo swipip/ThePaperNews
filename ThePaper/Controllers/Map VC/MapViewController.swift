@@ -61,7 +61,9 @@ class MapViewController: UIViewController {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .authorizedAlways:
-            break
+            mapView.showsUserLocation = true
+            centerViewOnUserLocation()
+            previousLocation = getCenterLocation()
         case .denied:
             //give permission
             break
@@ -81,7 +83,7 @@ class MapViewController: UIViewController {
             
             let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             let region = MKCoordinateRegion.init(center: center, latitudinalMeters: 500000, longitudinalMeters: 500000)
-            self.mapView.setRegion(region, animated: true)
+            self.mapView.setRegion(region, animated: false)
         }
 
     }

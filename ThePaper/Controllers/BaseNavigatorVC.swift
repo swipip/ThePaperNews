@@ -17,6 +17,7 @@ class BaseNavigatorVC: UIViewController {
     private var collectionViewNav: UICollectionView!
     private let cellID = "cellID"
     private var languageButton: UIButton!
+    private var settingButton: UIButton!
     
     private var k = K()
     
@@ -81,14 +82,15 @@ class BaseNavigatorVC: UIViewController {
         titleBar = UIView()
         titleBar.frame.origin = CGPoint(x: -1, y: -1)
         titleBar.frame.size = CGSize(width: self.view.frame.size.width + 2, height: 88)
-        titleBar.backgroundColor = .clear
-        titleBar.layer.borderColor = k.strokeColor.cgColor
-        titleBar.layer.borderWidth = 1
+        titleBar.backgroundColor = K.shared.mainColorTheme//.clear
+//        titleBar.layer.borderColor = k.strokeColor.cgColor
+//        titleBar.layer.borderWidth = 1
         
         self.view.addSubview(titleBar)
         
         let titleLabel = UILabel()
         titleLabel.text = "The Paper"
+        titleLabel.textColor = .white
         titleLabel.font = UIFont(name: "OldLondon", size: 33)
         
         titleBar.addSubview(titleLabel)
@@ -96,18 +98,18 @@ class BaseNavigatorVC: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([titleLabel.centerYAnchor.constraint(equalTo: titleBar.centerYAnchor, constant: 17),
                                      titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0)])
-        
+        //Country Button
         languageButton = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 25)
+        var config = UIImage.SymbolConfiguration(pointSize: 25)
         languageButton.setImage(UIImage(systemName: "globe", withConfiguration: config), for: .normal)
-        languageButton.tintColor = k.strokeColor
+        languageButton.tintColor = .white//k.strokeColor
         
         self.view.addSubview(languageButton)
         
         //view
-        let fromView = languageButton!
+        var fromView = languageButton!
         //relative to
-        let toView = self.titleBar!
+        var toView = self.titleBar!
             
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -118,7 +120,27 @@ class BaseNavigatorVC: UIViewController {
         
         languageButton.addTarget(self, action: #selector(languagePressed(_:)), for: .touchUpInside)
         
+        //Settings button
+        settingButton = UIButton()
+        config = UIImage.SymbolConfiguration(pointSize: 25)
+        settingButton.setImage(UIImage(systemName: "gear", withConfiguration: config), for: .normal)
+        settingButton.tintColor = .white//k.strokeColor
         
+        self.view.addSubview(settingButton)
+        
+        //view
+        fromView = settingButton!
+        //relative to
+        toView = self.titleBar!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
+                                     fromView.widthAnchor.constraint(equalToConstant: 25),
+                                     fromView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 0),
+                                     fromView.heightAnchor.constraint(equalToConstant: 25)])
+        
+//        settingButton.addTarget(self, action: #selector(languagePressed(_:)), for: .touchUpInside)
     }
     @IBAction func languagePressed(_ sender: UIButton!) {
         
