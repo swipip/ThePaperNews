@@ -21,6 +21,9 @@ class BaseNavigatorVC: UIViewController {
     private var k = K()
     
     override func viewDidLoad() {
+        
+        defaults.set(true, forKey: K.shared.loggedIn)
+        
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(named: "mainColorBackground")

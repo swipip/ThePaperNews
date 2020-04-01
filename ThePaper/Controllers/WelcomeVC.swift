@@ -45,6 +45,24 @@ class WelcomeVC: UIViewController {
         
         addWelcomeLabel()
         
+        let loggedIn = checkLogIn()
+        
+        if loggedIn {
+            
+            let vc = BaseNavigatorVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+        
+    }
+    private func checkLogIn() -> Bool{
+        
+        if defaults.bool(forKey: K.shared.loggedIn) {
+            return true
+        }else{
+            return false
+        }
+        
     }
     private func addWelcomeLabel() {
         

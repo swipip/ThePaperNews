@@ -40,7 +40,6 @@
 		4988DF35242A89F80059F04D /* SourcesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988DF34242A89F80059F04D /* SourcesVC.swift */; };
 		498F078E242F6A6B00E1EA7D /* SignInAppleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */; };
 		498F0790242F92AD00E1EA7D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F078F242F92AC00E1EA7D /* User.swift */; };
-		498F0792242F9AD200E1EA7D /* AnonymousSignFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F0791242F9AD200E1EA7D /* AnonymousSignFB.swift */; };
 		49A426962430A73D0003F3D2 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A426952430A73D0003F3D2 /* SignInVC.swift */; };
 		B092CFCFC248DD5A9EB75154 /* Pods_ThePaper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */; };
 /* End PBXBuildFile section */
@@ -83,7 +82,6 @@
 		4988DF34242A89F80059F04D /* SourcesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesVC.swift; sourceTree = "<group>"; };
 		498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAppleVC.swift; sourceTree = "<group>"; };
 		498F078F242F92AC00E1EA7D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		498F0791242F9AD200E1EA7D /* AnonymousSignFB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonymousSignFB.swift; sourceTree = "<group>"; };
 		49A426952430A73D0003F3D2 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThePaper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6F29DA6E1D24CAAC04885DA /* Pods-ThePaper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThePaper.release.xcconfig"; path = "Target Support Files/Pods-ThePaper/Pods-ThePaper.release.xcconfig"; sourceTree = "<group>"; };
@@ -154,13 +152,13 @@
 				498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */,
 				4978D809242E342D00D1A464 /* SignUpVC.swift */,
 				49A426952430A73D0003F3D2 /* SignInVC.swift */,
-				4977649B243380B20013390D /* User */,
 				4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */,
 				493168F024292DF2002432C9 /* Main VC */,
 				4988DF32242A89A50059F04D /* Sources VC */,
 				4988DF30242A896C0059F04D /* Articles Details */,
 				4988DF33242A89DE0059F04D /* Map VC */,
 				4988DF31242A89780059F04D /* Search VC */,
+				4977649B243380B20013390D /* User */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -184,7 +182,6 @@
 				49026FCE2430D59400D91994 /* LogInManager.swift */,
 				493168E0242259FC002432C9 /* ImageManager.swift */,
 				497764BE2433976D0013390D /* TitleIdentifierModel.swift */,
-				498F0791242F9AD200E1EA7D /* AnonymousSignFB.swift */,
 				4978D805242DF6D100D1A464 /* Globals.swift */,
 				493168EC2429061B002432C9 /* Keys.swift */,
 				493168EA2428FF8F002432C9 /* K.swift */,
@@ -412,7 +409,6 @@
 				4978D806242DF6D100D1A464 /* Globals.swift in Sources */,
 				493168E9242773E3002432C9 /* MapViewController.swift in Sources */,
 				4988DF35242A89F80059F04D /* SourcesVC.swift in Sources */,
-				498F0792242F9AD200E1EA7D /* AnonymousSignFB.swift in Sources */,
 				49435630242B8BA600D5A044 /* TableVC.swift in Sources */,
 				493168BA24201F0D002432C9 /* AppDelegate.swift in Sources */,
 				493168D324212C02002432C9 /* MainViewController.swift in Sources */,
