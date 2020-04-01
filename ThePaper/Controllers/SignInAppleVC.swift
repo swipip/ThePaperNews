@@ -134,14 +134,36 @@ extension SignInAppleVC: ASAuthorizationControllerDelegate,ASAuthorizationContro
             return
           }
             print("success signing up with Apple and firebase")
-            self.parent?.navigationController?.navigationBar.isHidden = true
-            let vc = BaseNavigatorVC()
-            self.navigationController?.pushViewController(vc, animated: true)
+            
+            if defaults.bool(forKey: K.shared.didGetOB) {
+                self.proceedToMainVC()
+            }else{
+                self.parent?.navigationController?.navigationBar.isHidden = true
+                let vc = OnBoardingVC()
+                vc.delegate = self
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+
         }
       }
     }
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("error with apple sign in\(error)")
     }
+    private func proceedToMainVC() {
+        self.parent?.navigationController?.navigationBar.isHidden = true
+        let vc = BaseNavigatorVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+extension SignInAppleVC: OnBoardingVCDelegate {
+    func didFinishChoosingPreferences(preferences: [String]) {
+        
+        DataBaseManager.shared.savePreferences(preferences)
+        
+        proceedToMainVC()
+    }
+    
     
 }

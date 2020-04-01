@@ -149,7 +149,7 @@ class OnBoardingVC: UIViewController {
     @IBAction
     func buttonPressed(_ sender: UIButton!) {
         
-        if collectionIndex < 8 {
+        if collectionIndex <= 8 {
             var indexPath = IndexPath(item: collectionIndex, section: 0)
             
             if sender == buttons[0] {
@@ -164,7 +164,7 @@ class OnBoardingVC: UIViewController {
             
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
-        if collectionIndex == 8 {
+        if collectionIndex > 8 {
             delegate?.didFinishChoosingPreferences(preferences: preferences)
         }
         

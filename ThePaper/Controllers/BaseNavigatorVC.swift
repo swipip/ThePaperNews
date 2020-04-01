@@ -25,6 +25,7 @@ class BaseNavigatorVC: UIViewController {
     override func viewDidLoad() {
         
         defaults.set(true, forKey: K.shared.loggedIn)
+        defaults.set(true, forKey: K.shared.didGetOB)
         
         super.viewDidLoad()
         
