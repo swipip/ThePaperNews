@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,19 +12,19 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="ODg-fj-Tfc">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="ODg-fj-Tfc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ODg-fj-Tfc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" symbolic="YES" id="Ui4-Uo-cvo"/>
+                            <constraint firstItem="ODg-fj-Tfc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" symbolic="YES" id="Ui4-Uo-cvo"/>
                             <constraint firstItem="ODg-fj-Tfc" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="bI4-4u-OJ3"/>
                             <constraint firstAttribute="bottom" secondItem="ODg-fj-Tfc" secondAttribute="bottom" id="p0B-qo-tRA"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ODg-fj-Tfc" secondAttribute="trailing" constant="20" symbolic="YES" id="sh0-hs-oG3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ODg-fj-Tfc" secondAttribute="trailing" symbolic="YES" id="sh0-hs-oG3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

@@ -6,11 +6,12 @@ class NewsCell: UITableViewCell {
     private var titleLabel = UILabel()
     private var title = "Fetching Data..."
     private var imageManager = ImageManager()
+    private var statusLabel: UILabel!
     
     private lazy var coverView: UIView = {
         let coverView = UIView()
         coverView.backgroundColor = K.shared.grayTextFieldBackground
-        coverView.frame = self.frame
+        coverView.frame = self.bounds
         return coverView
     }()
     
@@ -33,7 +34,10 @@ class NewsCell: UITableViewCell {
     }
     func passDataToNewsCell(title: String, imageUrl: String, articleURL: String) {
         
+        statusLabel?.removeFromSuperview()
         coverView.removeFromSuperview()
+        
+        self.subviews.forEach({$0.alpha = 1.0})
         
         titleLabel.text = title
         thumbNail.backgroundColor = .clear
@@ -43,16 +47,18 @@ class NewsCell: UITableViewCell {
     }
     func setBlankCell() {
         
+        self.subviews.forEach({$0.alpha = 0})
+        
         self.addSubview(coverView)
         
-        let label = UILabel()
-        label.text = "No article to dislay in this category"
-        label.textColor = .white
+        statusLabel = UILabel()
+        statusLabel.text = "No article to dislay in this category"
+        statusLabel.textColor = .white
         
-        self.coverView.addSubview(label)
+        self.addSubview(statusLabel)
         
         //view
-        let fromView = label
+        let fromView = statusLabel!
         //relative to
         let toView = self
             

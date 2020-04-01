@@ -18,6 +18,7 @@ class LaunchVC: UIViewController {
         let imageView = UIImageView()
         imageView.image = K.shared.backgroundLaunch
         imageView.frame = self.view.frame
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     lazy var logoLabel: UILabel = {

@@ -94,7 +94,7 @@ class CardsVC: UIViewController {
 }
 extension CardsVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        #warning("Must return a computed number of cells")
+//        #warning("Must return a computed number of cells")
         return 10
     }
     
