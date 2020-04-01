@@ -34,4 +34,23 @@ class DataBaseManager {
         }
     }
     
+    func cleanDataForCurrentUser() {
+        
+        if let user = Auth.auth().currentUser {
+            db.collection("usersPreferences").whereField("user", isEqualTo: user.email!)
+                .getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        let documents = querySnapshot?.documents
+                        documents?.forEach({ (doc) in
+                            doc.reference.delete()
+                        })
+                    }
+            }
+
+        }
+        
+    }
+    
 }

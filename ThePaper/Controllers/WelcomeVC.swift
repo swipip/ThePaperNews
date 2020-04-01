@@ -14,7 +14,7 @@ class WelcomeVC: UIViewController {
     
     private var trailingContraint: NSLayoutConstraint!
     private var imageView: UIImageView!
-    
+    private var launchVC: LaunchVC!
     private var signInButton: UIButton!
     private var signUpButton: UIButton!
     
@@ -45,15 +45,15 @@ class WelcomeVC: UIViewController {
         
         addWelcomeLabel()
         
-        let loggedIn = checkLogIn()
-        
-        if loggedIn {
-            
-            let vc = BaseNavigatorVC()
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-        }
-        
+        addLaunchAnimation()
+    }
+    private func addLaunchAnimation() {
+        launchVC = LaunchVC()
+        launchVC.delegate = self
+        self.addChild(launchVC)
+        self.willMove(toParent: launchVC)
+        launchVC.view.frame = self.view.frame
+        self.view.addSubview(launchVC.view)
     }
     private func checkLogIn() -> Bool{
         
@@ -231,4 +231,20 @@ extension UIButton {
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
 }
-
+extension WelcomeVC: LaunchVCDelegate {
+    func LaunchScreenDidAnimate() {
+        
+        launchVC.view.removeFromSuperview()
+        self.willMove(toParent: self)
+        launchVC.removeFromParent()
+        
+        let loggedIn = checkLogIn()
+        
+        if loggedIn {
+            
+            let vc = BaseNavigatorVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+    }
+}

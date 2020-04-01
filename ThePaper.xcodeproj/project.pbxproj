@@ -34,6 +34,7 @@
 		4977649D243380D30013390D /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977649C243380D30013390D /* UserVC.swift */; };
 		497764BF2433976D0013390D /* TitleIdentifierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497764BE2433976D0013390D /* TitleIdentifierModel.swift */; };
 		497764C12434CC240013390D /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497764C02434CC240013390D /* DataBaseManager.swift */; };
+		497764C32434D5F70013390D /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497764C22434D5F70013390D /* LaunchVC.swift */; };
 		4978D806242DF6D100D1A464 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D805242DF6D100D1A464 /* Globals.swift */; };
 		4978D808242E2B4F00D1A464 /* BaseNavigatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */; };
 		4978D80A242E342D00D1A464 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978D809242E342D00D1A464 /* SignUpVC.swift */; };
@@ -77,6 +78,7 @@
 		4977649C243380D30013390D /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
 		497764BE2433976D0013390D /* TitleIdentifierModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleIdentifierModel.swift; sourceTree = "<group>"; };
 		497764C02434CC240013390D /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
+		497764C22434D5F70013390D /* LaunchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		4978D805242DF6D100D1A464 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		4978D807242E2B4F00D1A464 /* BaseNavigatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigatorVC.swift; sourceTree = "<group>"; };
 		4978D809242E342D00D1A464 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				493168CE24202470002432C9 /* TabBar.swift */,
+				497764C22434D5F70013390D /* LaunchVC.swift */,
 				4977649424334A680013390D /* Cardview */,
 				493168DE24224FC0002432C9 /* NewsCell.swift */,
 			);
@@ -421,6 +424,7 @@
 				493168BC24201F0D002432C9 /* SceneDelegate.swift in Sources */,
 				49A426962430A73D0003F3D2 /* SignInVC.swift in Sources */,
 				49026FCF2430D59400D91994 /* LogInManager.swift in Sources */,
+				497764C32434D5F70013390D /* LaunchVC.swift in Sources */,
 				4977646A2432562C0013390D /* CollectionViewCellVC.swift in Sources */,
 				4977646B2432562C0013390D /* OnBoardingVC.swift in Sources */,
 			);

@@ -34,6 +34,8 @@ class OnBoardingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DataBaseManager.shared.cleanDataForCurrentUser()
+        
         self.title = "The Paper"
         
         self.view.backgroundColor = .clear

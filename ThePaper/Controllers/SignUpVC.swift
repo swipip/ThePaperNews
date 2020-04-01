@@ -153,9 +153,7 @@ extension SignUpVC: UITextFieldDelegate {
     }
 }
 extension SignUpVC: OnBoardingVCDelegate {
-    
 
-    
     func didFinishChoosingPreferences(preferences: [String]) {
         let destinationVC = BaseNavigatorVC()
         self.navigationController?.pushViewController(destinationVC, animated: true)

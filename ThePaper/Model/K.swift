@@ -16,6 +16,7 @@ struct K {
     let mainColorBackground: UIColor = UIColor(named: "mainColorBackground")!
     let strokeColor: UIColor = UIColor(named: "strokeColor")!
     let backgroundImage = UIImage(named: "BackGround")
+    let backgroundLaunch = UIImage(named: "backgroundLaunch")
     let grayTextFieldBackground = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.2)
     
     let fontSizeSubTitle:CGFloat = 20.0
