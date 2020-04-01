@@ -56,14 +56,14 @@ class MapViewController: UIViewController {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
-            centerViewOnUserLocation()
             previousLocation = getCenterLocation()
+            centerViewOnUserLocation()
         case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .authorizedAlways:
-            mapView.showsUserLocation = true
-            centerViewOnUserLocation()
             previousLocation = getCenterLocation()
+            locationManager.requestWhenInUseAuthorization()
+            break
+        case .authorizedAlways:
+            break
         case .denied:
             //give permission
             break
@@ -233,7 +233,12 @@ class MapViewController: UIViewController {
 }
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkLocationAuthorization()
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+            checkLocationAuthorization()
+        }else{
+            manager.requestWhenInUseAuthorization()
+        }
+        
     }
 }
 extension MapViewController: MKMapViewDelegate {
