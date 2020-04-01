@@ -80,10 +80,31 @@ class BaseNavigatorVC: UIViewController {
     func addTableView() {
         
     }
+    func getTitleBarHeight() -> CGFloat {
+        
+        var titleBarHeight:CGFloat = 0.0
+        
+        let height = self.view.frame.size.height
+        let width = self.view.frame.size.width
+        
+        let ratio = height/width
+        
+        if ratio > 1.8 {
+            titleBarHeight = 88
+        }else{
+            titleBarHeight = 64
+        }
+        
+        return titleBarHeight
+        
+    }
     func addTitleBar() {
+        
+//        let height =
+        
         titleBar = UIView()
         titleBar.frame.origin = CGPoint(x: -1, y: -1)
-        titleBar.frame.size = CGSize(width: self.view.frame.size.width + 2, height: 88)
+        titleBar.frame.size = CGSize(width: self.view.frame.size.width + 2, height: getTitleBarHeight())
         titleBar.backgroundColor = K.shared.mainColorTheme//.clear
 //        titleBar.layer.borderColor = k.strokeColor.cgColor
 //        titleBar.layer.borderWidth = 1
