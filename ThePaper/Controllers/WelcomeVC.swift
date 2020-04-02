@@ -86,12 +86,14 @@ class WelcomeVC: UIViewController {
     }
     private func addBackground() {
         
+        let width = self.view.frame.width
+        
         imageView = UIImageView()
         imageView.image = K.shared.backgroundImage
         imageView.contentMode = .scaleAspectFit
-        imageView.frame.origin.x = -self.view.frame.width * 2
+        imageView.frame.origin.x = 0//-width * 2
         imageView.frame.origin.y = 0
-        imageView.frame.size = CGSize(width: 1500, height: self.view.frame.size.height)
+        imageView.frame.size = CGSize(width: width * 2, height: self.view.frame.size.height)
         
         self.view.addSubview(imageView)
         
