@@ -21,6 +21,7 @@ struct K {
     
     let fontSizeSubTitle:CGFloat = 20.0
     let fontSizeContent:CGFloat = 16.0
+    let fontSizeTitle:CGFloat = 23
     
     let loggedIn = "loggedIn"
     let didGetOB = "didGetOB"

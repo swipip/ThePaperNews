@@ -16,6 +16,7 @@ class UserSettingsVC: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UserPrefCell.self, forCellReuseIdentifier: CellID.CellID)
@@ -24,6 +25,12 @@ class UserSettingsVC: UIViewController {
     private lazy var logOutButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log Out", for: .normal)
+        button.setUpButton()
+        return button
+    }()
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Done", for: .normal)
         button.setUpButton()
         return button
     }()
@@ -42,6 +49,8 @@ class UserSettingsVC: UIViewController {
         
         NotificationCenter.default.post(name: name, object: nil)
     }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,6 +60,13 @@ class UserSettingsVC: UIViewController {
         
         self.view.backgroundColor = K.shared.mainColorBackground
         
+        addTitleView()
+        addTableView()
+        addDismissButton()
+        addLogOutButton()
+        
+    }
+    private func addTableView() {
         self.view.addSubview(tableView)
         
         //view
@@ -62,22 +78,77 @@ class UserSettingsVC: UIViewController {
         
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
-                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 0),
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 60),
                                      fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -150)])
-        
+    }
+    fileprivate func addLogOutButton() {
         self.view.addSubview(logOutButton)
         
         //view
         let button = logOutButton
-            
+        let toView = self.dismissButton
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([button.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
-                                     button.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
+        NSLayoutConstraint.activate([button.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
+                                     button.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
                                      button.heightAnchor.constraint(equalToConstant: 50),
-                                     button.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -50)])
+                                     button.topAnchor.constraint(equalTo: toView.bottomAnchor,constant: 10)])
         
         self.logOutButton.addTarget(self, action: #selector(logOutPressed(_:)), for: .touchUpInside)
+        
+        logOutButton.backgroundColor = .white
+        logOutButton.setTitleColor(.black, for: .normal)
+        
+        
+    }
+    private func addDismissButton() {
+        
+        self.view.addSubview(dismissButton)
+        
+        //view
+        let fromView = dismissButton
+        //relative to
+        let toView = self.tableView
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
+                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 10),
+                                     fromView.heightAnchor.constraint(equalToConstant: 50)])
+        
+        self.dismissButton.addTarget(self, action: #selector(dismissButtonPressed(_:)), for: .touchUpInside)
+    }
+    @IBAction private func dismissButtonPressed(_ sender: UIButton!){
+        self.dismiss(animated: true, completion: nil)
+    }
+    private func addTitleView() {
+        
+        let view = UIView()
+        view.backgroundColor = K.shared.mainColorTheme
+        view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 60)
+        
+        self.view.addSubview(view)
+        
+        let label = UILabel()
+        label.text = "What do you like to read?"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: K.shared.fontSizeTitle)
+        
+        self.view.addSubview(label)
+        
+        //view
+        let fromView = label
+        //relative to
+        let toView = view
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 30),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -10),
+                                     fromView.centerYAnchor.constraint(equalTo: toView.centerYAnchor, constant: 0)])
+        
     }
     @IBAction func logOutPressed(_ sender: UIButton!) {
         do {
@@ -118,36 +189,6 @@ extension UserSettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
-    }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let headerView = UIView()
-        headerView.backgroundColor = K.shared.mainColorTheme
-        headerView.frame.size = CGSize(width: self.view.frame.size.width, height: 60)
-        
-        let sectionLabel = UILabel()
-        sectionLabel.font = UIFont.systemFont(ofSize: K.shared.fontSizeSubTitle)
-        sectionLabel.textColor = .white
-        sectionLabel.font = UIFont.systemFont(ofSize: K.shared.fontSizeSubTitle)
-        sectionLabel.textAlignment = .center
-        sectionLabel.text = "News Preferences"
-        sectionLabel.sizeToFit()
-        headerView.addSubview(sectionLabel)
-        
-        //view
-        let fromView = sectionLabel
-        //relative to
-        let toView = headerView
-            
-        fromView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 10),
-                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
-                                     fromView.centerYAnchor.constraint(equalTo: toView.centerYAnchor, constant: 0),
-                                     fromView.heightAnchor.constraint(equalToConstant: 60)])
-        
-        return headerView
-        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
