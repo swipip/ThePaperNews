@@ -175,13 +175,17 @@ class BaseNavigatorVC: UIViewController {
     }
     @IBAction private func settingsPressed(_ sender:UIButton!) {
         
-        do {
-            try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
-            defaults.set(false, forKey: K.shared.loggedIn)
-        }catch{
-            print("\(#function) problem when logging out")
-        }
+        
+        let vc = UserSettingsVC()
+        
+        self.present(vc, animated: true, completion: nil)
+        
+//        self.addChild(vc)
+//        vc.willMove(toParent: self)
+//
+//        vc.view.frame = collectionViewNav.frame
+//
+//        self.view.addSubview(vc.view)
         
         
     }

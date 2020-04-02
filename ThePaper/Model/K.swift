@@ -24,4 +24,6 @@ struct K {
     
     let loggedIn = "loggedIn"
     let didGetOB = "didGetOB"
+    
+    let categoriesArray = ["Technologie","Santé","Politique","Economie","Monde","Faits-divers","People","Ecologie","Météo"]
 }

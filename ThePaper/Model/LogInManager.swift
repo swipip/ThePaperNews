@@ -5,9 +5,10 @@
 //  Created by Gautier Billard on 29/03/2020.
 //  Copyright © 2020 Gautier Billard. All rights reserved.
 //
-
+import UIKit
 import Foundation
 import Firebase
+
 protocol LogInManagerDelegate {
     func didLogIn()
     func didSignUp()
@@ -48,6 +49,15 @@ class LogInManager {
         }
         
     }
+//    func logOutAccount() {
+//        do {
+//            try Auth.auth().signOut()
+//            navigationController?.popToRootViewController(animated: true)
+//            defaults.set(false, forKey: K.shared.loggedIn)
+//        }catch{
+//            print("\(#function) problem when logging out")
+//        }
+//    }
     func createAccount() {
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
