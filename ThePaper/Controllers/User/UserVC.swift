@@ -39,6 +39,19 @@ class UserVC: UIViewController {
         
         addTableView()
         loadData()
+        addObservers()
+        
+    }
+    private func addObservers() {
+        
+        let name = Notification.Name(K.shared.userSettingDidChangeNotificationName)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeUserSettings), name: name, object: nil)
+        
+    }
+    @objc private func didChangeUserSettings() {
+        
+        self.loadData()
         
     }
     private func loadData() {

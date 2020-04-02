@@ -36,9 +36,12 @@ class BaseNavigatorVC: UIViewController {
         
         addTitleBar()
         
-        tabBar = TabBar(frame: CGRect(x: 0, y: self.view.frame.size.height - 89, width: self.view.frame.size.width, height: 90))
+        let navBarHeight:CGFloat = getTitleBarHeight() == 88 ? 90 : 70
+        
+        tabBar = TabBar(frame: CGRect(x: 0, y: self.view.frame.size.height - navBarHeight + 1 , width: self.view.frame.size.width, height: navBarHeight))
         tabBar.startPoint = 1
         tabBar.delegate = self
+        tabBar.factor = getTitleBarHeight() == 64 ? 0.55 : 0.45
         
         self.view.addSubview(tabBar)
         
@@ -118,8 +121,10 @@ class BaseNavigatorVC: UIViewController {
         
         titleBar.addSubview(titleLabel)
         
+        let centerYadj:CGFloat = getTitleBarHeight() == 64 ? 6 : 17
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([titleLabel.centerYAnchor.constraint(equalTo: titleBar.centerYAnchor, constant: 17),
+        NSLayoutConstraint.activate([titleLabel.centerYAnchor.constraint(equalTo: titleBar.centerYAnchor, constant: centerYadj),
                                      titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0)])
         //Country Button
         languageButton = UIButton()
@@ -177,16 +182,8 @@ class BaseNavigatorVC: UIViewController {
         
         
         let vc = UserSettingsVC()
-        
+        vc.delegate = self
         self.present(vc, animated: true, completion: nil)
-        
-//        self.addChild(vc)
-//        vc.willMove(toParent: self)
-//
-//        vc.view.frame = collectionViewNav.frame
-//
-//        self.view.addSubview(vc.view)
-        
         
     }
     
@@ -263,5 +260,9 @@ extension BaseNavigatorVC: TabBarDelegate {
     }
     
 }
-
+extension BaseNavigatorVC: UserSettingsDelegate {
+    func didLogOut() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+}
 

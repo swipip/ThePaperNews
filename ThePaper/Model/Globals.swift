@@ -9,6 +9,7 @@
 import Foundation
 //Keys
 let cvcNotificationName = "co.gautierBillard.cvcKey"
+
 //Variables
 var localISOCode = "fr"
 //Data

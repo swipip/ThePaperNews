@@ -26,4 +26,24 @@ struct K {
     let didGetOB = "didGetOB"
     
     let categoriesArray = ["Technologie","Santé","Politique","Economie","Monde","Faits-divers","People","Ecologie","Météo"]
+    
+    //Notification Keys
+    let userSettingDidChangeNotificationName = "co.gautierBillard.userSettings"
+    
+    func getTitleBarHeight(width: CGFloat, height: CGFloat) -> CGFloat {
+        
+        var titleBarHeight:CGFloat = 0.0
+        
+        let ratio = height/width
+        
+        if ratio > 1.8 {
+            titleBarHeight = 88
+        }else{
+            titleBarHeight = 64
+        }
+        
+        return titleBarHeight
+        
+    }
+    
 }

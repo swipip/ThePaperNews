@@ -15,6 +15,8 @@ class TabBar: UIView {
     private var buttons = [UIButton]()
     private let k = K()
     
+    var factor:CGFloat = 0.45
+    
     var delegate: TabBarDelegate?
     
     override func draw(_ rect: CGRect) {
@@ -160,7 +162,8 @@ class TabBar: UIView {
         let height  = self.frame.size.height
         
         gap = width/4
-        let depth = height * 0.45
+        
+        let depth = height * factor
         
         switch startPoint {
         case 1:

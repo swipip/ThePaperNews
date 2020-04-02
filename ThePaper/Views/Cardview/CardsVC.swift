@@ -30,11 +30,6 @@ class CardsVC: UIViewController {
 
         addCollectionView()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        let indexPath = IndexPath(item: 2, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
-    }
     func updateCards(articles: [Article]) {
         
         titles = [String]()

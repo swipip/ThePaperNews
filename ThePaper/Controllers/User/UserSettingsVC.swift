@@ -8,7 +8,9 @@
 
 import UIKit
 import Firebase
-
+protocol UserSettingsDelegate {
+    func didLogOut()
+}
 class UserSettingsVC: UIViewController {
 
     
@@ -29,10 +31,17 @@ class UserSettingsVC: UIViewController {
     private var dataBaseManager = DataBaseManager()
     private var preferences = [String]()
     
+    var delegate: UserSettingsDelegate?
+    
     struct CellID {
         static let CellID = "CellID"
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        let name = Notification.Name(rawValue: K.shared.userSettingDidChangeNotificationName)
+        
+        NotificationCenter.default.post(name: name, object: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,8 +82,9 @@ class UserSettingsVC: UIViewController {
     @IBAction func logOutPressed(_ sender: UIButton!) {
         do {
             try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
             defaults.set(false, forKey: K.shared.loggedIn)
+            delegate?.didLogOut()
         }catch{
             print("\(#function) problem when logging out")
         }
