@@ -32,7 +32,7 @@ class UserPrefCell: UITableViewCell {
         let view = UIView()
         view.layer.cornerRadius = 7.5
         view.alpha = 0.0
-        view.backgroundColor = .systemGreen
+        view.backgroundColor = .white
         return view
     }()
     
