@@ -113,7 +113,7 @@ class MapViewController: UIViewController {
         let background = UIView()
         background.backgroundColor = .white
         background.alpha = 0.6
-        background.layer.cornerRadius = 20
+        background.layer.cornerRadius = 8
         
         self.view.addSubview(background)
             
@@ -191,8 +191,7 @@ class MapViewController: UIViewController {
         
         dismissButton = UIButton()
         dismissButton.setTitle("Dismiss", for: .normal)
-        dismissButton.backgroundColor = k.mainColorTheme
-        dismissButton.layer.cornerRadius = 20
+        dismissButton.setUpButton()
         
         self.view.addSubview(dismissButton)
         

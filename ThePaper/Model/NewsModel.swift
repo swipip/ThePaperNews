@@ -20,7 +20,7 @@ class NewsModel {
     
     var jsonDelegate: NewsModelDelegate?
 
-    private var baseUrl = "https://newsapi.org/v2/top-headlines?country="
+    private var baseUrl = "https://newsapi.org/v2/top-headlines?pageSize=100&sortBy=publishedAt&country="
     
     func fetchData(urlString:String? = nil) {
         
@@ -35,7 +35,7 @@ class NewsModel {
         let urlString = "\(safeUrlString)\(keys.news)"
         
         guard let url = URL(string: urlString) else {
-            print("/Newsmodel line 41/ no url")
+            print("\(#function)/ no url")
             return
         }
         

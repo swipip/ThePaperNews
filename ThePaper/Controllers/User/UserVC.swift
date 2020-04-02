@@ -56,6 +56,10 @@ class UserVC: UIViewController {
     }
     private func loadData() {
 
+        #warning("app crashes when reloading data after setting update")
+        cellStateForRow.removeAll()
+        articlePerCategory.removeAll()
+        sectionHeaders?.removeAll()
         sectionHeaders = [String]()
         
         if let user = Auth.auth().currentUser {
@@ -223,6 +227,8 @@ extension UserVC: NewsModelDelegate {
     
     func didFetchData(json: JSON) {
 
+        articles?.removeAll()
+        
         let titles = json["articles"].arrayValue.map {$0["title"].stringValue}
         let articleURL = json["articles"].arrayValue.map {$0["url"].stringValue}
         let imagesUrls = json["articles"].arrayValue.map {$0["urlToImage"].stringValue}

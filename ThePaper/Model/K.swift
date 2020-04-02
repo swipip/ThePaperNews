@@ -26,7 +26,7 @@ struct K {
     let loggedIn = "loggedIn"
     let didGetOB = "didGetOB"
     
-    let categoriesArray = ["Technologie","Santé","Politique","Economie","Monde","Faits-divers","People","Ecologie","Météo"]
+    let categoriesArray = ["Technologie","Santé","Politique","Economie","Monde","Faits-divers","People","Ecologie","Météo","Sport"]
     
     //Notification Keys
     let userSettingDidChangeNotificationName = "co.gautierBillard.userSettings"
