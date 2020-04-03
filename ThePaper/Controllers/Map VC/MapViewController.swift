@@ -10,8 +10,6 @@ import UIKit
 import MapKit
 import CoreLocation
 
-let countryObserverKey = "co.gautierBillard.countryKey"
-
 class MapViewController: UIViewController {
 
     private var mapView: MKMapView!
@@ -212,7 +210,7 @@ class MapViewController: UIViewController {
     }
     @IBAction func dismissButtonPressed(_ sender: UIButton!) {
         
-        let notificationName = Notification.Name(countryObserverKey)
+        let notificationName = Notification.Name(K.shared.locationChangeNotificationName)
         
         let userInfo:[String: String] = ["country":localISOCode]
         

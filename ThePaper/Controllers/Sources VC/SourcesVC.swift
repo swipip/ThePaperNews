@@ -11,13 +11,51 @@ import UIKit
 class SourcesVC: UIViewController {
 
     private var collectionView: UICollectionView!
-    private let images = ["le-monde","les-echos","liberation"]
-    private let mediaNames = ["le-monde": "Le Monde", "les-echos":"Les Echos","liberation":"Libération"]
-    
+    private var images = ["le-monde","les-echos","liberation","lequipe"]
+    private var mediaNames = ["le-monde": "Le Monde", "les-echos":"Les Echos","liberation":"Libération","lequipe":"L'Equipe"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+        getmediaForCountry()
+        
+        
+        addCollectionView()
+        
+        addObservers()
+        
+    }
+    private func addObservers() {
+        let notificationName = Notification.Name(rawValue: K.shared.locationChangeNotificationName)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMedia), name: notificationName, object: nil)
+    }
+    @objc private func  updateMedia() {
+        getmediaForCountry()
+        self.collectionView.reloadData()
+    }
+    fileprivate func getmediaForCountry() {
+        let countryCode = localISOCode
+        
+        switch countryCode {
+        case "gb":
+            
+            images = K.shared.gb().images
+            mediaNames = K.shared.gb().mediaNames
+            
+        case "de":
+            images = K.shared.de().images
+            mediaNames = K.shared.de().mediaNames
+        case "it":
+            images = K.shared.it().images
+            mediaNames = K.shared.it().mediaNames
+        case "us":
+            images = K.shared.us().images
+            mediaNames = K.shared.us().mediaNames
+        default:
+            break
+        }
+    }
+    fileprivate func addCollectionView() {
         let spacing:CGFloat = 10.0
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -40,14 +78,12 @@ class SourcesVC: UIViewController {
         let fromView = collectionView!
         //relative to
         let toView = self.view!
-            
+        
         fromView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
                                      fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 10),
                                      fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor, constant: -10)])
-
-        
     }
 
 
@@ -90,7 +126,7 @@ extension SourcesVC: UICollectionViewDataSource,UICollectionViewDelegate,UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = (self.view.frame.width) / 2 - 15
-        let height = width * 1.2
+        let height = width * 1.25
         
         let size = CGSize(width: width, height: height)
         

@@ -11,6 +11,10 @@ import Firebase
 
 let db = Firestore.firestore()
 
+let defaults = UserDefaults.standard
+
+var localISOCode = "fr"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

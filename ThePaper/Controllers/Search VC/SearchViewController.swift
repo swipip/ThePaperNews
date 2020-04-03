@@ -38,10 +38,10 @@ class SearchViewController: UIViewController {
     }
     fileprivate func addObservers() {
         
-        let mapDismissNotifName = Notification.Name(rawValue: countryObserverKey)
+        let mapDismissNotifName = Notification.Name(rawValue: K.shared.locationChangeNotificationName)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeCountry), name: mapDismissNotifName, object: nil)
         
-        let cvcSelectionNotifName = Notification.Name(rawValue: cvcNotificationName)
+        let cvcSelectionNotifName = Notification.Name(rawValue: K.shared.cvcSelectionNotifName)
         NotificationCenter.default.addObserver(self, selector: #selector(navDidSelectSearch), name: cvcSelectionNotifName, object: nil)
         
     }

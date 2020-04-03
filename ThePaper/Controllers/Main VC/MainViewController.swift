@@ -65,7 +65,7 @@ class MainViewController: UIViewController {
     }
     func createObservers() {
         
-        let name = Notification.Name(countryObserverKey)
+        let name = Notification.Name(K.shared.locationChangeNotificationName)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateNewsWithCountry(_:)), name: name, object: nil)
         

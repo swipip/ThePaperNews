@@ -172,8 +172,6 @@ class BaseNavigatorVC: UIViewController {
     }
     @IBAction func languagePressed(_ sender: UIButton!) {
         
-        print("pressed")
-        
         let vc = MapViewController()
         self.present(vc, animated: true, completion: nil)
         
@@ -251,7 +249,7 @@ extension BaseNavigatorVC: TabBarDelegate {
         
         if rank == 3 {
             
-            let name = Notification.Name(cvcNotificationName)
+            let name = Notification.Name(K.shared.cvcSelectionNotifName)
             NotificationCenter.default.post(name: name, object: nil)
             
         }

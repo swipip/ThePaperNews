@@ -157,7 +157,6 @@ class OnBoardingVC: UIViewController {
             if sender == buttons[0] {
                 let cell = collectionView.cellForItem(at: indexPath) as! customCell
                 preferences.append(cell.category)
-//                print(preferences)
             }
             
             collectionIndex += 1

@@ -55,8 +55,7 @@ class UserVC: UIViewController {
         
     }
     private func loadData() {
-
-        #warning("app crashes when reloading data after setting update")
+        
         cellStateForRow.removeAll()
         articlePerCategory.removeAll()
         sectionHeaders?.removeAll()
@@ -206,8 +205,10 @@ extension UserVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        let cell = tableView.cellForRow(at: indexPath) as! NewsCell
+        
         let childVC = ArticleDetailsViewController()
-        childVC.articleURL = self.articles?[indexPath.row].url ?? "no url"
+        childVC.articleURL = cell.articleURL
 
         addChild(childVC)
         self.view.addSubview(childVC.view)
@@ -238,7 +239,6 @@ extension UserVC: NewsModelDelegate {
         for (i,title) in titles.enumerated() {
  
             let category = TitleIdentifierModel.shared.performIdentification(for: title)
-            print("\(#function) -> \(category)")
             let article = Article(title: title,
                                   url: articleURL[i],
                                   imageUrl: imagesUrls[i] ,
@@ -250,7 +250,6 @@ extension UserVC: NewsModelDelegate {
             for section in sectionHeaders! {
                 if section == article.category {
                     let count = (articlePerCategory[section] ?? 0) + 1
-                    print("\(#function)iterations \(count) & articleDict\(articlePerCategory.count)")
                     articlePerCategory[section] = count
                 }
             }
