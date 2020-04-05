@@ -27,6 +27,8 @@ class NewsCell: UITableViewCell {
         
         commonInit()
         
+        self.selectionStyle = .none
+        
     }
     
     required init?(coder: NSCoder) {
