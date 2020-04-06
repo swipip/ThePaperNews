@@ -40,10 +40,8 @@ class WelcomeVC: UIViewController {
         signUpButton = addButtons(yConstraint: 220, title: "Créer un Compte")
 
         addLogo()
-        
-        addAppleIDController() 
-        
-        addWelcomeLabel()
+        addAppleIDController()
+        addButtonBackground()
         
         addLaunchAnimation()
     }
@@ -121,8 +119,10 @@ class WelcomeVC: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         
-        signInButton.setUpButton()
-        signUpButton.setUpButton()
+        signInButton.setUpButton(color: .white)
+        signInButton.setTitleColor(.black, for: .normal)
+        signUpButton.setUpButton(color: .white)
+        signUpButton.setTitleColor(.black, for: .normal)
         
         UIView.animate(withDuration: 80, delay: 0, options: .curveLinear, animations: {
             self.imageView.frame.origin.x = -self.view.frame.width
@@ -134,6 +134,24 @@ class WelcomeVC: UIViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
+    }
+    private func addButtonBackground() {
+        let view = UIView()
+        view.backgroundColor = K.shared.mainColorTheme
+        view.roundCorners([.topLeft,.topRight], radius: 8)
+        
+        self.view.insertSubview(view, at: 1)
+        //view
+        let fromView = view
+        //relative to
+        let toView = self.signUpButton!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+                                     fromView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: -20),
+                                     fromView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,constant: 0)])
     }
     private func addLogo() {
         
@@ -194,11 +212,9 @@ class WelcomeVC: UIViewController {
         self.view.insertSubview(feedbackView, at: 1)
         
         UIView.animate(withDuration: 0.3, animations: {
-            if self.traitCollection.userInterfaceStyle == .dark {
+            
                 feedBackButton?.backgroundColor = .lightGray
-             } else {
-                 button.backgroundColor = .lightGray
-             }
+             
             feedbackView.transform = CGAffineTransform(scaleX: 3, y: 3)
             feedbackView.alpha = 0.0
             feedbackView.layer.cornerRadius = 75
@@ -228,8 +244,8 @@ class WelcomeVC: UIViewController {
 }
 
 extension UIButton {
-    func setUpButton() {
-        self.backgroundColor = K.shared.mainColorTheme
+    func setUpButton(color: UIColor? = nil) {
+        self.backgroundColor = color ?? K.shared.mainColorTheme
         self.layer.cornerRadius = 6
         self.layer.shadowRadius = 8
         self.layer.shadowOpacity = 0.6

@@ -26,7 +26,7 @@ class BaseNavigatorVC: UIViewController {
         
         defaults.set(true, forKey: K.shared.loggedIn)
         defaults.set(true, forKey: K.shared.didGetOB)
-        
+         
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(named: "mainColorBackground")
