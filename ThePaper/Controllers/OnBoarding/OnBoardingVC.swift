@@ -17,7 +17,8 @@ class customCell: UICollectionViewCell {
 }
 
 class OnBoardingVC: UIViewController {
-
+    
+    private let categories = ["Politique","Technologie","Economie","Santé","Sport","People","Météo","Faits-divers","Monde","Culture","Ecologie"]
     private var collectionIndex = 0
     private var preferences = [String]()
     private var buttons = [UIButton]()
@@ -33,8 +34,6 @@ class OnBoardingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        DataBaseManager.shared.cleanDataForCurrentUser()
         
         self.title = "The Paper"
         
@@ -53,7 +52,7 @@ class OnBoardingVC: UIViewController {
     private func addBackground() {
         
         let imageView = UIImageView(image: UIImage(named: "backgroundOB"))
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         self.view.addSubview(imageView)
         
         //view
@@ -151,7 +150,7 @@ class OnBoardingVC: UIViewController {
     @IBAction
     func buttonPressed(_ sender: UIButton!) {
         
-        if collectionIndex <= 8 {
+        if collectionIndex <= 10 {
             var indexPath = IndexPath(item: collectionIndex, section: 0)
             
             if sender == buttons[0] {
@@ -165,7 +164,7 @@ class OnBoardingVC: UIViewController {
             
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
-        if collectionIndex > 8 {
+        if collectionIndex > 10 {
             delegate?.didFinishChoosingPreferences(preferences: preferences)
         }
         
@@ -205,12 +204,12 @@ class OnBoardingVC: UIViewController {
 }
 extension OnBoardingVC: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
+        return 11
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let categories = ["Politique","Technologie","Economie","Santé","Sport","People","Meteo","Faits-divers","Monde"]
+        
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellID.reusableCellID, for: indexPath) as! customCell
         cell.subviews.forEach {$0.removeFromSuperview()}

@@ -15,7 +15,7 @@ class TitleIdentifierModel {
     
     func performIdentification(for string: String) -> String{
         do {
-            let catClassifier = try NLModel(mlModel: categoryClassifierV31().model)
+            let catClassifier = try NLModel(mlModel: categoryClassifierV32().model)
             let prediction = catClassifier.predictedLabel(for: string)
             return prediction ?? "default"
         } catch {

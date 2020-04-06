@@ -18,6 +18,7 @@ class CardCell: UICollectionViewCell {
         cardBackground.backgroundColor = .white//K.shared.mainColorTheme
         cardBackground.layer.cornerRadius = 8
         cardBackground.layer.masksToBounds = true
+        cardBackground.clipsToBounds = true
 //        cardBackground.addShadow(radius: 6, color: .lightGray, opacity: 0.6)
         return cardBackground
     }()
@@ -30,12 +31,6 @@ class CardCell: UICollectionViewCell {
         return label
     }()
     private var backgroundImage: UIImageView!
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .clear
-        return imageView
-    }()
     
     override init(frame: CGRect) {
          super.init(frame: frame)
@@ -43,7 +38,6 @@ class CardCell: UICollectionViewCell {
         addCardBackground()
         addTitle()
         addImageBackground()
-        addImage()
 
         
     }
@@ -71,14 +65,12 @@ class CardCell: UICollectionViewCell {
                                      fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 0),
                                      fromView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor,constant: -5)])
         
+        backgroundImage.roundCorners([.topLeft,.topRight], radius: 8)
+        
     }
     func updateCard(title: String, imageName: String ,url: String) {
-        
-        if imageName == "Technologie" {
-            backgroundImage.image = UIImage(named: "cardBackground2" )
-        }
-        
-        imageView.image = UIImage(named: imageName)
+
+        backgroundImage.image = UIImage(named: imageName.lowercased())
         titleLabel.text = title
         self.url = url
         
@@ -131,20 +123,18 @@ class CardCell: UICollectionViewCell {
                                      fromView.heightAnchor.constraint(equalToConstant: 70)])
         
     }
-    private func addImage() {
-        
-        self.addSubview(imageView)
-        
-        //view
-        let fromView = imageView
-        //relative to
-        let toView = titleLabel
-            
-        fromView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: -10),
-                                     fromView.widthAnchor.constraint(equalToConstant: 150),
-                                     fromView.topAnchor.constraint(equalTo: cardBackground.topAnchor, constant: 10),
-                                     fromView.bottomAnchor.constraint(equalTo: toView.topAnchor,constant: -10)])
+}
+extension UIView {
+    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
+        if #available(iOS 11.0, *) {
+            clipsToBounds = true
+            layer.cornerRadius = radius
+            layer.maskedCorners = CACornerMask(rawValue: corners.rawValue)
+        } else {
+            let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+            let mask = CAShapeLayer()
+            mask.path = path.cgPath
+            layer.mask = mask
+        }
     }
 }

@@ -24,13 +24,13 @@ class UserSettingsVC: UIViewController {
     }()
     private lazy var logOutButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Log Out", for: .normal)
+        button.setTitle("Déconnexion", for: .normal)
         button.setUpButton()
         return button
     }()
     private lazy var dismissButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Done", for: .normal)
+        button.setTitle("Enregistrer", for: .normal)
         button.setUpButton()
         return button
     }()
@@ -54,6 +54,7 @@ class UserSettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.isOpaque = true
         
         dataBaseManager.delegate = self
         dataBaseManager.loadDataForUser()
@@ -132,7 +133,7 @@ class UserSettingsVC: UIViewController {
         self.view.addSubview(view)
         
         let label = UILabel()
-        label.text = "What do you like to read?"
+        label.text = "Qu'aimeriez vous lire?"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: K.shared.fontSizeTitle)
         

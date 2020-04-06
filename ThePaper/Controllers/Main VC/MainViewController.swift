@@ -37,7 +37,6 @@ class MainViewController: UIViewController {
     struct Cells {
         static let NewsCell = "NewsCell"
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -118,13 +117,13 @@ class MainViewController: UIViewController {
         self.scrollView.addSubview(cardTitleView)
         
         cardTitleView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([cardTitleView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 20),
+        NSLayoutConstraint.activate([cardTitleView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 10),
                                      cardTitleView.widthAnchor.constraint(equalToConstant: 200),
                                      cardTitleView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 10),
                                      cardTitleView.heightAnchor.constraint(equalToConstant: 30)])
         
         let cardTitle = UILabel()
-        cardTitle.text = "Breaking"
+        cardTitle.text = "A la Une"
         cardTitle.font = UIFont.systemFont(ofSize: K.shared.fontSizeSubTitle)
         //        cardTitle.font = UIFont(name: "Old London", size: 20)
         
@@ -147,13 +146,13 @@ class MainViewController: UIViewController {
         self.scrollView.addSubview(tableTitleView)
         
         tableTitleView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([tableTitleView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 20),
+        NSLayoutConstraint.activate([tableTitleView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 10),
                                      tableTitleView.widthAnchor.constraint(equalToConstant: width),
                                      tableTitleView.topAnchor.constraint(equalTo: self.cardView.view.bottomAnchor, constant: 0),
                                      tableTitleView.heightAnchor.constraint(equalToConstant: 30)])
         
         let tableTitle = UILabel()
-        tableTitle.text = "Trending Now"
+        tableTitle.text = "En Tendance"
         tableTitle.font = UIFont.systemFont(ofSize: 20)
 //        tableTitle.font = UIFont(name: "Old London", size: 20)
         
@@ -193,8 +192,8 @@ class MainViewController: UIViewController {
         self.scrollView.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([tableView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 10),
-                                     tableView.widthAnchor.constraint(equalToConstant: self.view.frame.size.width - 40),
+        NSLayoutConstraint.activate([tableView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 0),
+                                     tableView.widthAnchor.constraint(equalToConstant: self.view.frame.size.width - 20),
                                      tableView.topAnchor.constraint(equalTo: self.tableTitleView.bottomAnchor, constant: 10),
                                      tableView.heightAnchor.constraint(equalToConstant: 636 - 40)])
     }
@@ -223,7 +222,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
         let childVC = ArticleDetailsViewController()
 
         childVC.articleURL = self.articleURL[indexPath.row]

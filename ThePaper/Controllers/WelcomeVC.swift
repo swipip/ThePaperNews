@@ -36,8 +36,8 @@ class WelcomeVC: UIViewController {
         
         addBackground()
         
-        signInButton = addButtons(yConstraint: 160, title: "Sing In")
-        signUpButton = addButtons(yConstraint: 220, title: "Sing Up")
+        signInButton = addButtons(yConstraint: 160, title: "Connexion")
+        signUpButton = addButtons(yConstraint: 220, title: "Créer un Compte")
 
         addLogo()
         

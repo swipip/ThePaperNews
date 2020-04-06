@@ -12,6 +12,18 @@ class CollectionViewCellVC: UIViewController {
 
     var category: String?
     
+    private let categoriesDict = ["Politique":"politiqueOB",
+                                  "Technologie":"technologieOB",
+                                  "Economie":"economieOB",
+                                  "Santé":"santéOB",
+                                  "Sport":"sportOB",
+                                  "People":"peopleOB",
+                                  "Météo":"meteoOB",
+                                  "Faits-divers":"faits-diversOB",
+                                  "Monde":"mondeOB",
+                                  "Culture":"cultureOB",
+                                  "Ecologie":"ecologieOB"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,8 +60,10 @@ class CollectionViewCellVC: UIViewController {
     private func addImage() {
         
         let imageView = UIImageView()
-        imageView.image = UIImage(named: category ?? "Politique")
-        imageView.contentMode = .scaleAspectFit
+        let imageName = categoriesDict[category!]
+        imageView.image = UIImage(named: imageName ?? "Politique")
+        imageView.roundCorners([.topLeft,.topRight], radius: 8)
+        imageView.contentMode = .scaleAspectFill
         
         self.view.addSubview(imageView)
         
@@ -60,16 +74,16 @@ class CollectionViewCellVC: UIViewController {
             
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 50),
-                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -50),
-                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 50),
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 20),
                                      fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -100)])
         
     }
     private func addLabel() {
         
         let label = UILabel()
-        label.text = category ?? "no category"
+        label.text = category?.capitalized ?? "no category"
         label.font = UIFont.systemFont(ofSize: 25)
         label.textAlignment = .center
         

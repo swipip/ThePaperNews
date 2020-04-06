@@ -188,7 +188,7 @@ class MapViewController: UIViewController {
     func addDismissButton() {
         
         dismissButton = UIButton()
-        dismissButton.setTitle("Dismiss", for: .normal)
+        dismissButton.setTitle("Valider", for: .normal)
         dismissButton.setUpButton()
         
         self.view.addSubview(dismissButton)
@@ -268,7 +268,7 @@ extension MapViewController: MKMapViewDelegate {
                         localISOCode = self?.countryCode ?? "fr"
                         break
                     }else{
-                        self?.locationLabel?.text = "Country not available"
+                        self?.locationLabel?.text = "Pays non disponible"
                         
                     }
                 }

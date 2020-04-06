@@ -173,7 +173,7 @@ extension SearchViewController: UITextFieldDelegate {
         
         let language = self.language[localISOCode] == nil ? localISOCode : self.language[localISOCode]
         
-        let urlString = "https://newsapi.org/v2/everything?qInTitle=\(String(describing: textField.text!))&pageSize=100&sortBy=publishedAt&from=2020-03-17&to=2020-03-17&sortBy=popularity&language=\(language!)"
+        let urlString = "https://newsapi.org/v2/everything?qInTitle=\(String(describing: textField.text!))&pageSize=100&sortBy=publishedAt&sortBy=popularity&language=\(language!)"
         
         childTableVC?.urlString = urlString
     }

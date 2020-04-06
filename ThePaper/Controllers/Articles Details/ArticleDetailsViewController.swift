@@ -21,6 +21,8 @@ class ArticleDetailsViewController: UIViewController {
         addWebView()
         addDismissButton()
         
+        print(articleURL)
+        
         let url = URL(string: articleURL)
         let urlRequest = URLRequest(url: url!)
         webView.load(urlRequest)
@@ -73,6 +75,7 @@ class ArticleDetailsViewController: UIViewController {
         
     }
     fileprivate func addWebView() {
+        webView.uiDelegate = self
         self.view.addSubview(webView)
         
         //view
@@ -89,3 +92,10 @@ class ArticleDetailsViewController: UIViewController {
     }
 }
 
+extension ArticleDetailsViewController: WKUIDelegate {
+    func webView(_ webView: WKWebView,
+      didFail navigation: WKNavigation!,
+      withError error: Error) {
+        
+    }
+}
