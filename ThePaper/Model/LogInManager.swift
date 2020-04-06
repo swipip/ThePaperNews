@@ -12,39 +12,54 @@ import Firebase
 protocol LogInManagerDelegate {
     func didLogIn()
     func didSignUp()
+    func didSendPasswordResetEmail()
 }
 extension LogInManagerDelegate {
     func didLogIn() {
-        
     }
     func didSignUp() {
-        
+    }
+    func didSendPasswordResetEmail(){
     }
 }
 class LogInManager {
     
-    var email: String
-    var password: String
+    var email: String?
+    var password: String?
     
     var delegate: LogInManagerDelegate?
     
-    init(email: String, password: String) {
+    convenience init(email: String, password: String) {
+        self.init()
         self.email = email
         self.password = password
     }
-    
+    convenience init(email: String) {
+        self.init()
+        self.email = email
+    }
     func logInAccount() {
         
+        if let email = self.email, let password = self.password {
+            Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
+                if let e = error {
+                    print(e)
+                } else {
+                    print("user successfully registered")
+                    
+                    self.delegate?.didLogIn()
+                    
+                    
+                }
+            }
+        }
+
+    }
+    func sendNewPasswordEmail() {
         
-        Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
-            if let e = error {
-                print(e)
-            } else {
-                print("user successfully registered")
-                
-                self.delegate?.didLogIn()
-                
-                
+        if let email = self.email {
+            Auth.auth().sendPasswordReset(withEmail: email) { error in
+                self.delegate?.didSendPasswordResetEmail()
             }
         }
         
@@ -60,12 +75,14 @@ class LogInManager {
 //    }
     func createAccount() {
         
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let e = error {
-                print(e)
-            } else {
-                print("user successfully registered")
-                self.delegate?.didSignUp()
+        if let email = email, let password = password {
+            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                if let e = error {
+                    print(e)
+                } else {
+                    print("user successfully registered")
+                    self.delegate?.didSignUp()
+                }
             }
         }
     }
