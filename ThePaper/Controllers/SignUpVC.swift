@@ -15,6 +15,8 @@ class SignUpVC: UIViewController {
     private var emailTextField:     UITextField!
     private var passwordTextField:  UITextField!
     private var signInButton:       UIButton!
+    private var confirmationImage:  UIImageView!
+    private var errorLiterallabel:  UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +31,8 @@ class SignUpVC: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        setBackgroundView(for: emailTextField)
-        setBackgroundView(for: passwordTextField)
+        let _ = setBackgroundView(for: emailTextField)
+        let _ = setBackgroundView(for: passwordTextField)
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
@@ -42,6 +44,69 @@ class SignUpVC: UIViewController {
         addPasswordTextField()
         
         addButton()
+        
+        addConfirmationImage()
+        
+        addErrorLiterallabel()
+        
+    }
+    private func addErrorLiterallabel() {
+        
+        errorLiterallabel = UILabel()
+        errorLiterallabel.textColor = .lightGray
+        errorLiterallabel.numberOfLines = 0
+        errorLiterallabel.textAlignment = .center
+        
+        self.view.addSubview(errorLiterallabel)
+        
+        //view
+        let fromView = errorLiterallabel!
+        //relative to
+        let toView = self.passwordTextField!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
+                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 10)])
+        
+    }
+    private func addConfirmationImage() {
+        confirmationImage = UIImageView()
+        confirmationImage.image = UIImage(systemName: "clock.fill")
+        confirmationImage.tintColor = .systemOrange
+        confirmationImage.contentMode = .scaleAspectFit
+        confirmationImage.alpha = 0.0
+        
+        self.view.addSubview(confirmationImage)
+        
+        //view
+        let fromView = confirmationImage!
+        //relative to
+        let toView = self.passwordTextField!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toView.centerXAnchor, constant: 0),
+                                     fromView.widthAnchor.constraint(equalToConstant: 70),
+                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 70),
+                                     fromView.heightAnchor.constraint(equalToConstant: 70)])
+    }
+    private func highlightMissingField(view: UIView) {
+        
+        let originColor = view.backgroundColor
+        
+        let view = setBackgroundView(for: view)!
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            view.backgroundColor = .systemRed
+        }) { (_) in
+            UIView.animate(withDuration: 0.2, delay: 1 ,animations: {
+                view.backgroundColor = originColor
+            }, completion: {(ended) in
+                view.removeFromSuperview()
+            })
+        }
         
     }
     private func addButton() {
@@ -95,7 +160,7 @@ class SignUpVC: UIViewController {
         setTextFieldConstraints(textField: passwordTextField ,topConstaint: 210)
 
     }
-    private func setBackgroundView(for textField: UITextField) {
+    private func setBackgroundView(for textField: UIView) -> UIView?{
         
         let view = UIView()
         view.frame = textField.frame
@@ -104,6 +169,7 @@ class SignUpVC: UIViewController {
         
         self.view.insertSubview(view, at: 0)
         
+        return view
     }
     private func setTextFieldConstraints(textField: UITextField,topConstaint: CGFloat) {
         //view
@@ -136,6 +202,45 @@ class SignUpVC: UIViewController {
     
 }
 extension SignUpVC: LogInManagerDelegate {
+    private func animateConfirmationImageOnWrongPassword() {
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.confirmationImage.image = UIImage(systemName: "xmark.circle.fill")
+            self.confirmationImage.alpha = 1.0
+            self.confirmationImage.tintColor = .systemRed
+        }, completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 2 ,animations: {
+            self.confirmationImage.alpha = 0.0
+        }) { (_) in
+            self.confirmationImage.image = UIImage(systemName: "clock.fill")
+            self.confirmationImage.tintColor = .systemOrange
+        }
+        
+    }
+    
+    func didGetAnError(error: Error) {
+        
+        if let errCode = AuthErrorCode(rawValue: error._code) {
+            
+            switch errCode {
+            case .emailAlreadyInUse:
+                highlightMissingField(view: emailTextField)
+                animateConfirmationImageOnWrongPassword()
+                emailTextField.text = ""
+                emailTextField.becomeFirstResponder()
+                errorLiterallabel.animateAlpha(on: true)
+                errorLiterallabel.text = "Cet email est déjà associé à un compte"
+                let _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                    self.errorLiterallabel.animateAlpha(on: false)
+                    timer.invalidate()
+                }
+                
+            default:
+                print("Create User Error: \(error)")
+            }
+        }
+    }
+    
     func didSignUp() {
         let destinationVC = OnBoardingVC()
         destinationVC.delegate = self

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SignInVC: UIViewController {
 
@@ -15,6 +16,8 @@ class SignInVC: UIViewController {
     private var passwordTextField:      UITextField!
     private var signInButton:           UIButton!
     private var resetPasswordButton:    UIButton!
+    private var confirmationImage:      UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,8 +29,8 @@ class SignInVC: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        setBackgroundView(for: emailTextField)
-        setBackgroundView(for: passwordTextField)
+        let _ = setBackgroundView(for: emailTextField)
+        let _ = setBackgroundView(for: passwordTextField)
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
@@ -35,12 +38,11 @@ class SignInVC: UIViewController {
     private func setUpUI() {
         
         addEmailTextField()
-        
         addPasswordTextField()
-        
         addButton()
-        
         addForgetPassword()
+        addConfirmationImage()
+        
     }
     private func addButton() {
         
@@ -93,6 +95,27 @@ class SignInVC: UIViewController {
         
         setTextFieldConstraints(textField: passwordTextField ,topConstaint: 210)
 
+    }
+    private func addConfirmationImage() {
+        confirmationImage = UIImageView()
+        confirmationImage.image = UIImage(systemName: "clock.fill")
+        confirmationImage.tintColor = .systemOrange
+        confirmationImage.contentMode = .scaleAspectFit
+        confirmationImage.alpha = 0.0
+        
+        self.view.addSubview(confirmationImage)
+        
+        //view
+        let fromView = confirmationImage!
+        //relative to
+        let toView = self.resetPasswordButton!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toView.centerXAnchor, constant: 0),
+                                     fromView.widthAnchor.constraint(equalToConstant: 70),
+                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 30),
+                                     fromView.heightAnchor.constraint(equalToConstant: 70)])
     }
     private func addForgetPassword() {
         
@@ -161,16 +184,20 @@ class SignInVC: UIViewController {
         
         let originColor = view.backgroundColor
         
+        let view = setBackgroundView(for: view)!
+        
         UIView.animate(withDuration: 0.2, animations: {
             view.backgroundColor = .systemRed
         }) { (_) in
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.2, delay: 1 ,animations: {
                 view.backgroundColor = originColor
-            }, completion: nil)
+            }, completion: {(ended) in
+                view.removeFromSuperview()
+            })
         }
         
     }
-    private func setBackgroundView(for textField: UITextField) {
+    private func setBackgroundView(for textField: UIView) -> UIView?{
         
         let view = UIView()
         view.frame = textField.frame
@@ -178,6 +205,8 @@ class SignInVC: UIViewController {
         view.layer.cornerRadius = 6
         
         self.view.insertSubview(view, at: 0)
+        
+        return view
         
     }
     private func setTextFieldConstraints(textField: UITextField,topConstaint: CGFloat) {
@@ -211,7 +240,48 @@ class SignInVC: UIViewController {
     
 }
 extension SignInVC: LogInManagerDelegate {
+    
+    private func animateConfirmationImageOnWrongPassword() {
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.confirmationImage.image = UIImage(systemName: "xmark.circle.fill")
+            self.confirmationImage.alpha = 1.0
+            self.confirmationImage.tintColor = .systemRed
+        }, completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 2 ,animations: {
+            self.confirmationImage.alpha = 0.0
+        }) { (_) in
+            self.confirmationImage.image = UIImage(systemName: "clock.fill")
+            self.confirmationImage.tintColor = .systemOrange
+        }
+ 
+    }
+    
+    func didGetAnError(error: Error) {
+        
+        if let errCode = AuthErrorCode(rawValue: error._code) {
+            
+            switch errCode {
+            case .userNotFound:
+                highlightMissingField(view: emailTextField)
+                animateConfirmationImageOnWrongPassword()
+                emailTextField.text = ""
+                emailTextField.becomeFirstResponder()
+            case .wrongPassword:
+                highlightMissingField(view: passwordTextField)
+                animateConfirmationImageOnWrongPassword()
+                passwordTextField.text = ""
+                passwordTextField.becomeFirstResponder()
+            default:
+                print("Create User Error: \(error)")
+            }
+        }
+    }
+    
     func didLogIn() {
+        confirmationImage.tintColor = .systemGreen
+        confirmationImage.image = UIImage(systemName: "checkmark.circle.fill")
+        
         let destinationVC = BaseNavigatorVC()
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
@@ -226,8 +296,23 @@ extension SignInVC: UITextFieldDelegate {
         
         textField.resignFirstResponder()
         
+        confirmationImage.animateAlpha(on: true)
+        
         logInAccount()
         
         return true
+    }
+}
+extension UIView {
+    func animateAlpha(on: Bool) {
+        if on {
+            UIView.animate(withDuration: 0.2) {
+                self.alpha = 1.0
+            }
+        }else{
+            UIView.animate(withDuration: 0.2) {
+                self.alpha = 0.0
+            }
+        }
     }
 }
