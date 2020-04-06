@@ -17,6 +17,10 @@ class WelcomeVC: UIViewController {
     private var launchVC: LaunchVC!
     private var signInButton: UIButton!
     private var signUpButton: UIButton!
+    private var buttonBackGround: UIView!
+    private var buttonBackGroundBottomConstraint: NSLayoutConstraint!
+    private var appleButton: UIViewController!
+    private var OtherSignInMethodsButton: UIButton!
     
     fileprivate func setUpButton(for button: UIButton) {
         button.layer.cornerRadius = button.frame.size.height / 2
@@ -35,15 +39,51 @@ class WelcomeVC: UIViewController {
         self.view.backgroundColor = UIColor(named: "mainColorBackground")
         
         addBackground()
+        addButtonBackground()
+        addAppleIDController()
+        addShowOtherSignInMethodsButton()
         
-        signInButton = addButtons(yConstraint: 160, title: "Connexion")
-        signUpButton = addButtons(yConstraint: 220, title: "Créer un Compte")
+        signInButton = addButtons(yConstraint: 70, title: "Connexion")
+        signUpButton = addButtons(yConstraint: 130, title: "Créer un Compte")
 
         addLogo()
-        addAppleIDController()
-        addButtonBackground()
-        
+
         addLaunchAnimation()
+        
+    }
+    private func addShowOtherSignInMethodsButton() {
+        
+        OtherSignInMethodsButton = UIButton()
+        OtherSignInMethodsButton.setTitle("Voir d'autres methodes d'inscription", for: .normal)
+        OtherSignInMethodsButton.setTitleColor(.white, for: .normal)
+        
+        self.view.addSubview(OtherSignInMethodsButton)
+        
+        //view
+        let fromView = OtherSignInMethodsButton!
+        //relative to
+        let toView = self.appleButton.view!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
+                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 10),
+                                     fromView.heightAnchor.constraint(equalToConstant: 50)])
+        
+        OtherSignInMethodsButton.addTarget(self, action: #selector(showOtherSignMethods(_:)), for: .touchUpInside)
+        
+    }
+    @IBAction private func showOtherSignMethods(_ sender: UIButton!) {
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.OtherSignInMethodsButton.alpha = 0.0
+            self.buttonBackGroundBottomConstraint.constant = 0
+            self.view.layoutIfNeeded()
+        }) { (_) in
+            self.OtherSignInMethodsButton.isEnabled = false
+        }
+        
     }
     private func addLaunchAnimation() {
         launchVC = LaunchVC()
@@ -99,21 +139,21 @@ class WelcomeVC: UIViewController {
     }
     private func addAppleIDController() {
         
-        let appleVC = SignInAppleVC()
-        addChild(appleVC)
-        appleVC.didMove(toParent: self)
-        self.view.addSubview(appleVC.view)
+        appleButton = SignInAppleVC()
+        addChild(appleButton)
+        appleButton.didMove(toParent: self)
+        self.view.addSubview(appleButton.view)
         
         //view
-        let fromView = appleVC.view!
+        let fromView = appleButton.view!
         //relative to
-        let toView = self.view!
+        let toView = self.buttonBackGround!
             
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
-                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor, constant: -100),
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 20),
                                      fromView.heightAnchor.constraint(equalToConstant: 50)])
         
     }
@@ -132,26 +172,38 @@ class WelcomeVC: UIViewController {
         }
         
     }
+    deinit {
+        print("deninit")
+    }
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
     }
     private func addButtonBackground() {
-        let view = UIView()
-        view.backgroundColor = K.shared.mainColorTheme
-        view.roundCorners([.topLeft,.topRight], radius: 8)
+        buttonBackGround = UIView()
+        buttonBackGround.alpha = 0.8
+        buttonBackGround.backgroundColor = K.shared.mainColorTheme
+        buttonBackGround.roundCorners([.topLeft,.topRight], radius: 12)
         
-        self.view.insertSubview(view, at: 1)
+        self.view.insertSubview(buttonBackGround, at: 1)
         //view
-        let fromView = view
-        //relative to
-        let toView = self.signUpButton!
+        let fromView = buttonBackGround!
             
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
                                      fromView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: -20),
-                                     fromView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,constant: 0)])
+                                     fromView.heightAnchor.constraint(equalToConstant: 350)])
+        
+        buttonBackGroundBottomConstraint = NSLayoutConstraint(item: buttonBackGround!,
+                                                              attribute: .bottom,
+                                                              relatedBy: .equal,
+                                                              toItem: self.view,
+                                                              attribute: .bottom,
+                                                              multiplier: 1,
+                                                              constant: 210)
+        
+        self.view.addConstraint(buttonBackGroundBottomConstraint)
+        
     }
     private func addLogo() {
         
@@ -185,14 +237,14 @@ class WelcomeVC: UIViewController {
         //view
         let fromView = newButton
         //relative to
-        let toView = self.view!
+        let toView = self.appleButton.view!
         
         fromView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
                                      fromView.heightAnchor.constraint(equalToConstant: 50),
-                                     fromView.bottomAnchor.constraint(equalTo:  toView.bottomAnchor, constant: -yConstraint),
-                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor ,constant: -20)])
+                                     fromView.topAnchor.constraint(equalTo:  toView.bottomAnchor, constant: yConstraint),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor ,constant: 0)])
         
         newButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         
