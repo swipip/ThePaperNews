@@ -3,6 +3,16 @@
     {
       "idiom" : "universal",
       "filename" : "backgroundOB.png"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "BackgroundOBDark.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {

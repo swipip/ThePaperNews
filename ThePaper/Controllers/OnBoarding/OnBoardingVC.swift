@@ -71,7 +71,7 @@ class OnBoardingVC: UIViewController {
     private func addTitle() {
         
         let titleBackground = UIView()
-        titleBackground.backgroundColor = .white
+        titleBackground.backgroundColor = K.shared.mainColorBackground
         titleBackground.addShadow(radius: 5, color: .gray, opacity: 0.4)
         
         self.view.addSubview(titleBackground)
@@ -91,7 +91,7 @@ class OnBoardingVC: UIViewController {
         titleBackground.layer.cornerRadius = 8//titleBackground.frame.size.height / 2
         
         let title = UILabel()
-        title.text = "What is interesting to you?"
+        title.text = "Qu'aimez vous lire?"
         title.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         title.textAlignment = .center
         title.numberOfLines = 0

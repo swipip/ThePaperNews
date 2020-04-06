@@ -37,7 +37,7 @@ class CollectionViewCellVC: UIViewController {
     private func addShadowView() {
         
         let shadowView = UIView()
-        shadowView.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+        shadowView.backgroundColor = K.shared.mainColorBackground.withAlphaComponent(0.9)
         shadowView.clipsToBounds = false
         shadowView.layer.cornerRadius = 8
         shadowView.addShadow(radius: 8, color: .gray, opacity: 0.5)

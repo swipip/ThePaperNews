@@ -28,6 +28,9 @@ class CardsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.isOpaque = true
+        self.view.backgroundColor = K.shared.mainColorBackground
+        
         addCollectionView()
     }
     func updateCards(articles: [Article]) {
@@ -97,7 +100,7 @@ extension CardsVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollect
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cardTapped))
         cell.addGestureRecognizer(tapGesture)
         
-        cell.backgroundColor = .white
+//        cell.backgroundColor = .white
         
         if let title = titles?[index], let url = urls?[index], let imageName = images?[index] {
             let imageName = imageName

@@ -45,7 +45,7 @@ class SignInVC: UIViewController {
         
         signInButton = UIButton()
         signInButton.setUpButton()
-        signInButton.setTitle("Sign In", for: .normal)
+        signInButton.setTitle("Connexion", for: .normal)
         
         signInButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         
@@ -69,7 +69,7 @@ class SignInVC: UIViewController {
         emailTextField.textColor = .white
         emailTextField.backgroundColor = .clear
         emailTextField.textAlignment = .center
-        emailTextField.placeholder = "email address"
+        emailTextField.placeholder = "Adresse e-mail"
         emailTextField.delegate = self
         
         self.view.addSubview(emailTextField)
@@ -82,7 +82,7 @@ class SignInVC: UIViewController {
         passwordTextField.textColor = .white
         passwordTextField.backgroundColor = .clear
         passwordTextField.textAlignment = .center
-        passwordTextField.placeholder = "password"
+        passwordTextField.placeholder = "Mot de passe"
         passwordTextField.textContentType = .password
         passwordTextField.isSecureTextEntry = true
         passwordTextField.delegate = self

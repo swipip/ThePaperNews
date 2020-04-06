@@ -19,6 +19,7 @@ class UserSettingsVC: UIViewController {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = K.shared.mainColorBackground
         tableView.register(UserPrefCell.self, forCellReuseIdentifier: CellID.CellID)
         return tableView
     }()
@@ -55,11 +56,10 @@ class UserSettingsVC: UIViewController {
         super.viewDidLoad()
 
         self.view.isOpaque = true
+        self.view.backgroundColor = K.shared.mainColorBackground
         
         dataBaseManager.delegate = self
         dataBaseManager.loadDataForUser()
-        
-        self.view.backgroundColor = K.shared.mainColorBackground
         
         addTitleView()
         addTableView()

@@ -194,7 +194,11 @@ class WelcomeVC: UIViewController {
         self.view.insertSubview(feedbackView, at: 1)
         
         UIView.animate(withDuration: 0.3, animations: {
-            button.backgroundColor = .lightGray
+            if self.traitCollection.userInterfaceStyle == .dark {
+                feedBackButton?.backgroundColor = .lightGray
+             } else {
+                 button.backgroundColor = .lightGray
+             }
             feedbackView.transform = CGAffineTransform(scaleX: 3, y: 3)
             feedbackView.alpha = 0.0
             feedbackView.layer.cornerRadius = 75
@@ -202,11 +206,11 @@ class WelcomeVC: UIViewController {
             feedbackView.removeFromSuperview()
             if button == self.signInButton {
                 let vc = SignUpVC()
-                vc.view.backgroundColor = .white
+                vc.view.backgroundColor = K.shared.mainColorBackground
                 self.navigationController?.pushViewController(vc, animated: true)
             }else{
                 let vc = SignInVC()
-                vc.view.backgroundColor = .white
+                vc.view.backgroundColor = K.shared.mainColorBackground
                 self.navigationController?.pushViewController(vc, animated: true)
             }
 

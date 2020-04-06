@@ -3,6 +3,16 @@
     {
       "idiom" : "universal",
       "filename" : "BackGround.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "BackGroundDark.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {

@@ -19,7 +19,7 @@ class CardCell: UICollectionViewCell {
         cardBackground.layer.cornerRadius = 8
         cardBackground.layer.masksToBounds = true
         cardBackground.clipsToBounds = true
-//        cardBackground.addShadow(radius: 6, color: .lightGray, opacity: 0.6)
+        cardBackground.backgroundColor = K.shared.mainColorBackground
         return cardBackground
     }()
     private lazy var titleLabel: UILabel = {
@@ -27,14 +27,16 @@ class CardCell: UICollectionViewCell {
         label.text = "Fetching data..."
         label.numberOfLines = 3
         label.font = UIFont.systemFont(ofSize: K.shared.fontSizeContent)
-        label.textColor = .black//.white
+        label.textColor = K.shared.strokeColor
         return label
     }()
     private var backgroundImage: UIImageView!
     
     override init(frame: CGRect) {
          super.init(frame: frame)
-
+        
+        self.backgroundColor = K.shared.mainColorBackground
+        
         addCardBackground()
         addTitle()
         addImageBackground()

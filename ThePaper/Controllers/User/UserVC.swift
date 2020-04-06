@@ -24,6 +24,7 @@ class UserVC: UIViewController {
     private lazy var tableView: UITableView =  {
        let tableView = UITableView()
         tableView.delegate = self
+        tableView.backgroundColor = K.shared.mainColorBackground
         tableView.dataSource = self
         tableView.register(NewsCell.self, forCellReuseIdentifier: CellID.id)
         return tableView
@@ -157,11 +158,11 @@ extension UserVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerView = UIView()
-        headerView.backgroundColor = UIColor.white
+        headerView.backgroundColor = K.shared.mainColorBackground
 
         let sectionLabel = UILabel()
         sectionLabel.font = UIFont.systemFont(ofSize: K.shared.fontSizeSubTitle)
-        sectionLabel.textColor = UIColor.black
+        sectionLabel.textColor = K.shared.strokeColor
         sectionLabel.text = sectionHeaders?[section] ?? "section title"
         sectionLabel.sizeToFit()
         headerView.addSubview(sectionLabel)

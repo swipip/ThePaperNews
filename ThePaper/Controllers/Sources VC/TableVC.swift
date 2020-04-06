@@ -146,7 +146,7 @@ class TableVC: UIViewController {
     private func addTableView() {
 
         tableView = UITableView()
-
+        tableView.backgroundColor = K.shared.mainColorBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isScrollEnabled = true
