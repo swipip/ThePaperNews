@@ -35,7 +35,14 @@ class UserSettingsVC: UIViewController {
         button.setUpButton()
         return button
     }()
+    private lazy var deleteAccountbutton: UIButton = {
+        let button = UIButton()
+        button.setTitle("supprimer le compte", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
     
+    private var logInManager: LogInManager?
     private var dataBaseManager = DataBaseManager()
     private var preferences = [String]()
     
@@ -65,6 +72,47 @@ class UserSettingsVC: UIViewController {
         addTableView()
         addDismissButton()
         addLogOutButton()
+        addDeleteAccountButton()
+        
+    }
+    private func addDeleteAccountButton() {
+        
+        self.view.addSubview(deleteAccountbutton)
+        
+        //view
+        let fromView = deleteAccountbutton
+        //relative to
+        let toView = self.logOutButton
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
+                                     fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
+                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 0),
+                                     fromView.heightAnchor.constraint(equalTo: toView.heightAnchor,constant: 30)])
+        
+        deleteAccountbutton.addTarget(self, action: #selector(deleteAccountPressed), for: .touchUpInside)
+        
+    }
+    @IBAction private func deleteAccountPressed() {
+        
+        let alert = UIAlertController(title: "Supprimer le compte", message: "Etes-vous certain de vouloir supprimer votre compte?", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Supprimer", style: .destructive) { (action) in
+            let logInManager = LogInManager()
+            logInManager.delegate = self
+            logInManager.deleteAccount()
+            
+            defaults.set(false, forKey: K.shared.loggedIn)
+            
+            self.dismiss(animated: true) {
+                self.delegate?.didLogOut()
+            }
+        }
+        
+        alert.addAction(action)
+        
+        self.present(alert, animated: true, completion: nil)
         
     }
     private func addTableView() {
@@ -80,7 +128,7 @@ class UserSettingsVC: UIViewController {
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
                                      fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 60),
-                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -150)])
+                                     fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor,constant: -220)])
     }
     fileprivate func addLogOutButton() {
         self.view.addSubview(logOutButton)
@@ -226,4 +274,13 @@ extension UserSettingsVC: DataBaseManagerDelegate {
         
     }
 
+}
+extension UserSettingsVC: LogInManagerDelegate {
+    func didGetAnError(error: Error) {
+        print(error)
+    }
+    
+    func didDeleteAccount() {
+        
+    }
 }

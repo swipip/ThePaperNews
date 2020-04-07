@@ -14,6 +14,7 @@ protocol LogInManagerDelegate {
     func didSignUp()
     func didSendPasswordResetEmail()
     func didGetAnError(error: Error)
+    func didDeleteAccount()
 }
 extension LogInManagerDelegate {
     func didLogIn() {
@@ -21,6 +22,8 @@ extension LogInManagerDelegate {
     func didSignUp() {
     }
     func didSendPasswordResetEmail(){
+    }
+    func didDeleteAccount(){
     }
 }
 class LogInManager {
@@ -69,15 +72,24 @@ class LogInManager {
         }
         
     }
-//    func logOutAccount() {
-//        do {
-//            try Auth.auth().signOut()
-//            navigationController?.popToRootViewController(animated: true)
-//            defaults.set(false, forKey: K.shared.loggedIn)
-//        }catch{
-//            print("\(#function) problem when logging out")
-//        }
-//    }
+    func deleteAccount() {
+        
+        let user = Auth.auth().currentUser
+        
+        if let user = user {
+            DataBaseManager.shared.cleanDataForCurrentUser()
+            
+            user.delete(completion: { (error) in
+                if let e = error {
+                    print(e)
+                }else{
+                    self.delegate?.didDeleteAccount()
+                }
+            })
+            
+        }
+        
+    }
     func createAccount() {
         
         if let email = email, let password = password {

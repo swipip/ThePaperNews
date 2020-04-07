@@ -60,6 +60,10 @@ class WelcomeVC: UIViewController {
         addLaunchAnimation()
         
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        animateTransitionIfNeeded(state: .collapsed, duration: 1)
+        self.navigationController?.navigationBar.isHidden = false
+    }
     private func addHandle() {
         
         let visibleHandle = UIView()
@@ -216,13 +220,7 @@ class WelcomeVC: UIViewController {
     }
     @IBAction private func showOtherSignMethods(_ sender: UIButton!) {
         
-        UIView.animate(withDuration: 0.3, animations: {
-            self.OtherSignInMethodsButton.alpha = 0.0
-            self.buttonBackGroundBottomConstraint.constant = 0
-            self.view.layoutIfNeeded()
-        }) { (_) in
-            self.OtherSignInMethodsButton.isEnabled = false
-        }
+        animateTransitionIfNeeded(state: .expanded, duration: 1)
         
     }
     private func addLaunchAnimation() {
@@ -314,9 +312,6 @@ class WelcomeVC: UIViewController {
     }
     deinit {
         print("deninit")
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = false
     }
     private func addButtonBackground() {
         buttonBackGround = UIView()
