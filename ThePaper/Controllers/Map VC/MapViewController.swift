@@ -120,7 +120,7 @@ class MapViewController: UIViewController {
         NSLayoutConstraint.activate([background.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
                                      background.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
                                      background.bottomAnchor.constraint(equalTo: dismissButton.topAnchor, constant: -10),
-                                     background.heightAnchor.constraint(equalToConstant: 40)])
+                                     background.heightAnchor.constraint(equalToConstant: 50)])
         
 
         let country = (Locale.current as NSLocale).displayName(forKey: .countryCode, value: localISOCode.uppercased())
@@ -162,7 +162,7 @@ class MapViewController: UIViewController {
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 10),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -10),
                                      fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 10),
-                                     fromView.bottomAnchor.constraint(equalTo: self.locationLabel.topAnchor ,constant: -20)])
+                                     fromView.bottomAnchor.constraint(equalTo: self.locationLabel.topAnchor ,constant: -30)])
     }
     func addPin() {
         
@@ -203,7 +203,7 @@ class MapViewController: UIViewController {
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 10),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -10),
                                      fromView.bottomAnchor.constraint(equalTo: toView.bottomAnchor, constant: -30),
-                                     fromView.heightAnchor.constraint(equalToConstant: 40)])
+                                     fromView.heightAnchor.constraint(equalToConstant: 50)])
         
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
         

@@ -37,8 +37,13 @@ class UserSettingsVC: UIViewController {
     }()
     private lazy var deleteAccountbutton: UIButton = {
         let button = UIButton()
-        button.setTitle("supprimer le compte", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Supprimer le compte", for: .normal)
+        if traitCollection.userInterfaceStyle == .light {
+            button.setTitleColor(.black, for: .normal)
+        } else {
+            button.setTitleColor(.lightGray, for: .normal)
+        }
+        
         return button
     }()
     
@@ -98,7 +103,7 @@ class UserSettingsVC: UIViewController {
         
         let alert = UIAlertController(title: "Supprimer le compte", message: "Etes-vous certain de vouloir supprimer votre compte?", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Supprimer", style: .destructive) { (action) in
+        let deleteAction = UIAlertAction(title: "Supprimer", style: .destructive) { (action) in
             let logInManager = LogInManager()
             logInManager.delegate = self
             logInManager.deleteAccount()
@@ -109,8 +114,12 @@ class UserSettingsVC: UIViewController {
                 self.delegate?.didLogOut()
             }
         }
+        let cancelAction = UIAlertAction(title: "Annuler", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }
         
-        alert.addAction(action)
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
         
         self.present(alert, animated: true, completion: nil)
         

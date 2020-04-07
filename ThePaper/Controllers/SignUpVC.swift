@@ -139,7 +139,7 @@ class SignUpVC: UIViewController {
         emailTextField.textAlignment = .center
         emailTextField.placeholder = "Adresse e-mail"
         emailTextField.delegate = self
-        
+        emailTextField.autocapitalizationType = UITextAutocapitalizationType.none
         self.view.addSubview(emailTextField)
         
         setTextFieldConstraints(textField: emailTextField ,topConstaint: 150)
@@ -154,6 +154,7 @@ class SignUpVC: UIViewController {
         passwordTextField.textContentType = .password
         passwordTextField.isSecureTextEntry = true
         passwordTextField.delegate = self
+        passwordTextField.autocapitalizationType = UITextAutocapitalizationType.none
         
         self.view.addSubview(passwordTextField)
         

@@ -75,6 +75,7 @@ class SignInVC: UIViewController {
         emailTextField.textAlignment = .center
         emailTextField.placeholder = "Adresse e-mail"
         emailTextField.delegate = self
+        emailTextField.autocapitalizationType = .none
         
         self.view.addSubview(emailTextField)
         
@@ -90,6 +91,7 @@ class SignInVC: UIViewController {
         passwordTextField.textContentType = .password
         passwordTextField.isSecureTextEntry = true
         passwordTextField.delegate = self
+        passwordTextField.autocapitalizationType = .none
         
         self.view.addSubview(passwordTextField)
         
