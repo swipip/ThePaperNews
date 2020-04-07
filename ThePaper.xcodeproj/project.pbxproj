@@ -42,7 +42,7 @@
 		4988DF35242A89F80059F04D /* SourcesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988DF34242A89F80059F04D /* SourcesVC.swift */; };
 		498F078E242F6A6B00E1EA7D /* SignInAppleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */; };
 		498F0790242F92AD00E1EA7D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F078F242F92AC00E1EA7D /* User.swift */; };
-		499D0DD4243B1FCC0006A7A8 /* categoryClassifierV32.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 499D0DD3243B1FCC0006A7A8 /* categoryClassifierV32.mlmodel */; };
+		499D0DDA243D22BC0006A7A8 /* categoryClassifierV33.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 499D0DD9243D22BC0006A7A8 /* categoryClassifierV33.mlmodel */; };
 		49A426962430A73D0003F3D2 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A426952430A73D0003F3D2 /* SignInVC.swift */; };
 		B092CFCFC248DD5A9EB75154 /* Pods_ThePaper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */; };
 /* End PBXBuildFile section */
@@ -87,7 +87,7 @@
 		4988DF34242A89F80059F04D /* SourcesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesVC.swift; sourceTree = "<group>"; };
 		498F078D242F6A6B00E1EA7D /* SignInAppleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAppleVC.swift; sourceTree = "<group>"; };
 		498F078F242F92AC00E1EA7D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		499D0DD3243B1FCC0006A7A8 /* categoryClassifierV32.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = categoryClassifierV32.mlmodel; sourceTree = "<group>"; };
+		499D0DD9243D22BC0006A7A8 /* categoryClassifierV33.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = categoryClassifierV33.mlmodel; path = "../../The Paper Support/ArticlesML/categoryClassifierV33.mlmodel"; sourceTree = "<group>"; };
 		49A426952430A73D0003F3D2 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		B0B9DBA1A87C08D8636B3585 /* Pods_ThePaper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThePaper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6F29DA6E1D24CAAC04885DA /* Pods-ThePaper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThePaper.release.xcconfig"; path = "Target Support Files/Pods-ThePaper/Pods-ThePaper.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 				4978D80B242E438500D1A464 /* GoogleService-Info.plist */,
 				493168B924201F0D002432C9 /* AppDelegate.swift */,
 				493168BB24201F0D002432C9 /* SceneDelegate.swift */,
-				499D0DD3243B1FCC0006A7A8 /* categoryClassifierV32.mlmodel */,
+				499D0DD9243D22BC0006A7A8 /* categoryClassifierV33.mlmodel */,
 				493168C424201F0E002432C9 /* LaunchScreen.storyboard */,
 				493168C224201F0E002432C9 /* Assets.xcassets */,
 				4978D7E0242CA35600D1A464 /* Ressources */,
@@ -400,6 +400,7 @@
 			files = (
 				493168E324226B87002432C9 /* SearchViewController.swift in Sources */,
 				4977649D243380D30013390D /* UserVC.swift in Sources */,
+				499D0DDA243D22BC0006A7A8 /* categoryClassifierV33.mlmodel in Sources */,
 				493168EB2428FF8F002432C9 /* K.swift in Sources */,
 				498F078E242F6A6B00E1EA7D /* SignInAppleVC.swift in Sources */,
 				493168D924221D51002432C9 /* NewsModel.swift in Sources */,
@@ -407,7 +408,6 @@
 				493168BE24201F0D002432C9 /* WelcomeVC.swift in Sources */,
 				493168E52422922C002432C9 /* ArticleDetailsViewController.swift in Sources */,
 				497764BF2433976D0013390D /* TitleIdentifierModel.swift in Sources */,
-				499D0DD4243B1FCC0006A7A8 /* categoryClassifierV32.mlmodel in Sources */,
 				4977649724334A7B0013390D /* CardCell.swift in Sources */,
 				493168CF24202470002432C9 /* TabBar.swift in Sources */,
 				4978D80A242E342D00D1A464 /* SignUpVC.swift in Sources */,
