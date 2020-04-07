@@ -35,13 +35,14 @@ class SourcesVC: UIViewController {
     }
     fileprivate func getmediaForCountry() {
         let countryCode = localISOCode
-        
+        print(countryCode)
         switch countryCode {
         case "gb":
-            
             images = K.shared.gb().images
             mediaNames = K.shared.gb().mediaNames
-            
+        case "cn":
+            images = K.shared.zh().images
+            mediaNames = K.shared.zh().mediaNames
         case "de":
             images = K.shared.de().images
             mediaNames = K.shared.de().mediaNames

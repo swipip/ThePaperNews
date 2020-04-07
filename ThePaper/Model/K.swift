@@ -43,6 +43,13 @@ struct K {
         
         return (images,mediaNames)
     }
+    func zh() -> (images: [String],mediaNames: [String:String]){
+        
+        let images = ["xinhua-net"]
+        let mediaNames = ["xinhua-net":"Xinhua News"]
+        
+        return (images,mediaNames)
+    }
     func us() -> (images: [String],mediaNames: [String:String]){
         
         let images = ["the-wall-street-journal","business-insider","medical-news-today","national-geographic","the-washington-times","ign","espn"]

@@ -21,6 +21,15 @@ class WelcomeVC: UIViewController {
     private var buttonBackGroundBottomConstraint: NSLayoutConstraint!
     private var appleButton: UIViewController!
     private var OtherSignInMethodsButton: UIButton!
+    private var handle: UIView!
+    private var animators = [UIViewPropertyAnimator]()
+    private var buttonsConstraints = [NSLayoutConstraint]()
+    
+    var animationProgressWhenInterrupted:CGFloat = 0
+    var cardVisible = false
+    var nextState: buttonBackgroundState {
+        return cardVisible ? .collapsed : .expanded
+    }
     
     fileprivate func setUpButton(for button: UIButton) {
         button.layer.cornerRadius = button.frame.size.height / 2
@@ -40,15 +49,146 @@ class WelcomeVC: UIViewController {
         
         addBackground()
         addButtonBackground()
+        addHandle()
         addAppleIDController()
         addShowOtherSignInMethodsButton()
-        
-        signInButton = addButtons(yConstraint: 70, title: "Connexion")
-        signUpButton = addButtons(yConstraint: 130, title: "Créer un Compte")
+        signInButton = addButtons(yConstraint: 95, title: "Connexion")
+        signUpButton = addButtons(yConstraint: 155, title: "Créer un Compte")
 
         addLogo()
 
         addLaunchAnimation()
+        
+    }
+    private func addHandle() {
+        
+        let visibleHandle = UIView()
+        visibleHandle.backgroundColor = .white
+        visibleHandle.layer.cornerRadius = 3
+        
+        self.view.addSubview(visibleHandle)
+            
+        visibleHandle.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([visibleHandle.topAnchor.constraint(equalTo: self.buttonBackGround.topAnchor, constant: 12),
+                                     visibleHandle.widthAnchor.constraint(equalToConstant: 80),
+                                     visibleHandle.centerXAnchor.constraint(equalTo: self.buttonBackGround.centerXAnchor, constant: 0),
+                                     visibleHandle.heightAnchor.constraint(equalToConstant: 6)])
+        
+        handle = UIView()
+        handle.backgroundColor = .clear
+        
+        self.view.addSubview(handle)
+        
+        //view
+        let fromView = handle!
+        //relative to
+        let toView = buttonBackGround!
+            
+        fromView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([fromView.centerXAnchor.constraint(equalTo: toView.centerXAnchor, constant: 0),
+                                     fromView.widthAnchor.constraint(equalToConstant: 300),
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 0),
+                                     fromView.heightAnchor.constraint(equalToConstant: 30)])
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        handle.addGestureRecognizer(panGesture)
+
+    }
+    @objc private func handlePan(_ recognizer: UIPanGestureRecognizer) {
+        
+        switch recognizer.state {
+        case .began:
+            startInteractiveTransition(state: nextState, duration: 0.9)
+            
+        case .changed:
+            let translation = recognizer.translation(in: self.view)
+            
+            var fractionComplete = translation.y / 340
+            
+            fractionComplete = cardVisible ? fractionComplete : -fractionComplete
+            
+            updateInteractiveTransition(fractionCompleted: fractionComplete)
+        case .ended:
+            continueInteractiveTransition()
+        default:
+            break
+        }
+        
+    }
+    func startInteractiveTransition(state:buttonBackgroundState, duration:TimeInterval) {
+        
+        if animators.isEmpty {
+            animateTransitionIfNeeded(state: state, duration: duration)
+        }
+        for animator in animators {
+            animator.pauseAnimation()
+            animationProgressWhenInterrupted = animator.fractionComplete
+        }
+
+
+    }
+    func updateInteractiveTransition(fractionCompleted:CGFloat) {
+        
+        for animator in animators {
+            animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
+        }
+        
+    }
+    
+    func continueInteractiveTransition (){
+        
+        for animator in animators {
+            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        }
+        
+    }
+    enum buttonBackgroundState {
+        case expanded, collapsed
+    }
+    func animateTransitionIfNeeded (state:buttonBackgroundState, duration:TimeInterval) {
+        if animators.isEmpty {
+            let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+                switch state {
+                case .expanded:
+                    self.buttonBackGroundBottomConstraint.constant = 10
+                    
+                    let position:[CGFloat] = [10,70]
+                    
+                    for (i,constraint) in self.buttonsConstraints.enumerated() {
+                        constraint.constant = position[i]
+                    }
+                    
+                    self.view.layoutIfNeeded()
+                case .collapsed:
+                    self.buttonBackGroundBottomConstraint.constant = 180
+                    
+                    let position:[CGFloat] = [95,155]
+                    
+                    for (i,constraint) in self.buttonsConstraints.enumerated() {
+                        constraint.constant = position[i]
+                        
+                    }
+                    
+                    self.view.layoutIfNeeded()
+                }
+            }
+            animator.addCompletion { (_) in
+                self.cardVisible.toggle()
+                self.animators.removeAll()
+                if state == .expanded {
+                    self.OtherSignInMethodsButton.animateAlpha(on: false)
+                }else{
+                    self.OtherSignInMethodsButton.animateAlpha(on: true)
+                }
+
+            }
+            
+            animator.startAnimation()
+            animators.append(animator)
+            
+        }
         
     }
     private func addShowOtherSignInMethodsButton() {
@@ -68,8 +208,8 @@ class WelcomeVC: UIViewController {
         
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: 0),
-                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 10),
-                                     fromView.heightAnchor.constraint(equalToConstant: 50)])
+                                     fromView.topAnchor.constraint(equalTo: toView.bottomAnchor, constant: 5),
+                                     fromView.heightAnchor.constraint(equalToConstant: 40)])
         
         OtherSignInMethodsButton.addTarget(self, action: #selector(showOtherSignMethods(_:)), for: .touchUpInside)
         
@@ -153,7 +293,7 @@ class WelcomeVC: UIViewController {
         
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 20),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -20),
-                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 20),
+                                     fromView.topAnchor.constraint(equalTo: toView.topAnchor, constant: 30),
                                      fromView.heightAnchor.constraint(equalToConstant: 50)])
         
     }
@@ -180,7 +320,6 @@ class WelcomeVC: UIViewController {
     }
     private func addButtonBackground() {
         buttonBackGround = UIView()
-        buttonBackGround.alpha = 0.8
         buttonBackGround.backgroundColor = K.shared.mainColorTheme
         buttonBackGround.roundCorners([.topLeft,.topRight], radius: 12)
         
@@ -200,7 +339,7 @@ class WelcomeVC: UIViewController {
                                                               toItem: self.view,
                                                               attribute: .bottom,
                                                               multiplier: 1,
-                                                              constant: 210)
+                                                              constant: 180)
         
         self.view.addConstraint(buttonBackGroundBottomConstraint)
         
@@ -243,8 +382,13 @@ class WelcomeVC: UIViewController {
         
         NSLayoutConstraint.activate([fromView.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: 0),
                                      fromView.heightAnchor.constraint(equalToConstant: 50),
-                                     fromView.topAnchor.constraint(equalTo:  toView.bottomAnchor, constant: yConstraint),
                                      fromView.trailingAnchor.constraint(equalTo: toView.trailingAnchor ,constant: 0)])
+        
+        let constraint = NSLayoutConstraint(item: newButton, attribute: .top, relatedBy: .equal, toItem: self.appleButton.view!, attribute: .bottom, multiplier: 1, constant: yConstraint)
+        
+        buttonsConstraints.append(constraint)
+        
+        self.view.addConstraint(constraint)
         
         newButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         
