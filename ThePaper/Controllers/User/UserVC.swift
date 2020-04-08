@@ -114,7 +114,7 @@ extension UserVC: UITableViewDelegate, UITableViewDataSource {
         return max(1,numberOfRows)
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionHeaders?.count ?? 3
+        return sectionHeaders?.count ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

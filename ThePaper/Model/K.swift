@@ -72,7 +72,7 @@ struct K {
         return (images,mediaNames)
     }
     
-    let categoriesArray = ["Technologie","Santé","Politique","Economie","Monde","Faits-divers","People","Ecologie","Météo","Sport"]
+    let categoriesArray = ["Technologie","Santé","Politique","Economie","Monde","Faits-divers","People","Ecologie","Météo","Sport","Culture"]
 
     
     //User defaults keys

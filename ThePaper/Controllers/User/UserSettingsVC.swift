@@ -79,6 +79,8 @@ class UserSettingsVC: UIViewController {
         addLogOutButton()
         addDeleteAccountButton()
         
+        tableView.reloadData()
+        
     }
     private func addDeleteAccountButton() {
         
@@ -222,7 +224,7 @@ class UserSettingsVC: UIViewController {
 }
 extension UserSettingsVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return K.shared.categoriesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -232,11 +234,16 @@ extension UserSettingsVC: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellID.CellID, for: indexPath) as! UserPrefCell
         
         for pref in preferences {
+            
             if pref == categories[indexPath.row] {
+                print("match : \(pref) & \(categories[indexPath.row]) & indexpath \(indexPath.row)")
                 cell.cellState = .pressed
                 cell.markFill.alpha = 1.0
+                break
             }else{
+                print("No match : \(pref) & \(categories[indexPath.row]) & indexpath \(indexPath.row)")
                 cell.cellState = .free
+                cell.markFill.alpha = 0.0
             }
         }
         

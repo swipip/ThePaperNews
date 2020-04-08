@@ -140,7 +140,7 @@ extension SourcesVC: UICollectionViewDataSource,UICollectionViewDelegate,UIColle
         
         let cvc = TableVC()
         cvc.hasATitleBar = true
-        cvc.urlString = "https://newsapi.org/v2/top-headlines?sources=\(media)"
+        cvc.urlString = "https://newsapi.org/v2/top-headlines?pageSize=100&sources=\(media)"
         cvc.mediaName = mediaName
         
         addChild(cvc)

@@ -51,6 +51,7 @@ class CardCell: UICollectionViewCell {
         
         backgroundImage = UIImageView()
         backgroundImage.image = UIImage(named: "cardBackground" )
+        backgroundImage.backgroundColor = .lightGray
         backgroundImage.contentMode = .scaleAspectFill
         
         self.addSubview(backgroundImage)
