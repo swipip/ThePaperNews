@@ -11,6 +11,7 @@ import Firebase
 
 protocol LogInManagerDelegate {
     func didLogIn()
+    func didLogInSpecial(logInManager: LogInManager)
     func didSignUp()
     func didSendPasswordResetEmail()
     func didGetAnError(error: Error)
@@ -24,6 +25,8 @@ extension LogInManagerDelegate {
     func didSendPasswordResetEmail(){
     }
     func didDeleteAccount(){
+    }
+    func didLogInSpecial(logInManager: LogInManager){
     }
 }
 class LogInManager {
@@ -53,6 +56,7 @@ class LogInManager {
                     print("user successfully registered")
                     
                     self.delegate?.didLogIn()
+                    self.delegate?.didLogInSpecial(logInManager: self)
                     
                 }
             }
@@ -77,15 +81,16 @@ class LogInManager {
         let user = Auth.auth().currentUser
         
         if let user = user {
-            DataBaseManager.shared.cleanDataForCurrentUser()
-            
-            user.delete(completion: { (error) in
-                if let e = error {
-                    print(e)
-                }else{
-                    self.delegate?.didDeleteAccount()
-                }
-            })
+            DataBaseManager.shared.cleanDataForCurrentUser {
+                user.delete(completion: { (error) in
+                    if let e = error {
+                        print(e)
+                    }else{
+                        defaults.set(nil, forKey: K.shared.user)
+                        self.delegate?.didDeleteAccount()
+                    }
+                })
+            }
             
         }
         

@@ -26,6 +26,11 @@ class BaseNavigatorVC: UIViewController {
         
         defaults.set(true, forKey: K.shared.loggedIn)
         defaults.set(true, forKey: K.shared.didGetOB)
+        if defaults.array(forKey: K.shared.user) == nil {
+            let email = Auth.auth().currentUser?.email!
+            defaults.set(email, forKey: K.shared.user)
+        }
+        
          
         super.viewDidLoad()
         

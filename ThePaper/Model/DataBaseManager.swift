@@ -38,7 +38,7 @@ class DataBaseManager {
         }
     }
     
-    func cleanDataForCurrentUser() {
+    func cleanDataForCurrentUser(completion: @escaping () -> Void){
         
         if let user = Auth.auth().currentUser {
             db.collection("usersPreferences").whereField("user", isEqualTo: user.email!)
@@ -50,10 +50,12 @@ class DataBaseManager {
                         documents?.forEach({ (doc) in
                             doc.reference.delete()
                         })
+                        completion()
                     }
             }
-
+            
         }
+        
         
     }
     func erasePreference(preference: String) {

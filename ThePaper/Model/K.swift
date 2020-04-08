@@ -14,8 +14,6 @@ struct K {
     
     static let shared = K()
     
-    
-    
     //Layout
     let mainColorTheme: UIColor = UIColor(named: "mainColorTheme")!
     let mainColorBackground: UIColor = UIColor(named: "mainColorBackground")!
@@ -78,6 +76,7 @@ struct K {
     //User defaults keys
     let loggedIn = "loggedIn"
     let didGetOB = "didGetOB"
+    let user = "user"
     
     //Notification Keys
     let userSettingDidChangeNotificationName = "co.gautierBillard.userSettings"

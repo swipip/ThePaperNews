@@ -103,12 +103,24 @@ class UserSettingsVC: UIViewController {
     }
     @IBAction private func deleteAccountPressed() {
         
-        let alert = UIAlertController(title: "Supprimer le compte", message: "Etes-vous certain de vouloir supprimer votre compte?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Supprimer le compte", message: "Veuillez saisir votre mot de passe :", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: nil)
+        
+        let textField = alert.textFields![0]
+        textField.delegate = self
+        textField.isSecureTextEntry = true
+        textField.autocapitalizationType = .none
+        textField.textAlignment = .center
         
         let deleteAction = UIAlertAction(title: "Supprimer", style: .destructive) { (action) in
-            let logInManager = LogInManager()
+            
+            let email = defaults.object(forKey: K.shared.user) as! String
+
+            let password = textField.text
+            
+            let logInManager = LogInManager(email: email, password: password!)
+            logInManager.logInAccount()
             logInManager.delegate = self
-            logInManager.deleteAccount()
             
             defaults.set(false, forKey: K.shared.loggedIn)
             
@@ -215,6 +227,7 @@ class UserSettingsVC: UIViewController {
             try Auth.auth().signOut()
             self.dismiss(animated: true, completion: nil)
             defaults.set(false, forKey: K.shared.loggedIn)
+            defaults.set(nil, forKey: K.shared.user)
             delegate?.didLogOut()
         }catch{
             print("\(#function) problem when logging out")
@@ -236,12 +249,10 @@ extension UserSettingsVC: UITableViewDataSource, UITableViewDelegate {
         for pref in preferences {
             
             if pref == categories[indexPath.row] {
-                print("match : \(pref) & \(categories[indexPath.row]) & indexpath \(indexPath.row)")
                 cell.cellState = .pressed
                 cell.markFill.alpha = 1.0
                 break
             }else{
-                print("No match : \(pref) & \(categories[indexPath.row]) & indexpath \(indexPath.row)")
                 cell.cellState = .free
                 cell.markFill.alpha = 0.0
             }
@@ -295,8 +306,18 @@ extension UserSettingsVC: LogInManagerDelegate {
     func didGetAnError(error: Error) {
         print(error)
     }
-    
+    func didLogInSpecial(logInManager: LogInManager) {
+        logInManager.deleteAccount()
+    }
     func didDeleteAccount() {
         
+    }
+}
+extension UserSettingsVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        return true
     }
 }
